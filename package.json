@@ -1,0 +1,14 @@
+{
+  "name": "skills-daily",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "每日 GitHub 技能日报 · 赛博朋克 HUD",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "collect": "node scripts/collect.mjs",
+    "build": "node scripts/build.mjs",
+    "notify": "node scripts/notify.mjs",
+    "all": "node scripts/collect.mjs && node scripts/build.mjs"
+  }
+}

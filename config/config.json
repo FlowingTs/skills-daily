@@ -1,0 +1,89 @@
+{
+  "timezone": "Asia/Shanghai",
+  "publishHour": 8,
+  "perColumn": 10,
+  "minStars": 10,
+  "poolLimit": 1500,
+  "title": "SKILLS DAILY",
+  "subtitle": "GITHUB AGENT SKILLS INTELLIGENCE",
+
+  "columns": [
+    {
+      "id": "all",
+      "label": "总热门",
+      "en": "ALL TIME",
+      "window": "365d",
+      "note": "近 12 个月新建仓库 · 按 star 总量",
+      "metric": "stars"
+    },
+    {
+      "id": "month",
+      "label": "月热门",
+      "en": "MONTHLY",
+      "window": 30,
+      "note": "近 30 天 star 净增",
+      "metric": "delta"
+    },
+    {
+      "id": "week",
+      "label": "周热门",
+      "en": "WEEKLY",
+      "window": 7,
+      "note": "近 7 天 star 净增",
+      "metric": "delta"
+    },
+    {
+      "id": "day",
+      "label": "单日热门",
+      "en": "DAILY",
+      "window": 1,
+      "note": "昨日（00:00–24:00）star 净增",
+      "metric": "delta"
+    }
+  ],
+
+  "scoreWeights": {
+    "heat": 0.35,
+    "model": 0.35,
+    "activity": 0.2,
+    "completeness": 0.1
+  },
+
+  "search": {
+    "topics": [
+      "claude-skills",
+      "agent-skills",
+      "agent-skill",
+      "claude-skill",
+      "skill-md",
+      "claude-code-plugin",
+      "codex-skills",
+      "opencode-skills"
+    ],
+    "extraQueries": ["SKILL.md in:readme skill"],
+    "lanes": [
+      { "name": "高星", "sort": "stars", "pages": 2, "sinceDays": null },
+      { "name": "新晋", "sort": "stars", "pages": 1, "sinceDays": 30 },
+      { "name": "活跃", "sort": "updated", "pages": 1, "sinceDays": 7 }
+    ],
+    "minIntervalMs": 2100
+  },
+
+  "filters": {
+    "excludeOwners": ["awesome-lists-bot"],
+    "excludePatterns": ["^awesome-[a-z-]+$", "interview", "leetcode", "roadmap"]
+  },
+
+  "deepseek": {
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "batchSize": 8,
+    "maxEnrich": 60,
+    "timeoutMs": 60000
+  },
+
+  "notify": {
+    "topNPerColumn": 3,
+    "enabled": true
+  }
+}
