@@ -1,6 +1,6 @@
 {
   "date": "2026-10-20",
-  "generated_at": "2026-10-21T11:55",
+  "generated_at": "2026-10-21T14:26",
   "pool_size": 1500,
   "snapshot_days": 1,
   "columns": [
@@ -17,11 +17,11 @@
         {
           "full_name": "morluto/rea",
           "url": "https://github.com/morluto/rea",
-          "stars": 349511,
-          "forks": 87878,
+          "stars": 350574,
+          "forks": 88117,
           "delta": null,
           "created_at": "2026-04-14T00:51:32Z",
-          "pushed_at": "2026-10-21T03:54:08Z",
+          "pushed_at": "2026-10-21T06:20:26Z",
           "language": "TypeScript",
           "topics": [
             "agent-skills",
@@ -45,14 +45,14 @@
             "static-analysis",
             "touhou"
           ],
-          "summary": "用 agent 逆向分析应用行为与原生二进制，集成 Ghidra 反编译，适合做安全研究、逆向和漏洞排查的开发者，需自备逆向基础。",
-          "score": 90
+          "summary": "用 agent 逆向分析应用行为与原生二进制，集成 Ghidra 反编译，适合做安全研究、漏洞分析或需要读懂闭源程序的开发者。",
+          "score": 92
         },
         {
           "full_name": "affaan-m/ECC",
           "url": "https://github.com/affaan-m/ECC",
-          "stars": 284983,
-          "forks": 42283,
+          "stars": 285045,
+          "forks": 42287,
           "delta": null,
           "created_at": "2026-01-18T00:51:51Z",
           "pushed_at": "2026-10-20T23:08:28Z",
@@ -73,8 +73,8 @@
         {
           "full_name": "DietrichGebert/ponytail",
           "url": "https://github.com/DietrichGebert/ponytail",
-          "stars": 170005,
-          "forks": 9245,
+          "stars": 170206,
+          "forks": 9259,
           "delta": null,
           "created_at": "2026-06-12T00:52:37Z",
           "pushed_at": "2026-10-18T01:55:14Z",
@@ -97,8 +97,8 @@
         {
           "full_name": "Graphify-Labs/graphify",
           "url": "https://github.com/Graphify-Labs/graphify",
-          "stars": 130439,
-          "forks": 12551,
+          "stars": 130577,
+          "forks": 12560,
           "delta": null,
           "created_at": "2026-04-03T15:49:07Z",
           "pushed_at": "2026-10-20T16:16:19Z",
@@ -131,8 +131,8 @@
         {
           "full_name": "addyosmani/agent-skills",
           "url": "https://github.com/addyosmani/agent-skills",
-          "stars": 109023,
-          "forks": 11368,
+          "stars": 109069,
+          "forks": 11372,
           "delta": null,
           "created_at": "2026-02-15T20:20:26Z",
           "pushed_at": "2026-10-13T20:24:07Z",
@@ -151,11 +151,11 @@
         {
           "full_name": "paperclipai/paperclip",
           "url": "https://github.com/paperclipai/paperclip",
-          "stars": 105296,
-          "forks": 17542,
+          "stars": 105331,
+          "forks": 17547,
           "delta": null,
           "created_at": "2026-03-02T15:01:51Z",
-          "pushed_at": "2026-10-21T03:51:34Z",
+          "pushed_at": "2026-10-21T05:49:45Z",
           "language": "TypeScript",
           "topics": [
             "acpx",
@@ -179,17 +179,17 @@
             "project-management",
             "workflow-automation"
           ],
-          "summary": "开源的多 agent 工作流管理台，统一编排、监控与治理 Claude Code 等 agent，适合团队里 agent 越用越多、需要集中管控的人。",
-          "score": 62
+          "summary": "开源的多 agent 工作编排平台，统一管理 Claude Code 等 agent 的任务与权限，适合团队把 agent 真正投入日常协作流程。",
+          "score": 64
         },
         {
           "full_name": "nexu-io/open-design",
           "url": "https://github.com/nexu-io/open-design",
-          "stars": 102840,
-          "forks": 11785,
+          "stars": 102876,
+          "forks": 11787,
           "delta": null,
           "created_at": "2026-04-28T04:25:20Z",
-          "pushed_at": "2026-10-21T03:50:26Z",
+          "pushed_at": "2026-10-21T06:08:35Z",
           "language": "TypeScript",
           "topics": [
             "agent-skills",
@@ -213,14 +213,14 @@
             "ui-generator",
             "vibe-coding"
           ],
-          "summary": "本地优先的协作式 AI 设计工作台，产出动效、原型、网页与视频，适合需要和 agent 一起做设计交付的产品与前端团队。",
-          "score": 57
+          "summary": "本地优先的协作式 AI 设计工作台，产出动效、原型、网页与演示稿，适合需要团队和 agent 一起出设计稿的产品与前端。",
+          "score": 60
         },
         {
           "full_name": "Leonxlnx/taste-skill",
           "url": "https://github.com/Leonxlnx/taste-skill",
-          "stars": 99955,
-          "forks": 6778,
+          "stars": 100010,
+          "forks": 6780,
           "delta": null,
           "created_at": "2026-02-19T21:44:05Z",
           "pushed_at": "2026-10-20T22:04:30Z",
@@ -244,7 +244,7 @@
         {
           "full_name": "Egonex-AI/Understand-Anything",
           "url": "https://github.com/Egonex-AI/Understand-Anything",
-          "stars": 87277,
+          "stars": 87298,
           "forks": 7363,
           "delta": null,
           "created_at": "2026-03-15T02:30:51Z",
@@ -275,11 +275,11 @@
         {
           "full_name": "tt-a1i/archify",
           "url": "https://github.com/tt-a1i/archify",
-          "stars": 86549,
-          "forks": 5853,
+          "stars": 86614,
+          "forks": 5858,
           "delta": null,
           "created_at": "2026-04-15T05:27:37Z",
-          "pushed_at": "2026-10-20T12:04:50Z",
+          "pushed_at": "2026-10-21T05:22:09Z",
           "language": "JavaScript",
           "topics": [
             "agent-skills",
@@ -303,8 +303,8 @@
             "system-design",
             "visualization"
           ],
-          "summary": "一条 agent 技能把想法、方案或代码库转成可交互架构图，适配 Claude Code、Codex。适合需要快速画图沟通架构、又不想手动画的开发者。",
-          "score": 55
+          "summary": "把想法、方案或代码库转成可交互架构图的 agent 技能，装进 Claude Code 即可用，适合需要快速讲清系统结构的开发者。",
+          "score": 60
         }
       ]
     },
@@ -321,8 +321,8 @@
         {
           "full_name": "wheresryan22/anatomy",
           "url": "https://github.com/wheresryan22/anatomy",
-          "stars": 17713,
-          "forks": 1360,
+          "stars": 17815,
+          "forks": 1371,
           "delta": null,
           "created_at": "2026-10-08T10:12:49Z",
           "pushed_at": "2026-10-18T20:20:24Z",
@@ -339,11 +339,11 @@
         {
           "full_name": "rehan-remade/universal-modder",
           "url": "https://github.com/rehan-remade/universal-modder",
-          "stars": 8555,
-          "forks": 944,
+          "stars": 8560,
+          "forks": 946,
           "delta": null,
           "created_at": "2026-09-30T05:00:35Z",
-          "pushed_at": "2026-10-21T00:54:47Z",
+          "pushed_at": "2026-10-21T04:41:54Z",
           "language": "Python",
           "topics": [
             "age-of-empires",
@@ -357,14 +357,14 @@
             "reverse-engineering",
             "tmodloader"
           ],
-          "summary": "让 Claude Code 通过技能与 fal MCP 逆向并改造 PC 游戏，含素材生成与测试，适合爱折腾 mod 的玩家，通用性有限。",
-          "score": 71
+          "summary": "让 Claude Code 逆向并修改任意 PC 游戏，含素材生成与游戏内测试，适合有折腾意愿的玩家，但门槛和风险都不低。",
+          "score": 72
         },
         {
           "full_name": "lemomo-ai/lemo-opuscar",
           "url": "https://github.com/lemomo-ai/lemo-opuscar",
-          "stars": 4425,
-          "forks": 481,
+          "stars": 4492,
+          "forks": 486,
           "delta": null,
           "created_at": "2026-09-26T10:10:41Z",
           "pushed_at": "2026-10-19T12:11:41Z",
@@ -397,11 +397,11 @@
         {
           "full_name": "QingYunA/answer-me-with-html",
           "url": "https://github.com/QingYunA/answer-me-with-html",
-          "stars": 4127,
+          "stars": 4137,
           "forks": 277,
           "delta": null,
           "created_at": "2026-10-02T09:57:40Z",
-          "pushed_at": "2026-10-21T03:06:59Z",
+          "pushed_at": "2026-10-21T06:01:22Z",
           "language": "JavaScript",
           "topics": [
             "agent-skill",
@@ -418,13 +418,13 @@
             "llm",
             "ste100"
           ],
-          "summary": "让 Agent 把复杂问题答案输出成一页可读 HTML，含图表排版。适合需要把长解释变成可分享文档的开发者，轻量即装即用。",
-          "score": 69
+          "summary": "让 agent 把复杂问题输出成一页可读 HTML 的技能，比长文本更直观，适合需要解释架构、方案对比的开发者。",
+          "score": 68
         },
         {
           "full_name": "kaankiziltug/logo-design-skill",
           "url": "https://github.com/kaankiziltug/logo-design-skill",
-          "stars": 3858,
+          "stars": 3869,
           "forks": 302,
           "delta": null,
           "created_at": "2026-09-26T08:23:34Z",
@@ -446,7 +446,7 @@
         {
           "full_name": "Jakeschincariol/replica-skill",
           "url": "https://github.com/Jakeschincariol/replica-skill",
-          "stars": 3769,
+          "stars": 3783,
           "forks": 643,
           "delta": null,
           "created_at": "2026-10-03T12:07:49Z",
@@ -469,7 +469,7 @@
         {
           "full_name": "Arekejoker/qwen21-nsfw-pose-skill",
           "url": "https://github.com/Arekejoker/qwen21-nsfw-pose-skill",
-          "stars": 3515,
+          "stars": 3523,
           "forks": 631,
           "delta": null,
           "created_at": "2026-10-13T03:09:42Z",
@@ -489,8 +489,8 @@
         {
           "full_name": "feitangyuan/onetake",
           "url": "https://github.com/feitangyuan/onetake",
-          "stars": 2783,
-          "forks": 182,
+          "stars": 2792,
+          "forks": 183,
           "delta": null,
           "created_at": "2026-09-26T05:35:17Z",
           "pushed_at": "2026-10-13T03:31:43Z",
@@ -510,7 +510,7 @@
         {
           "full_name": "nanaism/yomiyasu",
           "url": "https://github.com/nanaism/yomiyasu",
-          "stars": 2358,
+          "stars": 2364,
           "forks": 64,
           "delta": null,
           "created_at": "2026-09-30T11:49:32Z",
@@ -538,8 +538,8 @@
         {
           "full_name": "amontlabs/lcu",
           "url": "https://github.com/amontlabs/lcu",
-          "stars": 1974,
-          "forks": 121,
+          "stars": 1994,
+          "forks": 123,
           "delta": null,
           "created_at": "2026-09-22T15:08:18Z",
           "pushed_at": "2026-10-20T14:50:27Z",
@@ -559,7 +559,7 @@
             "x11"
           ],
           "summary": "把 Codex 的电脑操作能力抽成独立 MCP，任意 harness 都能调用做桌面自动化，适合想让 agent 操作本机 GUI 的开发者。",
-          "score": 56
+          "score": 55
         }
       ]
     },
@@ -576,8 +576,8 @@
         {
           "full_name": "alchaincyf/huashu-motion",
           "url": "https://github.com/alchaincyf/huashu-motion",
-          "stars": 1175,
-          "forks": 119,
+          "stars": 1183,
+          "forks": 120,
           "delta": null,
           "created_at": "2026-10-18T12:19:27Z",
           "pushed_at": "2026-10-19T13:36:51Z",
@@ -598,7 +598,7 @@
         {
           "full_name": "assafkip/claudemy",
           "url": "https://github.com/assafkip/claudemy",
-          "stars": 337,
+          "stars": 339,
           "forks": 39,
           "delta": null,
           "created_at": "2026-10-14T01:49:12Z",
@@ -632,7 +632,7 @@
         {
           "full_name": "EL4CTEO/blender-skills",
           "url": "https://github.com/EL4CTEO/blender-skills",
-          "stars": 324,
+          "stars": 327,
           "forks": 33,
           "delta": null,
           "created_at": "2026-10-14T19:08:14Z",
@@ -659,13 +659,13 @@
             "unreal-engine"
           ],
           "summary": "把建模、UV、PBR、绑定、导出等 Blender 5.2 流程封装成 agent 技能，适合用 Claude Code 批量产出游戏资产的 3D 开发者。",
-          "score": 74
+          "score": 73
         },
         {
           "full_name": "Jakeschincariol/trader-skill",
           "url": "https://github.com/Jakeschincariol/trader-skill",
-          "stars": 191,
-          "forks": 21,
+          "stars": 208,
+          "forks": 24,
           "delta": null,
           "created_at": "2026-10-14T21:12:28Z",
           "pushed_at": "2026-10-14T21:13:22Z",
@@ -678,7 +678,7 @@
             "stock-market"
           ],
           "summary": "11 个投资技能，跟投信任的机构、盯新闻与国会交易、按预算算仓位且下单前必须确认，适合有美股账户的量化爱好者。",
-          "score": 55
+          "score": 56
         },
         {
           "full_name": "christos-antono/NPCTalk",
@@ -706,8 +706,8 @@
         {
           "full_name": "alextnetto/res",
           "url": "https://github.com/alextnetto/res",
-          "stars": 149,
-          "forks": 29,
+          "stars": 150,
+          "forks": 30,
           "delta": null,
           "created_at": "2026-10-15T15:48:07Z",
           "pushed_at": "2026-10-17T18:20:42Z",
@@ -727,7 +727,7 @@
         {
           "full_name": "adexbn/walk-kcal",
           "url": "https://github.com/adexbn/walk-kcal",
-          "stars": 117,
+          "stars": 121,
           "forks": 0,
           "delta": null,
           "created_at": "2026-10-16T10:42:31Z",
@@ -754,7 +754,7 @@
             "walking-distance"
           ],
           "summary": "按步行距离换算还能吃多少卡，结合麦当劳营养值和周边餐厅给出点餐建议，适合减脂期又常吃快餐的人，趣味大于实用。",
-          "score": 48
+          "score": 47
         },
         {
           "full_name": "Fangx-AI/geo-doctor",
@@ -786,8 +786,8 @@
         {
           "full_name": "ShadowSwaps/REA-Reconstruction-Companion",
           "url": "https://github.com/ShadowSwaps/REA-Reconstruction-Companion",
-          "stars": 90,
-          "forks": 14,
+          "stars": 92,
+          "forks": 15,
           "delta": null,
           "created_at": "2026-10-15T06:11:46Z",
           "pushed_at": "2026-10-20T19:07:43Z",
@@ -818,76 +818,10 @@
           "score": 52
         },
         {
-          "full_name": "ZSeven-W/codex-openpencil",
-          "url": "https://github.com/ZSeven-W/codex-openpencil",
-          "stars": 84,
-          "forks": 9,
-          "delta": null,
-          "created_at": "2026-10-14T07:15:57Z",
-          "pushed_at": "2026-10-18T03:16:14Z",
-          "language": "JavaScript",
-          "topics": [
-            "agent-skills",
-            "ai-agents",
-            "ai-design",
-            "codex",
-            "codex-plugin",
-            "design-as-code",
-            "design-tools",
-            "image-generation",
-            "interactive-canvas",
-            "mcp",
-            "mcp-apps",
-            "model-context-protocol",
-            "openai-codex",
-            "openpencil",
-            "rust",
-            "ui-design",
-            "webassembly"
-          ],
-          "summary": "给 Codex 接上 Rust/WASM 交互画布，用提示词生成可编辑 .op 设计文件并改选中元素，适合想把 AI 设计稿落成可改文件的 UI 开发者。",
-          "score": 51
-        }
-      ]
-    },
-    {
-      "id": "day",
-      "label": "单日热门",
-      "status": "coldstart",
-      "badge": "COLD START",
-      "metric": "delta",
-      "note": "昨日（00:00–24:00）star 净增",
-      "have": 1,
-      "need": 2,
-      "items": [
-        {
-          "full_name": "abdiraimov-otabek/dashboard-design-skill",
-          "url": "https://github.com/abdiraimov-otabek/dashboard-design-skill",
-          "stars": 80,
-          "forks": 6,
-          "delta": null,
-          "created_at": "2026-10-20T06:20:46Z",
-          "pushed_at": "2026-10-20T11:51:57Z",
-          "language": "",
-          "topics": [
-            "agent-skills",
-            "analytics",
-            "claude-code",
-            "claude-skill",
-            "dashboard",
-            "dashboard-design",
-            "data-visualization",
-            "tailwindcss",
-            "ui-design"
-          ],
-          "summary": "Claude Code 仪表盘设计技能，覆盖 KPI 卡、图表、筛选与状态布局，附截图自查，适合常做后台看板、想省掉反复调样式的前端。",
-          "score": 90
-        },
-        {
           "full_name": "lovisdotio/motion2code",
           "url": "https://github.com/lovisdotio/motion2code",
-          "stars": 74,
-          "forks": 7,
+          "stars": 87,
+          "forks": 9,
           "delta": null,
           "created_at": "2026-10-20T04:18:10Z",
           "pushed_at": "2026-10-20T04:21:52Z",
@@ -902,13 +836,69 @@
             "video-to-code"
           ],
           "summary": "把动效视频逐帧比对重建成 SVG+GSAP 循环代码，适合需要复刻网页动效、又不想手调时间轴的前端与动效开发者。",
-          "score": 85
+          "score": 52
+        }
+      ]
+    },
+    {
+      "id": "day",
+      "label": "单日热门",
+      "status": "coldstart",
+      "badge": "COLD START",
+      "metric": "delta",
+      "note": "昨日（00:00–24:00）star 净增",
+      "have": 1,
+      "need": 2,
+      "items": [
+        {
+          "full_name": "lovisdotio/motion2code",
+          "url": "https://github.com/lovisdotio/motion2code",
+          "stars": 87,
+          "forks": 9,
+          "delta": null,
+          "created_at": "2026-10-20T04:18:10Z",
+          "pushed_at": "2026-10-20T04:21:52Z",
+          "language": "HTML",
+          "topics": [
+            "agent-skills",
+            "animation",
+            "claude-code",
+            "gsap",
+            "motion-design",
+            "svg",
+            "video-to-code"
+          ],
+          "summary": "把动效视频逐帧比对重建成 SVG+GSAP 循环代码，适合需要复刻网页动效、又不想手调时间轴的前端与动效开发者。",
+          "score": 87
+        },
+        {
+          "full_name": "abdiraimov-otabek/dashboard-design-skill",
+          "url": "https://github.com/abdiraimov-otabek/dashboard-design-skill",
+          "stars": 85,
+          "forks": 6,
+          "delta": null,
+          "created_at": "2026-10-20T06:20:46Z",
+          "pushed_at": "2026-10-21T04:46:02Z",
+          "language": "",
+          "topics": [
+            "agent-skills",
+            "analytics",
+            "claude-code",
+            "claude-skill",
+            "dashboard",
+            "dashboard-design",
+            "data-visualization",
+            "tailwindcss",
+            "ui-design"
+          ],
+          "summary": "从 127 个上线看板提炼的仪表盘设计技能，覆盖 KPI 卡片、图表与截图自查，适合常做后台数据页的前端。",
+          "score": 86
         },
         {
           "full_name": "Jakeschincariol/day-trader-skill",
           "url": "https://github.com/Jakeschincariol/day-trader-skill",
-          "stars": 57,
-          "forks": 13,
+          "stars": 71,
+          "forks": 16,
           "delta": null,
           "created_at": "2026-10-20T14:17:54Z",
           "pushed_at": "2026-10-20T14:18:00Z",
@@ -921,13 +911,13 @@
             "stock-market"
           ],
           "summary": "11 个日内交易技能，扫图、追新闻、择时进出并回放结果，适合想用 Claude 搭交易研究流程的量化爱好者，但实盘风险需自担。",
-          "score": 72
+          "score": 73
         },
         {
           "full_name": "10291124jcjc-dotcom/cleopatra-modern-life",
           "url": "https://github.com/10291124jcjc-dotcom/cleopatra-modern-life",
-          "stars": 13,
-          "forks": 3,
+          "stars": 20,
+          "forks": 5,
           "delta": null,
           "created_at": "2026-10-20T10:31:53Z",
           "pushed_at": "2026-10-20T10:54:57Z",
