@@ -10,7 +10,7 @@ import { addDays, bjToday, log } from './lib/util.mjs';
  */
 const target = process.env.REPORT_DATE || addDays(bjToday(), -1);
 const today = bjToday();
-const force = process.env.FORCE === '1';
+const force = ['1', 'true', 'yes'].includes(String(process.env.FORCE || '').toLowerCase());
 
 async function emit(skip, reason) {
   log(`幂等检查：${reason}`);
