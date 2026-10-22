@@ -2,14 +2,22 @@ name: Skills Daily
 
 on:
   schedule:
-    # UTC 00:00 == 北京时间 08:00（GitHub 定时任务可能有几分钟延迟）
-    - cron: '0 0 * * *'
+    # 北京时间 08:07。刻意避开整点：GitHub 官方文档说明 schedule 在每小时开头
+    # 负荷最高，会延迟，甚至直接丢弃排队任务。整点是最差的取值。
+    - cron: '7 0 * * *'
+    # 备用时段：北京 08:37。第一个被丢弃时这个兜底。
+    # guard.mjs 会判断今天是否已生成，已生成则直接退出，不会重复推送。
+    - cron: '37 0 * * *'
   workflow_dispatch:
     inputs:
       report_date:
         description: '报告日期 YYYY-MM-DD（留空＝昨天）'
         required: false
         default: ''
+      force:
+        description: '强制重跑（忽略今日已发布的判断）'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -24,6 +32,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    outputs:
+      skip: ${{ steps.guard.outputs.skip }}
     steps:
       - uses: actions/checkout@v4
 
@@ -31,13 +41,22 @@ jobs:
         with:
           node-version: 22
 
+      - name: 幂等检查（今天是否已发布）
+        id: guard
+        env:
+          REPORT_DATE: ${{ inputs.report_date }}
+          FORCE: ${{ inputs.force }}
+        run: node scripts/guard.mjs
+
       - name: 采集 GitHub 技能仓库快照
+        if: steps.guard.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPORT_DATE: ${{ inputs.report_date }}
         run: node scripts/collect.mjs
 
       - name: 生成日报页面
+        if: steps.guard.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -47,6 +66,7 @@ jobs:
         run: node scripts/build.mjs
 
       - name: 提交快照与页面
+        if: steps.guard.outputs.skip != 'true'
         run: |
           git config user.name  "skills-daily-bot"
           git config user.email "skills-daily-bot@users.noreply.github.com"
@@ -59,11 +79,13 @@ jobs:
           fi
 
       - uses: actions/upload-pages-artifact@v3
+        if: steps.guard.outputs.skip != 'true'
         with:
           path: site
 
   deploy:
     needs: build
+    if: needs.build.outputs.skip != 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
