@@ -11,6 +11,7 @@ import {
 } from './lib/store.mjs';
 import { buildColumns, scoreItem, heatRange } from './lib/rank.mjs';
 import { enrichRepos, fallbackSummary } from './lib/enrich.mjs';
+import { fetchImages } from './lib/faces.mjs';
 import { renderPage } from './lib/render.mjs';
 import { addDays, bjNowISO, bjToday, log } from './lib/util.mjs';
 
@@ -64,6 +65,13 @@ async function main() {
   }
 
   const generatedAt = bjNowISO();
+
+  // 头像与首屏卡片落到本地，页面不依赖外网图片
+  const allItems = columns.flatMap((c) => c.items);
+  const dayItems = columns.find((c) => c.id === 'day')?.items ?? [];
+  const heroRepo = (dayItems[0] ?? allItems[0])?.repo ?? null;
+  const { cardPath, faces } = await fetchImages(allItems, TARGET, { onCard: heroRepo });
+
   const archiveNames = (await listJSONNames(P.daily)).concat(TARGET).sort().reverse();
   const archive = [...new Set(archiveNames)];
 
@@ -104,6 +112,9 @@ async function main() {
     archive,
     config,
     poolSize: pool.length,
+    snapshotDays: snapDays,
+    cardPath,
+    faces,
     generatedAt,
   };
 

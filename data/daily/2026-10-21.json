@@ -1,6 +1,6 @@
 {
   "date": "2026-10-21",
-  "generated_at": "2026-10-22T09:03",
+  "generated_at": "2026-10-22T16:49",
   "pool_size": 1500,
   "snapshot_days": 2,
   "columns": [
@@ -146,7 +146,7 @@
             "skills"
           ],
           "summary": "Addy Osmani 出品的生产级工程技能包，覆盖代码审查、测试、重构等实战流程，可直接装进 Claude Code、Codex、Cursor。适合想让 agent 输出更靠谱的开发者。",
-          "score": 62
+          "score": 61
         },
         {
           "full_name": "paperclipai/paperclip",
@@ -180,7 +180,7 @@
             "workflow-automation"
           ],
           "summary": "开源的多 agent 工作台，统一编排、监控和治理 Claude 等 agent 的日常任务，适合团队里同时跑多个 agent、需要集中管理的开发者。",
-          "score": 61
+          "score": 60
         },
         {
           "full_name": "nexu-io/open-design",
@@ -239,7 +239,7 @@
             "web-design"
           ],
           "summary": "给编码 agent 补审美：艺术指导、参考图加浏览器实测，专治千篇一律的 AI 风格页面。适合用 agent 做落地页和前端、想摆脱模板感的设计与开发者。",
-          "score": 62
+          "score": 61
         },
         {
           "full_name": "Egonex-AI/Understand-Anything",
@@ -304,7 +304,7 @@
             "visualization"
           ],
           "summary": "一个 agent 技能，把想法、方案或代码库生成可交互的架构图，装进 Claude Code 或 Codex 就能用，适合写设计文档和做技术分享的开发者。",
-          "score": 58
+          "score": 57
         }
       ]
     },
@@ -358,7 +358,7 @@
             "tmodloader"
           ],
           "summary": "让 Claude Code 给任意 PC 游戏做 mod，覆盖侦察、逆向、fal 生成美术音频与实机测试，适合爱折腾游戏 mod 的玩家，门槛偏高。",
-          "score": 69
+          "score": 68
         },
         {
           "full_name": "lemomo-ai/lemo-opuscar",
@@ -599,7 +599,7 @@
             "skills"
           ],
           "summary": "给编码 agent 装上的宣传片生成技能，用 GSAP 做动效、能按画面指哪改哪，适合要出产品发布视频但不会剪辑的独立开发者。",
-          "score": 91
+          "score": 90
         },
         {
           "full_name": "EL4CTEO/blender-skills",
@@ -766,7 +766,7 @@
             "walking-distance"
           ],
           "summary": "按步行距离换算还能吃多少卡，结合麦当劳营养值和周边餐厅给出点餐建议，适合减脂期又常吃快餐的人，趣味大于实用。",
-          "score": 48
+          "score": 47
         },
         {
           "full_name": "helloianneo/ian-xhs-carousel",
@@ -904,7 +904,7 @@
             "yagni"
           ],
           "summary": "给编码 agent 注入「最懒资深工程师」人格，用 YAGNI 原则压制过度设计，少写没必要的代码。适合嫌 AI 生成代码臃肿、想省 review 时间的团队。",
-          "score": 66
+          "score": 65
         },
         {
           "full_name": "Graphify-Labs/graphify",
@@ -956,7 +956,7 @@
             "vizualization"
           ],
           "summary": "Agent 技能，把真实机械与复杂系统画成可交互等距 SVG 插图，支持 WebGL 着色。适合做技术文档、科普配图的开发者，视觉产出质量高。",
-          "score": 60
+          "score": 59
         },
         {
           "full_name": "affaan-m/ECC",
@@ -1003,7 +1003,7 @@
             "web-design"
           ],
           "summary": "给编码 agent 补审美：艺术指导、参考图加浏览器实测，专治千篇一律的 AI 风格页面。适合用 agent 做落地页和前端、想摆脱模板感的设计与开发者。",
-          "score": 61
+          "score": 60
         },
         {
           "full_name": "Fangx-AI/geo-doctor",
@@ -1086,7 +1086,7 @@
             "visualization"
           ],
           "summary": "一个 agent 技能，把想法、方案或代码库生成可交互的架构图，装进 Claude Code 或 Codex 就能用，适合写设计文档和做技术分享的开发者。",
-          "score": 58
+          "score": 57
         }
       ]
     }
