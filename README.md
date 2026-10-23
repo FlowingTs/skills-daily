@@ -167,6 +167,57 @@ Content-Type: application/json
 
 `daily.yml` 里的 `schedule` 暂时保留——万一哪天 GitHub 修好了，幂等守卫会让它和外部调度器不冲突。
 
+#### cron-job.org 具体配置（当前采用）
+
+**第 1 步：建一个只够用的 token**
+
+不要用那把 classic PAT（它带 `repo` 全域权限）。新建 fine-grained token：
+
+`https://github.com/settings/personal-access-tokens/new`
+
+| 字段 | 填什么 |
+|---|---|
+| Token name | `skills-daily-cron` |
+| Expiration | 90 天或 1 年（到期那天触发会静默失效，见下方「失效监测」） |
+| Repository access | Only select repositories → 只勾 `FlowingTs/skills-daily` |
+| Permissions → Repository → **Actions** | **Read and write** |
+
+生成后只显示一次，立刻复制。
+
+**第 2 步：建 job**
+
+登录 https://cron-job.org → Create cronjob：
+
+| 字段 | 填什么 |
+|---|---|
+| Title | `Skills Daily` |
+| URL | `https://api.github.com/repos/FlowingTs/skills-daily/actions/workflows/daily.yml/dispatches` |
+| Schedule | Every day at **08:00**，Time zone 选 **Asia/Shanghai** |
+
+展开 **Advanced**：
+
+| 字段 | 填什么 |
+|---|---|
+| Request method | `POST` |
+| Headers | `Accept: application/vnd.github+json` |
+| | `Authorization: Bearer <刚复制的 token>` |
+| | `Content-Type: application/json` |
+| Request body | `{"ref":"main"}` |
+
+保存后点 **Test run**。**返回 204 才是成功**（GitHub 的 dispatch 接口成功时是 204 No Content，不是 200；
+博客里常写 200，那是错的）。同时去 Actions 页面确认多了一次 `workflow_dispatch` 运行。
+
+**第 3 步：打开失败通知**
+
+job 设置里启用失败邮件通知。cron-job.org 在连续失败 25 次后会**自动停用 job**，
+token 过期、仓库改名都会触发这条路径——有邮件才能及时发现。
+
+#### 注意
+
+- cron-job.org 在 08:00 触发时，`daily.yml` 里残留的 `7 0` / `37 0` 也会尝试触发。
+  **顺序无所谓**：先跑完的那次生成报告，后到的被幂等守卫跳过，不会重复推送（已实测验证）。
+- `dispatch.mjs` 可用于手动补发，也是换调度器时的通用动作。
+
 拿群机器人 webhook：企业微信群 → 右上角设置 → 群机器人 → 添加 → 复制 Webhook 地址。
 
 ---
