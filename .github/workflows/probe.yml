@@ -1,0 +1,21 @@
+name: Schedule Probe
+
+# 临时诊断用：验证本仓库的 schedule 触发器到底会不会派发。
+# 每 5 分钟一次，只打一行时间戳，不做任何其他事。诊断完即删除。
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: 回声
+        run: |
+          echo "probe fired at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "trigger event: ${{ github.event_name }}"
