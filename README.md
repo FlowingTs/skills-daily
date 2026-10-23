@@ -116,16 +116,56 @@ GITHUB_TOKEN=ghp_xxx node scripts/collect.mjs
 
 之后每天自动执行。**注意定时不是整点**，而是北京 08:07 和 08:37 两个时段，原因见下。
 
-### 为什么不用整点
+### 定时触发在本仓库是坏的（实测结论）
 
-GitHub 官方文档写得很直白：`schedule` 在每小时开头负荷最高，任务会延迟，**负荷足够高时排队任务会被直接丢弃**。把 cron 定成 `0 0 * * *` 是最差的选择——本项目第一版就是这么写的，结果第二天早上一条记录都没有。
+初版把 cron 写成 `0 0 * * *`，第二天早上一条记录都没有。当时的解释是「整点被 GitHub 丢弃了」，于是改成
+`7 0 * * *` + `37 0 * * *` 双时段，并加了幂等守卫。
 
-所以做了两层防护：
+**这个解释是错的。** 后续两天的观测：
 
-1. **避开整点**：`7 0 * * *`（北京 08:07）+ `37 0 * * *`（北京 08:37）两个时段。
-2. **幂等守卫**：`scripts/guard.mjs` 检查当天报告是否已生成。08:07 跑成功了，08:37 那次会直接退出，不会重复推送；08:07 被丢弃了，08:37 照常干活。
+| 时间（UTC） | 期望 | 实际 |
+|---|---|---|
+| 10-22 00:00 | `0 0 * * *` 触发 | 无 |
+| 10-23 00:07 | `7 0 * * *` 触发 | 无 |
+| 10-23 00:37 | `37 0 * * *` 触发 | 无 |
+| 10-23 00:50 / 00:55 | 探针 `*/5 * * * *` 触发 | 无 |
 
-代价是准点变成「08:07～08:40 之间」。这是 GitHub 托管 cron 的固有不确定性，要严格准点只能换自己的服务器。
+为排除「是我们的工作流写错了」，专门加过一个 `probe.yml`（内容只有一个 echo，cron `*/5`），
+同样一次都没跑。同时确认了：工作流 `state=active`、仓库非 fork/未归档、Actions 权限为
+`allowed_actions: all`、默认分支就是 `main`、平台侧当时无 Actions 故障。
+
+**结论：这个仓库的 `schedule` 事件根本不派发，与 cron 写几点无关。** 幂等守卫仍有价值（多调度器并存时不重复推送），
+但「避开整点」这条推理已作废。
+
+### 因此：定时必须由仓库外的调度器承担
+
+共用动作是 `scripts/dispatch.mjs`——调 GitHub 的 workflow_dispatch 接口，一行命令触发一次：
+
+```bash
+GH_TOKEN=xxx node scripts/dispatch.mjs
+# 或把 token 写进项目根的 .dispatch-token（已 gitignore），然后直接：
+node scripts/dispatch.mjs
+```
+
+任何外部定时器只要能发一个带 `Authorization: Bearer <token>` 头的 POST 即可：
+
+```
+POST https://api.github.com/repos/FlowingTs/skills-daily/actions/workflows/daily.yml/dispatches
+Authorization: Bearer <PAT>
+Content-Type: application/json
+
+{"ref":"main"}
+```
+
+可选方案（都需一个免费账号，GitHub 本身这条路已堵死）：
+
+| 方案 | 成本 | 说明 |
+|---|---|---|
+| cron-job.org | 免费 | 建一个 job，POST 上面的 URL，加两个头。最快，但 PAT 会存在第三方站点 |
+| Cloudflare Worker + Cron Trigger | 免费 | token 存 Worker Secret，cron `0 0 * * *`。更干净，需部署一次 |
+| 本机定时（WorkBuddy 自动化 / 计划任务） | 免费 | 不需要账号，但电脑关机那天就断更 |
+
+`daily.yml` 里的 `schedule` 暂时保留——万一哪天 GitHub 修好了，幂等守卫会让它和外部调度器不冲突。
 
 拿群机器人 webhook：企业微信群 → 右上角设置 → 群机器人 → 添加 → 复制 Webhook 地址。
 
