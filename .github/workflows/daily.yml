@@ -73,10 +73,27 @@ jobs:
           git add data site
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
-          else
-            git commit -m "chore: 日报数据 $(date -u +%Y-%m-%d)"
-            git push
+            exit 0
           fi
+          git commit -m "chore: 日报数据 $(date -u +%Y-%m-%d)"
+
+          # 运行期间若有人往 main 推过东西，直接 push 会被拒绝（fetch first），
+          # 一旦失败，后面的部署和推送全被跳过，整期日报就丢了。
+          # 所以先 rebase 再推，失败重试；数据文件由本工作流独占，冲突概率极低。
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main || {
+              echo "rebase 失败，放弃本次变基"
+              git rebase --abort 2>/dev/null || true
+            }
+            if git push origin HEAD:main; then
+              echo "推送成功（第 $i 次尝试）"
+              exit 0
+            fi
+            echo "推送被拒，5 秒后重试（$i/5）"
+            sleep 5
+          done
+          echo "重试 5 次仍无法推送，失败退出"
+          exit 1
 
       - uses: actions/upload-pages-artifact@v3
         if: steps.guard.outputs.skip != 'true'
