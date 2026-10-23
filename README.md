@@ -193,8 +193,10 @@ Content-Type: application/json
 | Title | `Skills Daily` |
 | URL | `https://api.github.com/repos/FlowingTs/skills-daily/actions/workflows/daily.yml/dispatches` |
 | Schedule | Every day at **08:00**，Time zone 选 **Asia/Shanghai** |
+| 激活任务 | 保持开 |
+| 在任务历史中保存响应 | **开**——出问题时能直接看到 204 / 401 / 404 的返回体 |
 
-展开 **Advanced**：
+展开 **进阶（Advanced）**：
 
 | 字段 | 填什么 |
 |---|---|
@@ -202,7 +204,8 @@ Content-Type: application/json
 | Headers | `Accept: application/vnd.github+json` |
 | | `Authorization: Bearer <刚复制的 token>` |
 | | `Content-Type: application/json` |
-| Request body | `{"ref":"main"}` |
+| Request body | `{"ref":"main"}`（英文双引号，别用中文引号） |
+| 请求超时 | 30 秒即可 |
 
 保存后点 **Test run**。**返回 204 才是成功**（GitHub 的 dispatch 接口成功时是 204 No Content，不是 200；
 博客里常写 200，那是错的）。同时去 Actions 页面确认多了一次 `workflow_dispatch` 运行。
