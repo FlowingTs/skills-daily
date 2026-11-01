@@ -9,10 +9,14 @@ const CARD_DIR = path.join(P.site, 'assets', 'cards');
 const FACE_LIMIT = 800;
 const CARD_KEEP_DAYS = 14;
 
+// 阈值别定太高：纯色 logo、小尺寸组织头像常常只有几百字节，
+// 512 会把它们当坏图丢掉（实测 365 字节的合法 png 被判失败）。
+const MIN_BYTES = 200;
+
 async function exists(file) {
   try {
     const st = await fs.stat(file);
-    return st.size > 512;
+    return st.size > MIN_BYTES;
   } catch {
     return false;
   }
@@ -37,8 +41,9 @@ async function download(url, dest, { timeout = 20000 } = {}) {
     });
     if (!res.ok) return false;
     const type = res.headers.get('content-type') || '';
+    if (!/^image\//i.test(type)) return false;
     const buf = Buffer.from(await res.arrayBuffer());
-    if (buf.length < 512) return false;
+    if (buf.length < MIN_BYTES) return false;
     // 按真实类型落盘：github 的头像有 jpeg 也有 png，扩展名写错会让浏览器拿错 MIME
     const ext = /jpeg|jpg/i.test(type) ? 'jpg' : 'png';
     const final = dest.replace(/\.[a-z]+$/, `.${ext}`);
@@ -49,6 +54,29 @@ async function download(url, dest, { timeout = 20000 } = {}) {
     return false;
   } finally {
     clearTimeout(timer);
+  }
+}
+
+/**
+ * github.com/<owner>.png 对新建的组织账号会返回 404。
+ * 退一步问接口要 avatar_url（多一个请求，只在第一种取法失败时发生）。
+ */
+async function avatarFromApi(owner) {
+  const token = process.env.GITHUB_TOKEN || '';
+  if (!token) return null;
+  try {
+    const res = await fetch(`https://api.github.com/users/${encodeURIComponent(owner)}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'User-Agent': 'skills-daily/1.0',
+      },
+    });
+    if (!res.ok) return null;
+    const j = await res.json();
+    return j.avatar_url || null;
+  } catch {
+    return null;
   }
 }
 
@@ -68,7 +96,12 @@ export async function fetchImages(entries, date, { onCard = null } = {}) {
   for (const owner of owners) {
     let file = await existingFace(owner);
     if (!file) {
-      const saved = await download(`https://github.com/${owner}.png?size=96`, path.join(FACE_DIR, `${owner}.png`));
+      const dest = path.join(FACE_DIR, `${owner}.png`);
+      let saved = await download(`https://github.com/${owner}.png?size=96`, dest);
+      if (!saved) {
+        const alt = await avatarFromApi(owner);
+        if (alt) saved = await download(alt, dest);
+      }
       if (saved) { file = path.basename(saved); fetched++; }
       else missed++;
       await sleep(60);
