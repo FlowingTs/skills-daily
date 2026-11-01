@@ -639,7 +639,7 @@ img { display: block; }
   display: block;
   margin-top: 6px;
   max-width: 38ch;
-  font-size: 0.9375rem;
+  font-size: var(--step-body);
   line-height: 1.5;
   color: var(--ink);
 }
@@ -662,7 +662,7 @@ img { display: block; }
 
 /* 强调色只出现在这儿和第二处动作上：速度是这一栏唯一要看的数 */
 .rise-num {
-  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-size: var(--step-lead);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.025em;
