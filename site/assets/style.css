@@ -28,7 +28,11 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -39,7 +43,6 @@ body {
   line-height: 1.55;
   letter-spacing: 0.005em;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 ::selection { background: var(--accent); color: var(--accent-ink); }
@@ -53,16 +56,23 @@ a { color: inherit; }
 
 img { display: block; }
 
-/* ── 顶栏 ─────────────────────────────────────────────── */
+/* ── 顶栏：粘顶，滚到哪一栏那一条就亮 ───────────────── */
 .masthead {
-  max-width: calc(var(--max) + var(--pad) * 2);
-  margin: 0 auto;
-  padding: 24px var(--pad) 0;
-  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  gap: clamp(18px, 3vw, 44px);
+  height: 64px;
+  padding-inline: max(var(--pad), calc((100% - var(--max)) / 2));
+  background: var(--bg);
+  transition: background 0.25s;
 }
+
+/* 离开首屏后换一层底色：是色阶，不是阴影也不是毛玻璃 */
+.masthead.is-stuck { background: var(--surface); }
 
 .wordmark {
   font-size: var(--step-body);
@@ -72,22 +82,43 @@ img { display: block; }
   color: var(--ink);
 }
 
-.masthead-end {
+.nav {
   display: flex;
-  align-items: center;
-  gap: clamp(18px, 2.4vw, 34px);
+  gap: clamp(4px, 1.4vw, 22px);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.nav { display: flex; gap: clamp(14px, 1.8vw, 26px); }
+.nav::-webkit-scrollbar { display: none; }
 
 .nav a {
+  position: relative;
+  padding: 10px 4px;
   font-size: var(--step-small);
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.18s;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .nav a:hover { color: var(--ink); }
+.nav a:hover::after,
+.nav a.is-on::after { transform: scaleX(1); }
+.nav a.is-on { color: var(--ink); }
 
 .btn {
   display: inline-flex;
@@ -145,8 +176,11 @@ img { display: block; }
   display: block;
   width: 100%;
   height: auto;
-  transition: filter 0.3s;
+  transform: scale(1.012);
+  transition: transform 1.1s cubic-bezier(0.16, 0.84, 0.28, 1), filter 0.3s;
 }
+
+.hero-figure.in .hero-card { transform: none; }
 
 .hero-figure a:hover .hero-card { filter: brightness(0.92); }
 
@@ -161,6 +195,7 @@ img { display: block; }
   max-width: calc(var(--max) + var(--pad) * 2);
   margin: var(--gutter) auto 0;
   padding: 0 var(--pad);
+  scroll-margin-top: 84px;
 }
 
 .col-head {
@@ -212,7 +247,11 @@ img { display: block; }
   column-gap: 20px;
   text-decoration: none;
   padding: 4px 0;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+.entry a:hover { transform: translateX(6px); }
+.entry a:active { transform: translateX(2px) scale(0.996); }
 
 .entry a:hover .entry-name {
   text-decoration: underline;
@@ -232,10 +271,10 @@ img { display: block; }
   height: 100%;
   object-fit: cover;
   filter: grayscale(1) brightness(0.92) contrast(0.9);
-  transition: filter 0.25s;
+  transition: filter 0.25s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.entry a:hover .face img { filter: none; }
+.entry a:hover .face img { filter: none; transform: scale(1.14); }
 
 .entry-body { display: block; min-width: 0; }
 
@@ -286,6 +325,7 @@ img { display: block; }
 /* ── 方法说明：整块换底色 ─────────────────────────────── */
 .method {
   margin-top: var(--gutter);
+  scroll-margin-top: 84px;
   background: var(--surface);
   padding: clamp(44px, 5.5vw, 76px) var(--pad);
 }
@@ -374,19 +414,43 @@ img { display: block; }
 }
 
 /* ── 入场 ─────────────────────────────────────────────── */
-/* 只做位移，不做透明：即使观察器没触发，内容也始终可见 */
+/* 只做位移与缩放，不做透明：即使观察器没触发，内容也始终可见。
+   末段轻微过冲（1.04）做出弹起的收势，不是整块淡入。 */
 .js .reveal {
-  transform: translateY(18px);
-  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
-  transition-delay: calc(var(--i, 0) * 45ms);
+  transform: translateY(24px) scale(0.985);
+  transition: transform 0.72s cubic-bezier(0.16, 0.84, 0.28, 1.04);
+  transition-delay: calc(var(--i, 0) * 55ms);
 }
 
 .js .reveal.in { transform: none; }
 
 /* ── 手机 ─────────────────────────────────────────────── */
 @media (max-width: 780px) {
-  .masthead { padding-top: 18px; }
-  .nav { display: none; }
+  .masthead {
+    height: auto;
+    padding-block: 12px 0;
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "mark btn"
+      "nav nav";
+    row-gap: 2px;
+  }
+
+  .wordmark { grid-area: mark; }
+  .masthead .btn { grid-area: btn; justify-self: end; height: 40px; padding: 0 16px; }
+
+  /* 导航横向铺满，超出可滑；两侧用负边距吃掉父级内边距 */
+  .nav {
+    grid-area: nav;
+    margin-inline: calc(-1 * var(--pad));
+    padding-inline: var(--pad);
+    gap: 20px;
+  }
+
+  .nav a { padding-block: 12px 14px; }
+
+  .col { scroll-margin-top: 116px; }
+  .method { scroll-margin-top: 116px; }
 
   .hero { padding-top: 28px; }
   .hero-line { font-size: clamp(2rem, 10.4vw, 3.25rem); }
@@ -407,8 +471,16 @@ img { display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .star .dot { animation: none; }
+  html { scroll-behavior: auto; }
   .js .reveal { transform: none; transition: none; }
+  .hero-card,
+  .hero-figure.in .hero-card { transform: none; transition: none; }
+  .entry a:hover,
+  .leader a:hover,
+  .rise a:hover,
+  .entry a:hover .face img,
+  .leader a:hover .leader-face img,
+  .rise a:hover .rise-face img { transform: none; }
 }
 
 /* ── 每栏第一名 ───────────────────────────────────────── */
@@ -421,7 +493,11 @@ img { display: block; }
   column-gap: clamp(20px, 3vw, 34px);
   text-decoration: none;
   padding: 4px 0;
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+.leader a:hover { transform: translateX(8px); }
+.leader a:active { transform: translateX(3px) scale(0.997); }
 
 .leader a:hover .leader-name {
   text-decoration: underline;
@@ -442,8 +518,10 @@ img { display: block; }
   height: 100%;
   object-fit: cover;
   filter: grayscale(1) brightness(0.92) contrast(0.9);
-  transition: filter 0.25s;
+  transition: filter 0.25s, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+.leader a:hover .leader-face img { transform: scale(1.06); }
 
 .leader a:hover .leader-face img { filter: none; }
 
@@ -491,4 +569,116 @@ img { display: block; }
   .leader-fig { grid-area: fig; font-size: var(--step-lead); }
   .leader-name { font-size: var(--step-lead); }
   .leader-note { margin-top: 8px; }
+}
+
+
+/* ── 潜力榜：双列紧凑行，右侧给速度 ───────────────────── */
+.rising {
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(28px, 4.5vw, 64px);
+}
+
+/* 条目是奇数时，最后一条横跨两列，不留空洞 */
+.rising > .rise:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.rise a {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 18px;
+  padding: 20px 0;
+  text-decoration: none;
+  transition: transform 0.34s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.rise a:hover { transform: translateX(8px); }
+.rise a:active { transform: translateX(3px) scale(0.994); }
+
+.rise a:hover .rise-name {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.rise-face {
+  display: block;
+  width: 72px;
+  height: 72px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.rise-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.92) contrast(0.9);
+  transition: filter 0.25s, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.rise a:hover .rise-face img { filter: none; transform: scale(1.1); }
+
+.rise-body { display: block; min-width: 0; }
+
+.rise-name {
+  display: block;
+  font-size: var(--step-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.rise-name .sep { color: var(--muted); font-weight: 400; }
+
+.rise-note {
+  display: block;
+  margin-top: 6px;
+  max-width: 38ch;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.rise-meta {
+  display: block;
+  margin-top: 7px;
+  font-size: var(--step-small);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rise-fig {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+/* 强调色只出现在这儿和第二处动作上：速度是这一栏唯一要看的数 */
+.rise-num {
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.rise-unit {
+  font-size: var(--step-small);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 780px) {
+  .rising { grid-template-columns: 1fr; }
+  .rise a { grid-template-columns: 56px minmax(0, 1fr) auto; column-gap: 14px; padding: 18px 0; }
+  .rise-face { width: 56px; height: 56px; }
+  .rise-note { max-width: none; }
 }

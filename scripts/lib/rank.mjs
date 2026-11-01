@@ -63,11 +63,55 @@ export function computeAllTime(pool, minStars, perColumn) {
   return items.slice(0, perColumn);
 }
 
+/**
+ * 潜力榜：窗口从近 7 天开始，凑不够 minCount 条就往外扩（7 → 14 → 21 → 28）。
+ * 排序用「每天拿到的 star」而不是总量：一个 3 天涨 300 的仓库，比 20 天涨 900 的更值得看。
+ * 窗口被撑到哪一步，要在页面上写明，不能让人以为是固定 7 天。
+ */
+export function computePotential(pool, targetDate, col, minStars) {
+  const steps = col.windowSteps ?? [col.window ?? 7];
+  const limit = col.limit ?? 5;
+  const minCount = col.minCount ?? 3;
+  const refEnd = Date.parse(`${targetDate}T23:59:59+08:00`);
+
+  let last = { window: steps[0], items: [] };
+
+  for (const windowDays of steps) {
+    const items = pool
+      .filter((r) => r.stargazers_count >= minStars)
+      .filter((r) => createdWithin(r, targetDate, windowDays))
+      .map((repo) => {
+        const ageDays = Math.max(1, Math.ceil((refEnd - Date.parse(repo.created_at)) / DAY));
+        return { repo, delta: null, kind: 'velocity', ageDays, velocity: repo.stargazers_count / ageDays };
+      })
+      .sort((x, y) => y.velocity - x.velocity || y.repo.stargazers_count - x.repo.stargazers_count);
+
+    last = { window: windowDays, items };
+    if (items.length >= minCount) break;
+  }
+
+  return { window: last.window, items: last.items.slice(0, limit) };
+}
+
 export function buildColumns({ pool, snapshots, targetDate, config }) {
   const { perColumn, minStars } = config;
   const out = [];
 
   for (const col of config.columns) {
+    if (col.metric === 'velocity') {
+      const res = computePotential(pool, targetDate, col, minStars);
+      out.push({
+        ...col,
+        status: res.items.length ? 'live' : 'empty',
+        items: res.items,
+        usedWindow: res.window,
+        have: 0,
+        need: 0,
+        badge: `${res.window}D NEW`,
+      });
+      continue;
+    }
+
     if (col.metric === 'stars') {
       const items = computeAllTime(pool, minStars, perColumn);
       out.push({
@@ -103,7 +147,10 @@ export function buildColumns({ pool, snapshots, targetDate, config }) {
 
 /** 热度原始值（对数压缩），列内再做归一化才有区分度 */
 export function heatRaw(item) {
-  const v = item.kind === 'delta' ? item.delta : item.repo.stargazers_count;
+  const v =
+    item.kind === 'delta' ? item.delta
+    : item.kind === 'velocity' ? item.velocity
+    : item.repo.stargazers_count;
   return Math.log10(Math.max(1, v ?? 1) + 1);
 }
 

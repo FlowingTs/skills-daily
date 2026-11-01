@@ -87,6 +87,7 @@ async function main() {
       badge: c.badge,
       metric: c.metric,
       note: c.note,
+      used_window: c.usedWindow ?? null,
       have: c.have,
       need: c.need,
       items: c.items.map((it) => ({
@@ -95,6 +96,8 @@ async function main() {
         stars: it.repo.stargazers_count,
         forks: it.repo.forks_count,
         delta: it.delta,
+        velocity: it.velocity ?? null,
+        age_days: it.ageDays ?? null,
         created_at: it.repo.created_at,
         pushed_at: it.repo.pushed_at,
         language: it.repo.language,

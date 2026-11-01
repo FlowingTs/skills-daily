@@ -42,6 +42,13 @@ function renderEntry(item, index, root, faces) {
 }
 
 function columnNote(column) {
+  if (column.metric === 'velocity') {
+    const w = column.usedWindow ?? column.window;
+    if (w > (column.window ?? 7)) {
+      return `近 ${w} 天新建的仓库，按每天拿到的 star 排。7 天里凑不到 ${column.minCount ?? 3} 个，窗口自动外扩到了 ${w} 天。`;
+    }
+    return `近 ${w} 天新建的仓库，按每天拿到的 star 排。3 天涨 300，比 20 天涨 900 更说明问题。`;
+  }
   if (column.metric === 'delta' && column.status === 'live') {
     return `近 ${column.window} 天的 star 净增，由前后两次快照相减得出。`;
   }
@@ -72,6 +79,27 @@ function renderLeader(item, root, faces) {
   return `<div class="leader reveal"><a href="${esc(r.html_url)}" target="_blank" rel="noopener"><span class="leader-face"><img src="${root}assets/faces/${esc(face)}" alt="${esc(owner)} 的项目头像" width="168" height="168" decoding="async" onerror="this.parentNode.classList.add('blank');this.remove()"></span><span class="leader-body"><span class="leader-name">${esc(owner)}<span class="sep">/</span>${esc(name)}</span><span class="leader-note">${esc(note)}</span><span class="entry-meta">${esc(meta)}</span></span><span class="leader-fig">${esc(fig)}</span></a></div>`;
 }
 
+/** 潜力榜：双列紧凑行，右侧是速度而不是总量，和上面四栏刻意不同版式 */
+function renderRise(item, index, root, faces) {
+  const r = item.repo;
+  const [owner, name] = r.full_name.split('/');
+  const speed = Math.round(item.velocity ?? 0);
+  const note = item.summary || (r.description || '').slice(0, 110) || '仓库没有提供描述。';
+  const face = faces[owner] || (owner + '.png');
+  const age = item.ageDays ?? null;
+
+  return `<li class="rise reveal" style="--i:${Math.min(index, 4)}"><a href="${esc(r.html_url)}" target="_blank" rel="noopener"><span class="rise-face"><img src="${root}assets/faces/${esc(face)}" alt="" width="72" height="72" decoding="async" onerror="this.parentNode.classList.add('blank');this.remove()"></span><span class="rise-body"><span class="rise-name">${esc(owner)}<span class="sep">/</span>${esc(name)}</span><span class="rise-note">${esc(note)}</span><span class="rise-meta">${age ? `${age} 天前建` : ''}${age ? ' · ' : ''}${fmtNum(r.stargazers_count)} star · ${fmtNum(r.forks_count)} fork</span></span><span class="rise-fig"><span class="rise-num">+${fmtInt(speed)}</span><span class="rise-unit">每天</span></span></a></li>`;
+}
+
+function renderRising(column, root, faces) {
+  const count = column.items.length;
+  const body = count
+    ? `<ol class="rising">${column.items.map((it, i) => renderRise(it, i, root, faces)).join('')}</ol>`
+    : '<p class="col-empty">这一栏今天没有满足条件的仓库。空着，也不拿低质量项目补位。</p>';
+
+  return `<section class="col col-rising" id="${esc(column.id)}"><div class="col-head"><h2>${esc(column.label)}</h2><span class="col-count">${count} 个</span></div><p class="col-note reveal">${esc(columnNote(column))}</p>${body}</section>`;
+}
+
 function renderList(column, root, faces) {
   const count = column.items.length;
   const lead = column.items[0];
@@ -85,13 +113,15 @@ function renderList(column, root, faces) {
 
 function renderStats({ columns, poolSize, snapshotDays }) {
   const total = columns.reduce((s, c) => s + c.items.length, 0);
-  const allLive = columns.every((c) => c.status === 'live');
+  const wet = columns
+    .filter((c) => c.status === 'coldstart' || c.status === 'collecting')
+    .map((c) => c.label);
 
-  const sentence = allLive
-    ? `扫出 ${fmtInt(poolSize)} 个仓库，${total} 个上榜。四份榜单都是真净增，来自 ${snapshotDays} 天的快照相减。`
-    : `扫出 ${fmtInt(poolSize)} 个仓库，${total} 个上榜。快照只攒了 ${snapshotDays} 天，月榜和周榜仍是预热口径：按窗口内新建仓库的 star 排，不是净增。`;
+  const sentence = wet.length === 0
+    ? `扫出 ${fmtInt(poolSize)} 个仓库，${total} 个上榜。${columns.length} 份榜单都是真数：净增由 ${snapshotDays} 天的快照相减得出。`
+    : `扫出 ${fmtInt(poolSize)} 个仓库，${total} 个上榜。${wet.join('、')}仍是预热口径：按窗口内新建仓库的 star 排，不是净增。`;
 
-  return `<section class="method" id="method"><p class="statement reveal">${esc(sentence)}</p><p class="method-note reveal">每份榜单最多 10 条，star 不到 10 的仓库不进候选池。每天北京时间 08:07 自动更新。</p></section>`;
+  return `<section class="method" id="method"><p class="statement reveal">${esc(sentence)}</p><p class="method-note reveal">每份榜单最多 10 条，star 不到 10 的仓库不进候选池；潜力榜最多 5 条，窗口从 7 天起自动外扩。每天北京时间 08:00 自动更新。</p></section>`;
 }
 
 function renderFooter({ archive, root, date, generatedAt }) {
@@ -132,28 +162,29 @@ export function renderPage({ date, columns, archive, root = '', config, poolSize
       }</figcaption></figure>`
     : '';
 
+  const navLinks = columns
+    .map((c) => `<a href="#${esc(c.id)}" data-jump="${esc(c.id)}">${esc(c.label)}</a>`)
+    .join('');
+
+  const sections = columns
+    .map((c) => (c.metric === 'velocity' ? renderRising(c, root, faces) : renderList(c, root, faces)))
+    .join('');
+
   return `<!DOCTYPE html>
 <html lang="zh-CN" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skills Daily · ${esc(date)}</title>
-<meta name="description" content="每天从 GitHub 抓取 AI 技能仓库，按 star 净增排出总热门、月热门、周热门、单日热门四份榜单。">
+<meta name="description" content="每天从 GitHub 抓取 AI 技能仓库，按 star 净增排出总热门、月热门、周热门、单日热门，外加一份只看新项目的潜力榜。">
 <link rel="stylesheet" href="${root}assets/style.css">
 </head>
 <body>
 
 <header class="masthead">
   <a class="wordmark" href="${root}index.html">Skills Daily</a>
-  <div class="masthead-end">
-    <nav class="nav" aria-label="榜单">
-      <a href="#all">总热门</a>
-      <a href="#month">月热门</a>
-      <a href="#week">周热门</a>
-      <a href="#day">单日热门</a>
-    </nav>
-    <a class="btn btn-solid" href="#archive">往期日报</a>
-  </div>
+  <nav class="nav" aria-label="跳到某一份榜单">${navLinks}</nav>
+  <a class="btn btn-solid" href="#archive">往期日报</a>
 </header>
 
 <section class="hero">
@@ -162,7 +193,7 @@ export function renderPage({ date, columns, archive, root = '', config, poolSize
   ${card}
 </section>
 
-${columns.map((c) => renderList(c, root, faces)).join('')}
+${sections}
 
 ${renderStats({ columns, poolSize, snapshotDays })}
 
@@ -173,17 +204,43 @@ ${renderFooter({ archive, root, date, generatedAt })}
   var html = document.documentElement;
   html.className = (html.className || '').replace('no-js', 'js');
 
-  var items = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) {
-    Array.prototype.forEach.call(items, function (el) { el.classList.add('in'); });
+    Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function (el) {
+      el.classList.add('in');
+    });
     return;
   }
+
+  // 入场：只做位移和缩放，不做透明——观察器没触发时内容也必须可见
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
       if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
     });
   }, { rootMargin: '0px 0px -6% 0px', threshold: 0.04 });
-  Array.prototype.forEach.call(items, function (el) { io.observe(el); });
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function (el) { io.observe(el); });
+
+  // 导航：滚到哪一栏，那一条就亮起来
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[data-jump]'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('data-jump')] = a; });
+
+  var secs = Array.prototype.slice.call(document.querySelectorAll('section.col, section.method'));
+  var navIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      var id = en.target.id;
+      links.forEach(function (a) { a.classList.toggle('is-on', a.getAttribute('data-jump') === id); });
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  secs.forEach(function (s) { navIO.observe(s); });
+
+  // 顶栏：离开首屏后换一层底色（是色阶，不是阴影）
+  var head = document.querySelector('.masthead');
+  var onScroll = function () {
+    head.classList.toggle('is-stuck', window.scrollY > 24);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 </body>

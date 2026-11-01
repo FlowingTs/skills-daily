@@ -39,6 +39,17 @@
       "window": 1,
       "note": "昨日（00:00–24:00）star 净增",
       "metric": "delta"
+    },
+    {
+      "id": "potential",
+      "label": "潜力榜",
+      "en": "RISING",
+      "window": 7,
+      "windowSteps": [7, 14, 21, 28],
+      "minCount": 3,
+      "limit": 5,
+      "note": "新建仓库 · 按每天拿到的 star 排",
+      "metric": "velocity"
     }
   ],
 
@@ -63,6 +74,7 @@
     "extraQueries": ["SKILL.md in:readme skill"],
     "lanes": [
       { "name": "高星", "sort": "stars", "pages": 2, "sinceDays": null },
+      { "name": "新芽", "sort": "stars", "pages": 1, "sinceDays": 7 },
       { "name": "新晋", "sort": "stars", "pages": 1, "sinceDays": 30 },
       { "name": "活跃", "sort": "updated", "pages": 1, "sinceDays": 7 }
     ],
