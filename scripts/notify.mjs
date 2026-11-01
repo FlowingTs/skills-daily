@@ -10,8 +10,10 @@ function trim(s, max) {
   return s.length > max ? `${s.slice(0, max - 1)}…` : s;
 }
 
-function buildMarkdown(report, config) {
-  const topN = config.notify.topNPerColumn ?? 3;
+function buildMarkdown(report, config, opts = {}) {
+  const topN = opts.topN ?? config.notify.topNPerColumn ?? 3;
+  const whyLen = opts.whyLen ?? 46;
+  const showRec = opts.rec !== false;
   const lines = [];
 
   lines.push(`## ◤◢ SKILLS DAILY · ${cnDate(report.date)}`);
@@ -31,8 +33,9 @@ function buildMarkdown(report, config) {
         col.metric === 'delta' && typeof it.delta === 'number'
           ? `<font color="warning">${fmtDelta(it.delta)}</font>`
           : `★${fmtNum(it.stars)}`;
-      const why = it.summary ? trim(it.summary, 46) : '';
-      lines.push(`> ${i + 1}. [${it.full_name}](${it.url}) ${metric}　<font color="comment">REC ${it.score}</font>`);
+      const why = it.summary && whyLen > 0 ? trim(it.summary, whyLen) : '';
+      const rec = showRec && typeof it.score === 'number' ? `　<font color="comment">REC ${it.score}</font>` : '';
+      lines.push(`> ${i + 1}. [${it.full_name}](${it.url}) ${metric}${rec}`);
       if (why) lines.push(`> 　<font color="comment">${why}</font>`);
     });
     if (col.items.length > topN) {
@@ -46,6 +49,42 @@ function buildMarkdown(report, config) {
   }
 
   return lines.join('\n');
+}
+
+/**
+ * 企业微信 markdown 上限 4096 字节，多一栏就会顶到。
+ * 逐级降级，而不是只打一行日志假装截断了：
+ * 先压点评长度，再减少每栏条数，最后按行硬截。
+ */
+const PLANS = [
+  { topN: 3, whyLen: 46, rec: true },
+  { topN: 3, whyLen: 30, rec: true },
+  // 保住每栏 3 条：宁可摘掉 REC 标签、压短点评，也不把条目减半
+  { topN: 3, whyLen: 26, rec: false },
+  { topN: 2, whyLen: 34, rec: true },
+  { topN: 2, whyLen: 0, rec: false },
+  { topN: 1, whyLen: 0, rec: false },
+];
+
+const LIMIT = 4000; // 留 96 字节余量给企业微信的包装
+
+function hardTrim(text, maxBytes) {
+  const buf = Buffer.from(text, 'utf8');
+  if (buf.length <= maxBytes) return text;
+  let cut = buf.slice(0, maxBytes).toString('utf8');
+  const nl = cut.lastIndexOf('\n');
+  if (nl > 0) cut = cut.slice(0, nl);
+  return `${cut}\n…`;
+}
+
+function fitMarkdown(report, config) {
+  for (const plan of PLANS) {
+    const text = buildMarkdown(report, config, plan);
+    const bytes = Buffer.byteLength(text, 'utf8');
+    if (bytes <= LIMIT) return { text, plan, bytes };
+  }
+  const text = hardTrim(buildMarkdown(report, config, PLANS[PLANS.length - 1]), LIMIT);
+  return { text, plan: { ...PLANS[PLANS.length - 1], hard: true }, bytes: Buffer.byteLength(text, 'utf8') };
 }
 
 async function main() {
@@ -62,18 +101,16 @@ async function main() {
     return;
   }
 
-  const content = buildMarkdown(report, config);
+  const { text: content, plan, bytes } = fitMarkdown(report, config);
 
   if (process.env.NOTIFY_DRY === '1') {
     console.log('--- 预览推送内容 ---');
     console.log(content);
-    console.log(`--- 共 ${Buffer.byteLength(content, 'utf8')} 字节 / 上限 4096 ---`);
+    console.log(`--- 共 ${bytes} 字节 / 上限 4096 · 方案 ${JSON.stringify(plan)} ---`);
     return;
   }
 
-  if (Buffer.byteLength(content, 'utf8') > 4000) {
-    log(`消息 ${Buffer.byteLength(content, 'utf8')} 字节，超过企业微信 4096 上限，截断`);
-  }
+  log(`消息 ${bytes} 字节（上限 4096）· 方案 ${JSON.stringify(plan)}`);
 
   const res = await fetch(WEBHOOK, {
     method: 'POST',
