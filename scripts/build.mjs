@@ -43,9 +43,16 @@ async function main() {
   const primary = config.groups[0];
 
   const built = [];
-  const periodNamesByGroup = {};
-  const potentialNamesByGroup = {};
   let snapshotDays = 0;
+
+  // 去重优先级：总 → 月 → 周 → 日 → 潜力榜。
+  // 同一个仓库只在最高的那一档出现；被剔掉的位置继续往下取，补满 perColumn 条。
+  // 这个顺序和页面展示顺序（日/周/月/总）不同，不能混用。
+  const dedupeOrder = config.dedupeOrder ?? ['all', 'month', 'week', 'day'];
+
+  // 主领域（Skills）去重后的全集：四档 + 潜力榜。AIGC 让路时用它。
+  let primarySet = null;
+  let heroItem = null;
 
   for (const g of config.groups) {
     const pool = (await readJSON(groupPoolFile(g.pool), { repos: [] })).repos ?? [];
@@ -56,17 +63,20 @@ async function main() {
     snapshotDays = Math.max(snapshotDays, days);
     log(`[${g.id}] 池 ${pool.length} · 可用快照 ${days} 天`);
 
-    // AIGC 单向让路：同周期里已在主榜出现的仓库，不再进 AIGC 榜
-    const excludeByPeriod = {};
-    let excludePotential = null;
-    if (g.id !== primary.id) {
-      Object.assign(excludeByPeriod, periodNamesByGroup[primary.id] ?? {});
-      excludePotential = potentialNamesByGroup[primary.id] ?? null;
-    }
+    const isPrimary = g.id === primary.id;
+    // AIGC 单向让路：主领域出现过的仓库，不再进 AIGC 的任何一档
+    const crossExclude = isPrimary ? null : primarySet;
 
-    const columns = [];
-    for (const period of config.periods) {
+    // 本领域已经上过榜的仓库，随着优先级推进不断累积
+    const taken = new Set();
+
+    const byId = new Map();
+    for (const pid of dedupeOrder) {
+      const period = config.periods.find((p) => p.id === pid);
+      if (!period) continue;
+
       const minStars = g.minStarsByPeriod?.[period.id] ?? g.minStars ?? config.minStars;
+      const exclude = crossExclude?.size ? new Set([...taken, ...crossExclude]) : taken;
       const res = buildPeriodColumn({
         pool,
         snapshots,
@@ -75,34 +85,61 @@ async function main() {
         minStars,
         perColumn: config.perColumn,
         allSinceDays: g.allSinceDays ?? null,
-        exclude: excludeByPeriod[period.id] ?? null,
+        exclude: exclude.size ? exclude : null,
       });
-      columns.push({
+
+      byId.set(period.id, {
         ...period,
         ...res,
         minStars,
         note: period.id === 'all' ? g.allNote || period.note : period.note,
-        excluded: Boolean(excludeByPeriod[period.id]?.size),
+        excluded: Boolean(crossExclude?.size),
       });
+      for (const it of res.items) taken.add(it.repo.full_name);
+
       log(`[${g.id}] ${period.label}: ${res.items.length} 条 · ${res.status} · 门槛 ${minStars} · 快照 ${res.have || 0}/${res.need || 0}`);
     }
 
+    // 展示顺序回到日/周/月/总，和顶部导航一致
+    const columns = config.periods.map((p) => byId.get(p.id)).filter(Boolean);
+
     const potCfg = config.potential[g.id];
-    const pot = computePotential(pool, TARGET, potCfg, excludePotential);
+    // 潜力榜排在日榜之后：四档出现过的都不再进来。
+    // 数量不足 5 条时靠 computePotential 的窗口外扩（7→28 天）补，不降门槛。
+    const potExclude = crossExclude?.size ? new Set([...taken, ...crossExclude]) : taken;
+    const pot = computePotential(pool, TARGET, potCfg, potExclude.size ? potExclude : null);
     const potential = {
       ...potCfg,
       status: pot.items.length ? 'live' : 'empty',
       usedWindow: pot.window,
       items: pot.items,
       badge: `${pot.window} 天新苗`,
-      excluded: Boolean(excludePotential?.size),
+      excluded: Boolean(crossExclude?.size),
     };
+    for (const it of pot.items) taken.add(it.repo.full_name);
     log(`[${g.id}] ${potCfg.label}: ${pot.items.length} 条 · 窗口 ${pot.window} 天`);
 
-    periodNamesByGroup[g.id] = Object.fromEntries(
-      columns.map((c) => [c.id, new Set(c.items.map((it) => it.repo.full_name))]),
-    );
-    potentialNamesByGroup[g.id] = new Set(pot.items.map((it) => it.repo.full_name));
+    if (isPrimary) {
+      primarySet = new Set(taken);
+
+      // 首屏单独取一次：全站当日净增第一，不参与去重。
+      // 去重后日榜第一会掉到 +415 这种量级，首屏需要的是「今天最值得看的一件事」，
+      // 不是「日榜的补充说明」。它必然在总榜里，没有消失。
+      const dayPeriod = config.periods.find((p) => p.id === 'day');
+      if (dayPeriod) {
+        const top = buildPeriodColumn({
+          pool,
+          snapshots,
+          targetDate: TARGET,
+          period: dayPeriod,
+          minStars: g.minStarsByPeriod?.[dayPeriod.id] ?? g.minStars ?? config.minStars,
+          perColumn: 1,
+          allSinceDays: g.allSinceDays ?? null,
+          exclude: null,
+        });
+        heroItem = top.items[0] ?? null;
+      }
+    }
 
     built.push({ group: g, pool, columns, potential, snapshotDays: days });
   }
@@ -144,9 +181,10 @@ async function main() {
     ...b.columns.flatMap((c) => c.items),
     ...b.potential.items,
   ]);
-  const primaryDay = built[0].columns.find((c) => c.id === 'day')?.items ?? [];
-  const heroRepo = (primaryDay[0] ?? allItems[0])?.repo ?? null;
-  const { cardPath, faces } = await fetchImages(allItems, TARGET, { onCard: heroRepo });
+  const heroRepo = (heroItem ?? allItems[0])?.repo ?? null;
+  // 首屏那个仓库可能因为去重而不在任何一档里，图片要单独带上，否则卡片下载不到
+  const imageEntries = heroItem && !allItems.includes(heroItem) ? [...allItems, heroItem] : allItems;
+  const { cardPath, faces } = await fetchImages(imageEntries, TARGET, { onCard: heroRepo });
 
   const archiveNames = (await listJSONNames(P.daily)).concat(TARGET).sort().reverse();
   const archive = [...new Set(archiveNames)];
@@ -217,6 +255,7 @@ async function main() {
     snapshotDays,
     cardPath,
     faces,
+    heroItem,
     generatedAt,
   };
 

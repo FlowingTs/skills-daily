@@ -206,12 +206,14 @@ export function renderPage({
   snapshotDays = 0,
   cardPath = null,
   faces = {},
+  heroItem = null,
   generatedAt,
 }) {
   const primary = groups[0];
   const dayCol = primary.columns.find((c) => c.id === 'day');
   const heroItems = dayCol?.items?.length ? dayCol.items : (primary.columns[0]?.items ?? []);
-  const top = heroItems[0];
+  // 首屏用全站当日净增第一（不参与去重），日榜第一只是兜底
+  const top = heroItem ?? heroItems[0];
   const hasDelta = Boolean(top) && typeof top.delta === 'number';
 
   const A = hasDelta ? '昨夜最亮的' : '榜首攒了';

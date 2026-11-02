@@ -44,6 +44,12 @@
       "note": "按 star 总量"
     }
   ],
+  "dedupeOrder": [
+    "all",
+    "month",
+    "week",
+    "day"
+  ],
   "groups": [
     {
       "id": "skills",
