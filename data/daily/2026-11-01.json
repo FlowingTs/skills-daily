@@ -1,6 +1,6 @@
 {
   "date": "2026-11-01",
-  "generated_at": "2026-11-02T16:13",
+  "generated_at": "2026-11-02T16:17",
   "snapshot_days": 13,
   "pool_size": 2700,
   "groups": [
@@ -29,9 +29,9 @@
             {
               "full_name": "Oldcircle/geo-sleuth",
               "url": "https://github.com/Oldcircle/geo-sleuth",
-              "stars": 5403,
-              "forks": 677,
-              "delta": 415,
+              "stars": 5431,
+              "forks": 680,
+              "delta": 443,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-18T08:51:34Z",
@@ -87,14 +87,14 @@
                 "startup"
               ],
               "summary": "把创业从验证、BP、政策到路演、获客、定价、注册拆成 7 个 Agent 技能，适合一人公司或早期团队快速跑通流程，但内容偏模板化，需自行判断质量。",
-              "score": 69
+              "score": 65
             },
             {
               "full_name": "career-ops-hq/career-ops",
               "url": "https://github.com/career-ops-hq/career-ops",
-              "stars": 79352,
-              "forks": 14635,
-              "delta": 235,
+              "stars": 79367,
+              "forks": 14641,
+              "delta": 250,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-04T18:21:18Z",
@@ -123,37 +123,14 @@
                 "resume"
               ],
               "summary": "扫招聘板、按简历给岗位打 1-5 分、生成 ATS 友好简历与求职信并跟踪投递，适合正在海投的开发者省筛选时间，但评分质量依赖简历解析效果。",
-              "score": 67
-            },
-            {
-              "full_name": "NiazMorshed2007/reanimate",
-              "url": "https://github.com/NiazMorshed2007/reanimate",
-              "stars": 768,
-              "forks": 65,
-              "delta": 235,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-10-29T06:20:59Z",
-              "pushed_at": "2026-10-31T12:49:35Z",
-              "language": "JavaScript",
-              "topics": [
-                "agent-skills",
-                "animation",
-                "claude-code",
-                "claude-skills",
-                "frontend",
-                "motion",
-                "playwright"
-              ],
-              "summary": "把任意网页动画逐帧逆向成代码，再用 Playwright 对比验证复刻效果，适合需要还原动效的前端开发者。",
-              "score": 65
+              "score": 66
             },
             {
               "full_name": "Egonex-AI/Understand-Anything",
               "url": "https://github.com/Egonex-AI/Understand-Anything",
-              "stars": 89700,
+              "stars": 89717,
               "forks": 7623,
-              "delta": 228,
+              "delta": 245,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-15T02:30:51Z",
@@ -182,11 +159,34 @@
               "score": 61
             },
             {
+              "full_name": "NiazMorshed2007/reanimate",
+              "url": "https://github.com/NiazMorshed2007/reanimate",
+              "stars": 776,
+              "forks": 68,
+              "delta": 243,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-10-29T06:20:59Z",
+              "pushed_at": "2026-10-31T12:49:35Z",
+              "language": "JavaScript",
+              "topics": [
+                "agent-skills",
+                "animation",
+                "claude-code",
+                "claude-skills",
+                "frontend",
+                "motion",
+                "playwright"
+              ],
+              "summary": "把任意网页动画逐帧逆向成代码，再用 Playwright 对比验证复刻效果，适合需要还原动效的前端开发者。",
+              "score": 63
+            },
+            {
               "full_name": "vercel-labs/skills",
               "url": "https://github.com/vercel-labs/skills",
-              "stars": 37679,
+              "stars": 37689,
               "forks": 3258,
-              "delta": 215,
+              "delta": 225,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-01-14T21:31:18Z",
@@ -194,45 +194,14 @@
               "language": "TypeScript",
               "topics": [],
               "summary": "Vercel 官方的 agent 技能管理工具，一条 npx skills 就能安装、发现和分发技能，适合想统一管理 Claude Code 等工具技能库的开发者，基础设施级实用。",
-              "score": 66
-            },
-            {
-              "full_name": "daveebbelaar/bama",
-              "url": "https://github.com/daveebbelaar/bama",
-              "stars": 1349,
-              "forks": 173,
-              "delta": 209,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-10-24T08:44:36Z",
-              "pushed_at": "2026-11-01T18:39:03Z",
-              "language": "Swift",
-              "topics": [
-                "agent-skills",
-                "ai-agents",
-                "app-clone",
-                "claude-code",
-                "claude-code-plugin",
-                "codex",
-                "computer-use",
-                "liquid-glass",
-                "macos",
-                "macos-app",
-                "native-apps",
-                "skills",
-                "swift",
-                "swiftdata",
-                "swiftui"
-              ],
-              "summary": "用 Swift/SwiftUI 研究、克隆、设计、构建并测试原生 macOS 应用的技能包，适合想借 agent 上手 Mac 原生开发的工程师，但仅限 macOS 且门槛不低。",
-              "score": 57
+              "score": 65
             },
             {
               "full_name": "Ryze-AI-Adgent/open-seo-mcp-skills",
               "url": "https://github.com/Ryze-AI-Adgent/open-seo-mcp-skills",
-              "stars": 8603,
-              "forks": 390,
-              "delta": 195,
+              "stars": 8630,
+              "forks": 391,
+              "delta": 222,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-08-29T23:37:01Z",
@@ -261,14 +230,71 @@
                 "seo-mcp-server"
               ],
               "summary": "免费 SEO MCP 服务加关键词、排名、外链、审计与 AI 可见度技能，接入真实 GSC/GA4 数据，适合做 SEO 的开发者，但托管服务有数据授权与稳定性风险。",
+              "score": 56
+            },
+            {
+              "full_name": "daveebbelaar/bama",
+              "url": "https://github.com/daveebbelaar/bama",
+              "stars": 1354,
+              "forks": 174,
+              "delta": 214,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-10-24T08:44:36Z",
+              "pushed_at": "2026-11-01T18:39:03Z",
+              "language": "Swift",
+              "topics": [
+                "agent-skills",
+                "ai-agents",
+                "app-clone",
+                "claude-code",
+                "claude-code-plugin",
+                "codex",
+                "computer-use",
+                "liquid-glass",
+                "macos",
+                "macos-app",
+                "native-apps",
+                "skills",
+                "swift",
+                "swiftdata",
+                "swiftui"
+              ],
+              "summary": "用 Swift/SwiftUI 研究、克隆、设计、构建并测试原生 macOS 应用的技能包，适合想借 agent 上手 Mac 原生开发的工程师，但仅限 macOS 且门槛不低。",
               "score": 54
+            },
+            {
+              "full_name": "citrolabs/ego-lite",
+              "url": "https://github.com/citrolabs/ego-lite",
+              "stars": 21259,
+              "forks": 1189,
+              "delta": 202,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-04-16T12:51:09Z",
+              "pushed_at": "2026-11-02T08:09:15Z",
+              "language": "JavaScript",
+              "topics": [
+                "agent-skills",
+                "ai-agent",
+                "automation",
+                "browser",
+                "browser-automation",
+                "claude-code",
+                "codex",
+                "hermes-agent",
+                "skills",
+                "skills-sh"
+              ],
+              "summary": "把已登录的浏览器状态共享给 Codex、Claude Code 等 agent 做自动化，不干扰你正常上网，零配置。适合需要 agent 操作真实登录态网页的开发者。",
+              "score": 61
             },
             {
               "full_name": "coreyhaines31/marketingskills",
               "url": "https://github.com/coreyhaines31/marketingskills",
-              "stars": 57911,
-              "forks": 8519,
-              "delta": 183,
+              "stars": 57925,
+              "forks": 8522,
+              "delta": 197,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-01-15T19:45:23Z",
@@ -297,33 +323,7 @@
                 "skill-md"
               ],
               "summary": "覆盖 CRO、文案、SEO、分析与增长工程的营销技能合集，适合独立开发者或小团队给产品补营销短板，技能偏方法论，落地效果取决于执行。",
-              "score": 56
-            },
-            {
-              "full_name": "citrolabs/ego-lite",
-              "url": "https://github.com/citrolabs/ego-lite",
-              "stars": 21236,
-              "forks": 1188,
-              "delta": 179,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-04-16T12:51:09Z",
-              "pushed_at": "2026-11-02T05:32:29Z",
-              "language": "JavaScript",
-              "topics": [
-                "agent-skills",
-                "ai-agent",
-                "automation",
-                "browser",
-                "browser-automation",
-                "claude-code",
-                "codex",
-                "hermes-agent",
-                "skills",
-                "skills-sh"
-              ],
-              "summary": "让 AI agent 复用你已登录的浏览器状态跑自动化，不打扰日常使用，零配置零成本，适合需要登录态抓取或操作网页的 Claude Code/Codex 用户。",
-              "score": 60
+              "score": 55
             }
           ]
         },
@@ -344,9 +344,9 @@
             {
               "full_name": "cloudflare/security-audit-skill",
               "url": "https://github.com/cloudflare/security-audit-skill",
-              "stars": 56627,
-              "forks": 3691,
-              "delta": 9792,
+              "stars": 56680,
+              "forks": 3695,
+              "delta": 9845,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-06-18T14:08:44Z",
@@ -359,9 +359,9 @@
             {
               "full_name": "google/elephant-goldfish-model",
               "url": "https://github.com/google/elephant-goldfish-model",
-              "stars": 9343,
-              "forks": 612,
-              "delta": 8360,
+              "stars": 9540,
+              "forks": 623,
+              "delta": 8557,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-13T16:31:06Z",
@@ -386,18 +386,18 @@
                 "spec-driven-development"
               ],
               "summary": "Google 开源的软件设计与评审技能包，聚焦上下文工程，可直接挂到 Claude Code、Codex、Gemini 上，适合想规范 agent 协作流程的团队。",
-              "score": 90
+              "score": 91
             },
             {
               "full_name": "thedotmack/claude-mem",
               "url": "https://github.com/thedotmack/claude-mem",
-              "stars": 109784,
-              "forks": 9586,
-              "delta": 6676,
+              "stars": 109926,
+              "forks": 9594,
+              "delta": 6818,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-08-31T20:50:03Z",
-              "pushed_at": "2026-11-02T06:49:06Z",
+              "pushed_at": "2026-11-02T08:14:18Z",
               "language": "TypeScript",
               "topics": [
                 "ai",
@@ -421,15 +421,15 @@
                 "sqlite",
                 "supermemory"
               ],
-              "summary": "跨会话持久记忆插件，自动压缩 agent 会话内容并在后续注入相关上下文，适合长期跑 Claude Code 项目的人。",
-              "score": 86
+              "summary": "跨会话持久记忆插件，自动记录 agent 操作、AI 压缩后回注上下文，解决每次重开都要重新交代背景的痛点。Claude Code 重度用户值得装。",
+              "score": 88
             },
             {
               "full_name": "obra/superpowers",
               "url": "https://github.com/obra/superpowers",
-              "stars": 310786,
-              "forks": 27657,
-              "delta": 5749,
+              "stars": 310825,
+              "forks": 27660,
+              "delta": 5788,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-10-09T19:45:18Z",
@@ -451,13 +451,13 @@
             {
               "full_name": "JetBrains/thinkrail",
               "url": "https://github.com/JetBrains/thinkrail",
-              "stars": 7052,
-              "forks": 404,
-              "delta": 5364,
+              "stars": 7067,
+              "forks": 407,
+              "delta": 5379,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-07-08T07:40:43Z",
-              "pushed_at": "2026-11-01T23:56:22Z",
+              "pushed_at": "2026-11-02T07:29:35Z",
               "language": "TypeScript",
               "topics": [
                 "agent",
@@ -474,15 +474,15 @@
                 "vibe-coding",
                 "vibecoding"
               ],
-              "summary": "JetBrains 出品的轻量 IDE，围绕 pi agent 与 spec-driven 流程自适应用户习惯，适合想脱离终端做 vibe coding 的人。",
-              "score": 79
+              "summary": "JetBrains 出品的轻量 IDE，围绕 pi agent 做规格驱动编码，界面随工作方式自适应。适合想要 IDE 级 agent 体验而非终端党的人。",
+              "score": 76
             },
             {
               "full_name": "lemomo-ai/lemo-opuscar",
               "url": "https://github.com/lemomo-ai/lemo-opuscar",
-              "stars": 10723,
-              "forks": 1231,
-              "delta": 3349,
+              "stars": 10754,
+              "forks": 1235,
+              "delta": 3380,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-26T10:10:41Z",
@@ -516,9 +516,9 @@
             {
               "full_name": "cathrynlavery/diagram-design",
               "url": "https://github.com/cathrynlavery/diagram-design",
-              "stars": 64095,
-              "forks": 4223,
-              "delta": 3048,
+              "stars": 64144,
+              "forks": 4226,
+              "delta": 3097,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-16T18:01:16Z",
@@ -535,14 +535,14 @@
                 "svg"
               ],
               "summary": "给 Claude Code 等 agent 的 45 种编辑级图表技能，输出自包含 HTML+SVG，比 Mermaid 好看得多，适合常写文档、做汇报的开发者。",
-              "score": 66
+              "score": 67
             },
             {
               "full_name": "blader/humanizer",
               "url": "https://github.com/blader/humanizer",
-              "stars": 63621,
+              "stars": 63671,
               "forks": 5034,
-              "delta": 3041,
+              "delta": 3091,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-01-18T05:30:15Z",
@@ -564,14 +564,14 @@
                 "writing-tools"
               ],
               "summary": "agent 技能，把 AI 生成文本的套话和机械痕迹改写成自然表达，适合要交付文案、文档的内容与开发人员。",
-              "score": 59
+              "score": 60
             },
             {
               "full_name": "anthropics/skills",
               "url": "https://github.com/anthropics/skills",
-              "stars": 186467,
-              "forks": 22028,
-              "delta": 2713,
+              "stars": 186502,
+              "forks": 22029,
+              "delta": 2748,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-09-22T15:53:31Z",
@@ -586,9 +586,9 @@
             {
               "full_name": "Vincentwei1021/video-shotcraft",
               "url": "https://github.com/Vincentwei1021/video-shotcraft",
-              "stars": 15958,
-              "forks": 1510,
-              "delta": 2359,
+              "stars": 15984,
+              "forks": 1515,
+              "delta": 2385,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-07-19T11:44:41Z",
@@ -632,8 +632,8 @@
             {
               "full_name": "wheresryan22/anatomy",
               "url": "https://github.com/wheresryan22/anatomy",
-              "stars": 23864,
-              "forks": 1993,
+              "stars": 23894,
+              "forks": 1998,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -652,7 +652,7 @@
             {
               "full_name": "Jakeschincariol/replica-skill",
               "url": "https://github.com/Jakeschincariol/replica-skill",
-              "stars": 7024,
+              "stars": 7029,
               "forks": 1259,
               "delta": null,
               "velocity": null,
@@ -677,8 +677,8 @@
             {
               "full_name": "Jakeschincariol/day-trader-skill",
               "url": "https://github.com/Jakeschincariol/day-trader-skill",
-              "stars": 4381,
-              "forks": 1042,
+              "stars": 4402,
+              "forks": 1046,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -698,8 +698,8 @@
             {
               "full_name": "patch-gg/pixelfx",
               "url": "https://github.com/patch-gg/pixelfx",
-              "stars": 2950,
-              "forks": 385,
+              "stars": 3023,
+              "forks": 399,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -722,7 +722,7 @@
             {
               "full_name": "Jakeschincariol/founder-skill",
               "url": "https://github.com/Jakeschincariol/founder-skill",
-              "stars": 2326,
+              "stars": 2327,
               "forks": 312,
               "delta": null,
               "velocity": null,
@@ -744,7 +744,7 @@
             {
               "full_name": "zhuyansen/new-term-radar",
               "url": "https://github.com/zhuyansen/new-term-radar",
-              "stars": 2027,
+              "stars": 2031,
               "forks": 621,
               "delta": null,
               "velocity": null,
@@ -773,8 +773,8 @@
             {
               "full_name": "alchaincyf/huashu-motion",
               "url": "https://github.com/alchaincyf/huashu-motion",
-              "stars": 2025,
-              "forks": 198,
+              "stars": 2029,
+              "forks": 200,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -797,8 +797,8 @@
             {
               "full_name": "haydenschmitty/floorplan",
               "url": "https://github.com/haydenschmitty/floorplan",
-              "stars": 1915,
-              "forks": 140,
+              "stars": 1947,
+              "forks": 143,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -825,7 +825,7 @@
             {
               "full_name": "morganlinton/BeautifulRust",
               "url": "https://github.com/morganlinton/BeautifulRust",
-              "stars": 1659,
+              "stars": 1666,
               "forks": 86,
               "delta": null,
               "velocity": null,
@@ -851,13 +851,13 @@
             {
               "full_name": "DUNHKpcc/Claude-Guardian",
               "url": "https://github.com/DUNHKpcc/Claude-Guardian",
-              "stars": 1635,
+              "stars": 1638,
               "forks": 226,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-15T06:09:53Z",
-              "pushed_at": "2026-11-02T05:21:53Z",
+              "pushed_at": "2026-11-02T08:05:12Z",
               "language": "Python",
               "topics": [
                 "agent-skills",
@@ -865,7 +865,7 @@
                 "claude-skills",
                 "codex-skill"
               ],
-              "summary": "Claude 账号防封自查技能，评估设备、网络与支付风险并给建议，适合重度使用且担心封号的中文用户。",
+              "summary": "评估设备、账号历史、网络与支付环境，给出 Claude 账号防封建议的 skill。针对国内用户真实痛点，但效果依赖经验规则，谨慎参考。",
               "score": 50
             }
           ]
@@ -887,13 +887,13 @@
             {
               "full_name": "morluto/rea",
               "url": "https://github.com/morluto/rea",
-              "stars": 419861,
-              "forks": 104853,
+              "stars": 420143,
+              "forks": 104927,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-14T00:51:32Z",
-              "pushed_at": "2026-11-02T06:45:29Z",
+              "pushed_at": "2026-11-02T08:11:05Z",
               "language": "TypeScript",
               "topics": [
                 "agent-skills",
@@ -917,14 +917,14 @@
                 "touhou",
                 "typescript"
               ],
-              "summary": "用 agent 逆向分析应用行为与原生二进制，覆盖安卓、C++、JS 多栈，适合做安全审计和协议还原的开发者。",
-              "score": 90
+              "summary": "用 agent 逆向分析任意目标，从 App 行为一路下探到原生二进制，覆盖安卓、JS、C++ 多栈。安全研究与协议分析场景的实用工具链。",
+              "score": 93
             },
             {
               "full_name": "affaan-m/ECC",
               "url": "https://github.com/affaan-m/ECC",
-              "stars": 294964,
-              "forks": 43660,
+              "stars": 295014,
+              "forks": 43668,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -947,8 +947,8 @@
             {
               "full_name": "DietrichGebert/ponytail",
               "url": "https://github.com/DietrichGebert/ponytail",
-              "stars": 182326,
-              "forks": 10051,
+              "stars": 182379,
+              "forks": 10060,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -973,8 +973,8 @@
             {
               "full_name": "Graphify-Labs/graphify",
               "url": "https://github.com/Graphify-Labs/graphify",
-              "stars": 140690,
-              "forks": 13447,
+              "stars": 140728,
+              "forks": 13451,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1009,8 +1009,8 @@
             {
               "full_name": "addyosmani/agent-skills",
               "url": "https://github.com/addyosmani/agent-skills",
-              "stars": 112616,
-              "forks": 11787,
+              "stars": 112629,
+              "forks": 11788,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1031,8 +1031,8 @@
             {
               "full_name": "paperclipai/paperclip",
               "url": "https://github.com/paperclipai/paperclip",
-              "stars": 110014,
-              "forks": 18238,
+              "stars": 110026,
+              "forks": 18239,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1067,8 +1067,8 @@
             {
               "full_name": "Leonxlnx/taste-skill",
               "url": "https://github.com/Leonxlnx/taste-skill",
-              "stars": 108049,
-              "forks": 7292,
+              "stars": 108111,
+              "forks": 7294,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1094,8 +1094,8 @@
             {
               "full_name": "nexu-io/open-design",
               "url": "https://github.com/nexu-io/open-design",
-              "stars": 105399,
-              "forks": 12017,
+              "stars": 105415,
+              "forks": 12021,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1130,8 +1130,8 @@
             {
               "full_name": "pbakaus/impeccable",
               "url": "https://github.com/pbakaus/impeccable",
-              "stars": 99672,
-              "forks": 5897,
+              "stars": 99752,
+              "forks": 5900,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1151,7 +1151,7 @@
             {
               "full_name": "tt-a1i/archify",
               "url": "https://github.com/tt-a1i/archify",
-              "stars": 92501,
+              "stars": 92531,
               "forks": 6314,
               "delta": null,
               "velocity": null,
@@ -1208,13 +1208,13 @@
           {
             "full_name": "caru-ini/stack-diagram",
             "url": "https://github.com/caru-ini/stack-diagram",
-            "stars": 675,
-            "forks": 30,
+            "stars": 732,
+            "forks": 33,
             "delta": null,
-            "velocity": 675,
+            "velocity": 732,
             "age_days": 1,
             "created_at": "2026-11-01T05:35:12Z",
-            "pushed_at": "2026-11-02T06:48:47Z",
+            "pushed_at": "2026-11-02T07:55:32Z",
             "language": "TypeScript",
             "topics": [
               "agent-skills",
@@ -1226,8 +1226,8 @@
               "system-architecture",
               "tech-stack"
             ],
-            "summary": "一句话描述技术栈即生成带官方 logo 的架构图，适合写文档、做方案汇报时快速出图，省去手绘时间。",
-            "score": 89
+            "summary": "一句话描述技术栈就生成带官方 logo 的架构图，省去手动画图的功夫。适合写文档、做方案汇报时快速出图，轻量好装。",
+            "score": 90
           },
           {
             "full_name": "Pluviobyte/douyin-comments",
@@ -1247,15 +1247,15 @@
               "douyin"
             ],
             "summary": "在已登录 Chrome 里复刻真实请求抓取抖音视频完整评论区含楼中楼，签名交给页面 SDK，适合做舆情与内容分析。",
-            "score": 58
+            "score": 57
           },
           {
             "full_name": "MiniMax-AI/mcode-stack",
             "url": "https://github.com/MiniMax-AI/mcode-stack",
-            "stars": 501,
+            "stars": 503,
             "forks": 39,
             "delta": null,
-            "velocity": 100.2,
+            "velocity": 100.6,
             "age_days": 5,
             "created_at": "2026-10-28T02:17:41Z",
             "pushed_at": "2026-10-29T14:24:29Z",
@@ -1269,15 +1269,37 @@
               "minimax-code"
             ],
             "summary": "MiniMax Code 团队自用的工作流与技能集，开源可装，适合想借鉴成熟 agent 工程实践、而非直接拿来干活的开发者。",
-            "score": 52
+            "score": 51
+          },
+          {
+            "full_name": "artemnovitckii/claude-animation-skills",
+            "url": "https://github.com/artemnovitckii/claude-animation-skills",
+            "stars": 79,
+            "forks": 8,
+            "delta": null,
+            "velocity": 79,
+            "age_days": 1,
+            "created_at": "2026-11-01T02:53:31Z",
+            "pushed_at": "2026-11-01T02:53:37Z",
+            "language": "JavaScript",
+            "topics": [
+              "animation",
+              "claude-code",
+              "claude-skills",
+              "hyperframes",
+              "reels",
+              "threejs"
+            ],
+            "summary": "六个 Claude Code 动画技能，无需素材即可生成 3D 讲解、火柴人等竖屏短片，适合做社媒内容但项目尚早期。",
+            "score": 50
           },
           {
             "full_name": "patch-gg/anymove",
             "url": "https://github.com/patch-gg/anymove",
-            "stars": 468,
-            "forks": 48,
+            "stars": 471,
+            "forks": 49,
             "delta": null,
-            "velocity": 78,
+            "velocity": 78.5,
             "age_days": 6,
             "created_at": "2026-10-27T08:00:42Z",
             "pushed_at": "2026-11-02T00:46:33Z",
@@ -1293,29 +1315,7 @@
               "motion-capture"
             ],
             "summary": "从单段 AI 视频提取任意生物动作，双视角 DINOv2 关节识别后拟合骨骼导出 GLB，可作 Claude Code 插件，适合游戏动画与 Blender 用户。",
-            "score": 53
-          },
-          {
-            "full_name": "artemnovitckii/claude-animation-skills",
-            "url": "https://github.com/artemnovitckii/claude-animation-skills",
-            "stars": 76,
-            "forks": 7,
-            "delta": null,
-            "velocity": 76,
-            "age_days": 1,
-            "created_at": "2026-11-01T02:53:31Z",
-            "pushed_at": "2026-11-01T02:53:37Z",
-            "language": "JavaScript",
-            "topics": [
-              "animation",
-              "claude-code",
-              "claude-skills",
-              "hyperframes",
-              "reels",
-              "threejs"
-            ],
-            "summary": "六个 Claude Code 动画技能，无需素材即可生成 3D 讲解、火柴人等竖屏短片，适合做社媒内容但项目尚早期。",
-            "score": 49
+            "score": 52
           }
         ]
       }
@@ -1381,7 +1381,7 @@
             {
               "full_name": "ArcAnima/ComfyUI-Anima-Ref-Adapter",
               "url": "https://github.com/ArcAnima/ComfyUI-Anima-Ref-Adapter",
-              "stars": 201,
+              "stars": 202,
               "forks": 11,
               "delta": null,
               "velocity": null,
@@ -1427,7 +1427,7 @@
             {
               "full_name": "aa1143/NamiGPT",
               "url": "https://github.com/aa1143/NamiGPT",
-              "stars": 161,
+              "stars": 162,
               "forks": 14,
               "delta": null,
               "velocity": null,
@@ -1451,10 +1451,36 @@
               "score": 70
             },
             {
+              "full_name": "Interactive-Active-AI/NextTransformer",
+              "url": "https://github.com/Interactive-Active-AI/NextTransformer",
+              "stars": 146,
+              "forks": 8,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-10-31T07:46:13Z",
+              "pushed_at": "2026-11-02T07:46:47Z",
+              "language": "Python",
+              "topics": [
+                "auto-research",
+                "benchmark",
+                "deep-learning",
+                "language-models",
+                "linear-attention",
+                "llm",
+                "looped-transformer",
+                "pytorch",
+                "sparse-attention",
+                "transformer"
+              ],
+              "summary": "面向下一代 Transformer 的开源研究框架，含算力对齐基准与自主架构研究平台。偏学术实验，对日常 agent 开发几乎无用。",
+              "score": 49
+            },
+            {
               "full_name": "khanh020905/my-office",
               "url": "https://github.com/khanh020905/my-office",
-              "stars": 142,
-              "forks": 71,
+              "stars": 143,
+              "forks": 72,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1473,12 +1499,12 @@
                 "visualization"
               ],
               "summary": "把 Claude Code 会话映射成 Three.js 3D 办公室的可视化面板，看着炫但只解决「看状态」这一弱需求，对日常编码提效有限，尝鲜即可。",
-              "score": 55
+              "score": 56
             },
             {
               "full_name": "aa1143/NamiAgent",
               "url": "https://github.com/aa1143/NamiAgent",
-              "stars": 132,
+              "stars": 134,
               "forks": 9,
               "delta": null,
               "velocity": null,
@@ -1499,38 +1525,12 @@
                 "tutorial"
               ],
               "summary": "中文从 100 行循环起步逐步加文件读写、命令执行、MCP 与记忆的本地 Agent 教程，带网页端可视化，适合想拆解 Claude Code 原理的开发者。",
-              "score": 63
-            },
-            {
-              "full_name": "Interactive-Active-AI/NextTransformer",
-              "url": "https://github.com/Interactive-Active-AI/NextTransformer",
-              "stars": 129,
-              "forks": 8,
-              "delta": null,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-10-31T07:46:13Z",
-              "pushed_at": "2026-11-01T12:42:25Z",
-              "language": "Python",
-              "topics": [
-                "auto-research",
-                "benchmark",
-                "deep-learning",
-                "language-models",
-                "linear-attention",
-                "llm",
-                "looped-transformer",
-                "pytorch",
-                "sparse-attention",
-                "transformer"
-              ],
-              "summary": "面向线性注意力、循环 Transformer 等新架构的研究框架，带算力对齐基准，偏学术实验，普通 Agent 开发者装了也用不上。",
-              "score": 46
+              "score": 64
             },
             {
               "full_name": "jefferysha0627/agent-office-3d",
               "url": "https://github.com/jefferysha0627/agent-office-3d",
-              "stars": 125,
+              "stars": 126,
               "forks": 7,
               "delta": null,
               "velocity": null,
@@ -1548,12 +1548,12 @@
                 "threejs"
               ],
               "summary": "低多边形 3D 办公室展示编码 Agent 实时状态，空闲角色去玩 Minecraft，趣味大于实用，适合做演示或直播背景，不解决实际开发痛点。",
-              "score": 43
+              "score": 44
             },
             {
               "full_name": "sirioberati/YouTube-AI-Motion-Graphics",
               "url": "https://github.com/sirioberati/YouTube-AI-Motion-Graphics",
-              "stars": 125,
+              "stars": 126,
               "forks": 27,
               "delta": null,
               "velocity": null,
@@ -1634,8 +1634,8 @@
             {
               "full_name": "N1nEmAn/sapper-v2",
               "url": "https://github.com/N1nEmAn/sapper-v2",
-              "stars": 536,
-              "forks": 443,
+              "stars": 547,
+              "forks": 450,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1655,9 +1655,32 @@
               "score": 83
             },
             {
+              "full_name": "Balanov/uncut",
+              "url": "https://github.com/Balanov/uncut",
+              "stars": 423,
+              "forks": 1,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-01T17:19:30Z",
+              "pushed_at": "2026-11-02T00:34:07Z",
+              "language": "Go",
+              "topics": [
+                "agent-harness",
+                "cli",
+                "coding-agent",
+                "go",
+                "headless",
+                "llm",
+                "local-models"
+              ],
+              "summary": "7MB 单文件 Go 编写的无头编码 agent 框架，四个工具走纯 stdin/stdout，输出不截断，适合把 agent 塞进脚本或本地小模型跑自动化。",
+              "score": 79
+            },
+            {
               "full_name": "wanghao-SunSky/cs329z-chinese",
               "url": "https://github.com/wanghao-SunSky/cs329z-chinese",
-              "stars": 412,
+              "stars": 415,
               "forks": 45,
               "delta": null,
               "velocity": null,
@@ -1686,38 +1709,15 @@
               "score": 80
             },
             {
-              "full_name": "Balanov/uncut",
-              "url": "https://github.com/Balanov/uncut",
-              "stars": 391,
-              "forks": 1,
-              "delta": null,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-11-01T17:19:30Z",
-              "pushed_at": "2026-11-02T00:34:07Z",
-              "language": "Go",
-              "topics": [
-                "agent-harness",
-                "cli",
-                "coding-agent",
-                "go",
-                "headless",
-                "llm",
-                "local-models"
-              ],
-              "summary": "7MB 单文件 Go 编写的无头编码 agent 框架，四个工具走纯 stdin/stdout，输出不截断，适合把 agent 塞进脚本或本地小模型跑自动化。",
-              "score": 77
-            },
-            {
               "full_name": "SAOS-3624/dsh-video-storyboard",
               "url": "https://github.com/SAOS-3624/dsh-video-storyboard",
-              "stars": 362,
+              "stars": 367,
               "forks": 26,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-26T22:00:04Z",
-              "pushed_at": "2026-11-01T15:28:35Z",
+              "pushed_at": "2026-11-02T07:18:05Z",
               "language": "JavaScript",
               "topics": [
                 "asr",
@@ -1731,8 +1731,8 @@
                 "video",
                 "video-understanding"
               ],
-              "summary": "DeepSeek Harness 插件，把视频抽成带时间戳和音轨包络的分镜拼图，单图仅 384 token，适合让 agent 低成本看懂长视频。",
-              "score": 74
+              "summary": "把视频压成单张带时间戳、字幕和音频包络的分镜图，仅约 384 token，让 agent 低成本理解视频。适合做视频分析类 agent 的人。",
+              "score": 73
             },
             {
               "full_name": "jmanico/grim-prompter",
@@ -1764,7 +1764,7 @@
             {
               "full_name": "JunWan666/astrbot-for-android",
               "url": "https://github.com/JunWan666/astrbot-for-android",
-              "stars": 308,
+              "stars": 309,
               "forks": 13,
               "delta": null,
               "velocity": null,
@@ -1789,12 +1789,12 @@
                 "ubuntu"
               ],
               "summary": "在安卓手机上免 Root 用 PRoot 跑 AstrBot 与 NapCat，带原生管理界面、WebUI、日志与备份，适合想用旧手机挂 QQ 机器人的玩家。",
-              "score": 65
+              "score": 64
             },
             {
               "full_name": "andyhuo520/vibe-knowledge",
               "url": "https://github.com/andyhuo520/vibe-knowledge",
-              "stars": 238,
+              "stars": 239,
               "forks": 46,
               "delta": null,
               "velocity": null,
@@ -1813,6 +1813,25 @@
               ],
               "summary": "Claude Code 技能：输入一个知识点，自动生成带旁白、逐句标注出处的知识短片，内置 44 套风格。适合做科普视频、需要批量出片的内容创作者。",
               "score": 55
+            },
+            {
+              "full_name": "rtora/munorai",
+              "url": "https://github.com/rtora/munorai",
+              "stars": 237,
+              "forks": 3,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-10-26T04:20:09Z",
+              "pushed_at": "2026-11-02T04:38:29Z",
+              "language": "",
+              "topics": [
+                "ai",
+                "ai-agents",
+                "developer-tools"
+              ],
+              "summary": "描述全是「更快更省更环保」的营销话术，无实质技术说明，语言未知。对开发者没有可验证的安装或使用价值，建议跳过。",
+              "score": 34
             },
             {
               "full_name": "davemessew/AgentFlux",
@@ -1836,28 +1855,9 @@
               "score": 55
             },
             {
-              "full_name": "rtora/munorai",
-              "url": "https://github.com/rtora/munorai",
-              "stars": 236,
-              "forks": 3,
-              "delta": null,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-10-26T04:20:09Z",
-              "pushed_at": "2026-11-02T04:38:29Z",
-              "language": "",
-              "topics": [
-                "ai",
-                "ai-agents",
-                "developer-tools"
-              ],
-              "summary": "描述全是「更快更省更环保」的营销话术，无实质技术说明，语言未知。对开发者没有可验证的安装或使用价值，建议跳过。",
-              "score": 34
-            },
-            {
               "full_name": "wquguru/shisei",
               "url": "https://github.com/wquguru/shisei",
-              "stars": 223,
+              "stars": 224,
               "forks": 51,
               "delta": null,
               "velocity": null,
@@ -1906,7 +1906,7 @@
             {
               "full_name": "ARahim3/DigUp",
               "url": "https://github.com/ARahim3/DigUp",
-              "stars": 6103,
+              "stars": 6108,
               "forks": 480,
               "delta": null,
               "velocity": null,
@@ -1936,8 +1936,8 @@
             {
               "full_name": "wangzan101/Mika",
               "url": "https://github.com/wangzan101/Mika",
-              "stars": 4422,
-              "forks": 841,
+              "stars": 4549,
+              "forks": 864,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1960,8 +1960,8 @@
             {
               "full_name": "OpenMOSS/MOSS-Image",
               "url": "https://github.com/OpenMOSS/MOSS-Image",
-              "stars": 2452,
-              "forks": 140,
+              "stars": 2463,
+              "forks": 141,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1976,12 +1976,12 @@
                 "text-to-image"
               ],
               "summary": "5B DiT 文生图基座模型，强项是文字渲染与版式生成，附带微调方案，适合要自建可控出图管线而非调 API 的团队。",
-              "score": 69
+              "score": 68
             },
             {
               "full_name": "mw00/project-maya",
               "url": "https://github.com/mw00/project-maya",
-              "stars": 2389,
+              "stars": 2394,
               "forks": 326,
               "delta": null,
               "velocity": null,
@@ -2013,8 +2013,8 @@
             {
               "full_name": "D3voz/openjutsu",
               "url": "https://github.com/D3voz/openjutsu",
-              "stars": 1121,
-              "forks": 165,
+              "stars": 1133,
+              "forks": 168,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2036,7 +2036,7 @@
             {
               "full_name": "eagle-hq/EAGLE-4",
               "url": "https://github.com/eagle-hq/EAGLE-4",
-              "stars": 1109,
+              "stars": 1112,
               "forks": 38,
               "delta": null,
               "velocity": null,
@@ -2059,8 +2059,8 @@
             {
               "full_name": "DozenTwelve/Papermorph",
               "url": "https://github.com/DozenTwelve/Papermorph",
-              "stars": 1054,
-              "forks": 143,
+              "stars": 1057,
+              "forks": 144,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2081,43 +2081,13 @@
                 "text-to-video"
               ],
               "summary": "Claude Code 技能，把书稿转成带动画、配音和交互的网页教材，还能导出 SCORM，适合做教育内容或课程产品的人。",
-              "score": 62
-            },
-            {
-              "full_name": "HeyChengC/vibe-knowledge-film",
-              "url": "https://github.com/HeyChengC/vibe-knowledge-film",
-              "stars": 908,
-              "forks": 94,
-              "delta": null,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-10-06T15:53:56Z",
-              "pushed_at": "2026-10-13T06:12:35Z",
-              "language": "JavaScript",
-              "topics": [
-                "agent-skills",
-                "ai-video",
-                "claude-code",
-                "claude-skills",
-                "codex",
-                "douyin",
-                "explainer-video",
-                "knowledge-video",
-                "motion-graphics",
-                "playwright",
-                "short-video",
-                "skill",
-                "text-to-video",
-                "video-generation"
-              ],
-              "summary": "抖音知识短片技能，拆解爆款、复刻画风、生成导演分镜并自动配音效一键出片，适合想批量做短视频的中文创作者。",
-              "score": 42
+              "score": 61
             },
             {
               "full_name": "modelflare-ai/AnyModelBot",
               "url": "https://github.com/modelflare-ai/AnyModelBot",
-              "stars": 806,
-              "forks": 10,
+              "stars": 913,
+              "forks": 11,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2147,12 +2117,42 @@
                 "wechat"
               ],
               "summary": "本地优先的多模型桌面聊天与 Agent 客户端，一个 key 打通 70+ 模型，可接飞书，适合想统一管理各家模型、替代闭源 Bot 的用户。",
-              "score": 53
+              "score": 55
+            },
+            {
+              "full_name": "HeyChengC/vibe-knowledge-film",
+              "url": "https://github.com/HeyChengC/vibe-knowledge-film",
+              "stars": 911,
+              "forks": 94,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-10-06T15:53:56Z",
+              "pushed_at": "2026-10-13T06:12:35Z",
+              "language": "JavaScript",
+              "topics": [
+                "agent-skills",
+                "ai-video",
+                "claude-code",
+                "claude-skills",
+                "codex",
+                "douyin",
+                "explainer-video",
+                "knowledge-video",
+                "motion-graphics",
+                "playwright",
+                "short-video",
+                "skill",
+                "text-to-video",
+                "video-generation"
+              ],
+              "summary": "抖音知识短片技能，拆解爆款、复刻画风、生成导演分镜并自动配音效一键出片，适合想批量做短视频的中文创作者。",
+              "score": 42
             },
             {
               "full_name": "jackwener/DSH-Android",
               "url": "https://github.com/jackwener/DSH-Android",
-              "stars": 723,
+              "stars": 730,
               "forks": 78,
               "delta": null,
               "velocity": null,
@@ -2191,8 +2191,8 @@
             {
               "full_name": "deepseek-ai/deepseek-harness",
               "url": "https://github.com/deepseek-ai/deepseek-harness",
-              "stars": 268730,
-              "forks": 32617,
+              "stars": 268833,
+              "forks": 32635,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2211,13 +2211,13 @@
             {
               "full_name": "NousResearch/hermes-agent",
               "url": "https://github.com/NousResearch/hermes-agent",
-              "stars": 259590,
-              "forks": 57141,
+              "stars": 259619,
+              "forks": 57147,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-07-22T22:22:28Z",
-              "pushed_at": "2026-11-02T06:50:51Z",
+              "pushed_at": "2026-11-02T08:14:36Z",
               "language": "Python",
               "topics": [
                 "ai",
@@ -2234,19 +2234,19 @@
                 "nous-research",
                 "openai"
               ],
-              "summary": "Nous Research 的通用 agent 框架，主打可成长与多模型接入，适合想自建 agent 而非只用现成工具的人。",
-              "score": 85
+              "summary": "Nous 出品的可成长型 agent 框架，主打长期记忆与技能累积，适合想自建可演进 agent、不满足于一次性脚本的开发者。",
+              "score": 90
             },
             {
               "full_name": "firecrawl/firecrawl",
               "url": "https://github.com/firecrawl/firecrawl",
-              "stars": 197748,
-              "forks": 10450,
+              "stars": 197773,
+              "forks": 10452,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2024-04-15T21:02:29Z",
-              "pushed_at": "2026-11-02T05:17:27Z",
+              "pushed_at": "2026-11-02T07:37:49Z",
               "language": "TypeScript",
               "topics": [
                 "ai",
@@ -2269,19 +2269,19 @@
                 "web-search",
                 "webscraping"
               ],
-              "summary": "把网页抓取、搜索与正文转 Markdown 封装成 API，直接喂给 agent 做检索；适合需要给 agent 补实时网页数据的项目，可自托管。",
+              "summary": "把网页抓取、搜索、转 Markdown 打包成 API，直接喂给 agent 做 RAG 和联网检索，适合需要稳定网页数据源的开发者。",
               "score": 77
             },
             {
               "full_name": "Significant-Gravitas/AutoGPT",
               "url": "https://github.com/Significant-Gravitas/AutoGPT",
-              "stars": 187860,
-              "forks": 45900,
+              "stars": 187865,
+              "forks": 45902,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2023-03-16T09:21:07Z",
-              "pushed_at": "2026-11-02T06:38:36Z",
+              "pushed_at": "2026-11-02T07:14:43Z",
               "language": "Python",
               "topics": [
                 "agentic-ai",
@@ -2296,14 +2296,14 @@
                 "openai",
                 "python"
               ],
-              "summary": "老牌自主 agent 平台，现以可视化工作流搭建为主，可组合块式节点；适合想低代码拼 agent 流程的人，但概念重、上手成本不低。",
-              "score": 66
+              "summary": "自主 agent 的老牌标杆，现转向可视化 agent 构建平台，适合学习 agent 架构，但日常开发更推荐轻量替代品。",
+              "score": 63
             },
             {
               "full_name": "ollama/ollama",
               "url": "https://github.com/ollama/ollama",
-              "stars": 185632,
-              "forks": 18860,
+              "stars": 185641,
+              "forks": 18859,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2332,13 +2332,13 @@
             {
               "full_name": "f/prompts.chat",
               "url": "https://github.com/f/prompts.chat",
-              "stars": 175565,
+              "stars": 175574,
               "forks": 22404,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2022-12-05T13:54:13Z",
-              "pushed_at": "2026-11-02T03:13:50Z",
+              "pushed_at": "2026-11-02T07:21:46Z",
               "language": "MDX",
               "topics": [
                 "ai",
@@ -2360,19 +2360,19 @@
                 "prompts-chat",
                 "typescript"
               ],
-              "summary": "社区提示词合集与自托管站点，可按角色检索复用现成 prompt；适合想快速找灵感或给团队搭私有提示词库的人，本身不含 agent 能力。",
-              "score": 59
+              "summary": "社区提示词库加自托管站点，可私有化部署给团队共享提示词，适合需要统一管理 prompt 资产的团队，非工具类。",
+              "score": 57
             },
             {
               "full_name": "huggingface/transformers",
               "url": "https://github.com/huggingface/transformers",
-              "stars": 168432,
+              "stars": 168435,
               "forks": 35080,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2018-10-29T13:56:00Z",
-              "pushed_at": "2026-11-02T06:42:37Z",
+              "pushed_at": "2026-11-02T07:26:26Z",
               "language": "Python",
               "topics": [
                 "audio",
@@ -2395,13 +2395,13 @@
                 "transformer",
                 "vlm"
               ],
-              "summary": "模型定义与推理训练框架，覆盖文本、视觉、音频与多模态；适合要自己加载微调模型的开发者，对纯 agent 编排场景偏底层。",
-              "score": 62
+              "summary": "模型定义与推理训练的事实标准库，本地跑开源模型、微调、接 agent 后端都靠它，Python 开发者必备基础设施。",
+              "score": 68
             },
             {
               "full_name": "AUTOMATIC1111/stable-diffusion-webui",
               "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
-              "stars": 165215,
+              "stars": 165217,
               "forks": 31916,
               "delta": null,
               "velocity": null,
@@ -2433,13 +2433,13 @@
             {
               "full_name": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 160193,
-              "forks": 25328,
+              "stars": 160205,
+              "forks": 25327,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2023-04-12T07:40:24Z",
-              "pushed_at": "2026-11-02T06:46:54Z",
+              "pushed_at": "2026-11-02T08:15:53Z",
               "language": "Python",
               "topics": [
                 "agent",
@@ -2462,14 +2462,14 @@
                 "skills",
                 "workflow"
               ],
-              "summary": "可视化搭建 agent 工作流与 RAG 流水线的成熟平台，支持自托管和多模型，适合团队从原型直接推到生产。",
+              "summary": "可视化编排 agent 工作流与 RAG 流水线，支持自托管和多模型接入，适合想把原型快速推到生产的团队。",
               "score": 63
             },
             {
               "full_name": "open-webui/open-webui",
               "url": "https://github.com/open-webui/open-webui",
-              "stars": 157508,
-              "forks": 22905,
+              "stars": 157517,
+              "forks": 22906,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2520,13 +2520,13 @@
           {
             "full_name": "SAOS-3624/dsh-see-now",
             "url": "https://github.com/SAOS-3624/dsh-see-now",
-            "stars": 60,
+            "stars": 68,
             "forks": 2,
             "delta": null,
-            "velocity": 60,
+            "velocity": 68,
             "age_days": 1,
             "created_at": "2026-11-01T13:32:34Z",
-            "pushed_at": "2026-11-01T15:48:27Z",
+            "pushed_at": "2026-11-02T07:52:22Z",
             "language": "JavaScript",
             "topics": [
               "ai-agent",
@@ -2539,7 +2539,7 @@
               "token-efficient",
               "vision"
             ],
-            "summary": "让 Agent 实时看屏幕，按画面变化筛帧、多帧拼图，静止画面几乎不耗 token。适合需要视觉反馈的桌面自动化场景，但依赖特定插件生态。",
+            "summary": "按画面变化抽帧并拼图压缩，让 agent 低成本看屏幕，适合做桌面自动化又怕烧 token 的开发者，项目尚早期。",
             "score": 86
           },
           {
@@ -2566,15 +2566,15 @@
               "vllm"
             ],
             "summary": "按请求即时切换模型对齐强度，支持 vLLM/SGLang/llama.cpp。适合自建推理服务、需要按用户或渠道控制模型行为的团队，配置门槛偏高。",
-            "score": 83
+            "score": 78
           },
           {
             "full_name": "gh9ko8y/graphmemory",
             "url": "https://github.com/gh9ko8y/graphmemory",
-            "stars": 111,
+            "stars": 115,
             "forks": 2,
             "delta": null,
-            "velocity": 37,
+            "velocity": 38.333333333333336,
             "age_days": 3,
             "created_at": "2026-10-30T12:53:31Z",
             "pushed_at": "2026-10-30T14:00:35Z",
@@ -2592,13 +2592,13 @@
               "python"
             ],
             "summary": "双时态 Agent 记忆系统，带衰减、分级召回、TTL 和竞争检索，依赖 Neo4j+PG+Redis。适合长期记忆需求明确、能维护三套存储的项目。",
-            "score": 62
+            "score": 60
           },
           {
             "full_name": "jutsuhq/open-source-higgsfield",
             "url": "https://github.com/jutsuhq/open-source-higgsfield",
             "stars": 93,
-            "forks": 11,
+            "forks": 12,
             "delta": null,
             "velocity": 31,
             "age_days": 3,
@@ -2622,34 +2622,37 @@
               "opensourcehiggsfield"
             ],
             "summary": "汇总 ComfyUI 开源 Higgsfield 替代方案的 awesome 列表，涵盖换脸、VFX、镜头重拍。适合找开源视频生成工具的人，但只是索引，需逐个验证。",
-            "score": 54
+            "score": 51
           },
           {
-            "full_name": "wiva-hq/CodeRail",
-            "url": "https://github.com/wiva-hq/CodeRail",
-            "stars": 55,
-            "forks": 0,
+            "full_name": "atuizz/posewear",
+            "url": "https://github.com/atuizz/posewear",
+            "stars": 58,
+            "forks": 22,
             "delta": null,
-            "velocity": 27.5,
+            "velocity": 29,
             "age_days": 2,
-            "created_at": "2026-10-31T08:20:45Z",
-            "pushed_at": "2026-10-31T08:59:59Z",
-            "language": "TypeScript",
+            "created_at": "2026-10-30T19:08:14Z",
+            "pushed_at": "2026-10-31T16:07:51Z",
+            "language": "Python",
             "topics": [
-              "agent-client-protocol",
-              "ai-agents",
-              "bun",
-              "claude-code",
-              "codex",
-              "coding-agents",
-              "docker",
-              "macos",
-              "remote-control",
-              "self-hosted",
-              "svelte"
+              "ai-art",
+              "ai-try-on",
+              "chinese",
+              "cloudflare-pages",
+              "fashion",
+              "gemini",
+              "gpt-image",
+              "image-generation",
+              "outfit-reference",
+              "pose-reference",
+              "prompt",
+              "pwa",
+              "seedream",
+              "virtual-try-on"
             ],
-            "summary": "单容器自托管的编码 agent 远程控制台，手机浏览器即可查看 Claude Code/Codex 会话、审批操作、终端与 git，适合多机开发者。",
-            "score": 55
+            "summary": "姿势服装参考图库配中英提示词，浏览器内可 AI 试穿，适合出图创作者找参考，对 agent 开发者价值有限。",
+            "score": 41
           }
         ]
       }
