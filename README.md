@@ -30,8 +30,30 @@
 | 潜力榜门槛 | 10 | 50 |
 | 池子 | `data/pool.json` · `data/snapshots/` | `data/pool-aigc.json` · `data/snapshots-aigc/` |
 
-**AIGC 单向让路**：AIGC 的某一档会剔掉同一档里已经出现在 Skills 榜上的仓库，Skills 榜不受影响。
-潜力榜同理（AIGC 剔掉 Skills 潜力榜上已有的）。所以两个榜不会出现同一个仓库。
+**AIGC 单向让路**：AIGC 的每一档都会剔掉 Skills 榜上出现过的仓库（四档 + 潜力榜全算），Skills 榜不受影响。
+
+### 跨档去重：一个仓库一天只出现一次
+
+排名按 **总 → 月 → 周 → 日 → 潜力榜** 的优先级依次生成，每一档排除前面已入选的仓库。
+被剔掉的位置继续往下取，补满 10 条——所以日榜不会被抽空，但它的语义变了：
+**不再是「昨天涨得最多的 10 个」，而是「没进总/月/周榜的仓库里涨得最多的 10 个」**。
+
+实测 11-01 那期，Skills 日榜前三从 `+7,301 / +1,840 / +1,445` 变成 `+415 / +294 / +235`。
+数字是真的，但量级差了一个数量级，这是规则本身决定的，不是 bug。
+
+去重顺序在 `config.dedupeOrder` 里，和页面展示顺序（日/周/月/总）是两回事：
+
+| | 顺序 | 用途 |
+|---|---|---|
+| `config.periods` | 日 → 周 → 月 → 总 | 顶部导航的排列 |
+| `config.dedupeOrder` | 总 → 月 → 周 → 日 | 谁先挑仓库 |
+
+**首屏不受影响。** 「昨夜最亮的 / 涨了 N」取的是全站当日净增第一，不参与去重；
+那个仓库一定在总榜里，没有从页面上消失。取数在 `build.mjs` 里单独跑一次（`heroItem`），
+不重用日榜第一名——否则首屏大数字会跟着塌到 +415。
+
+潜力榜排在日榜之后，所以它现在是「四档都没收下的新苗」。AIGC 潜力榜的实际力度会明显下降
+（原来那 5 条全被四档吃掉），数量仍靠窗口外扩（7→28 天）补满 5 条，不降门槛。
 
 潜力榜的排序刻意不用 star 总量：一个 3 天涨 300 的仓库，比 20 天涨 900 的更值得看。
 
@@ -296,6 +318,7 @@ token 过期、仓库改名都会触发这条路径——有邮件才能及时�
 | star 门槛 | `groups[].minStars` 与 `groups[].minStarsByPeriod`（Skills 10；AIGC 日/周 50、月/总 100）|
 | 潜力榜条数 / 窗口 | `potential.skills` / `potential.aigc` 的 `limit` / `windowSteps` / `minCount` |
 | 领域顺序（默认哪个在前） | `config.groups` 数组顺序，第一个就是默认打开的领域 |
+| 去重优先级 | `config.dedupeOrder`（默认 `all,month,week,day`，潜力榜永远排最后） |
 | 推荐分权重 | `config.scoreWeights` |
 | Skills 抓取范围 | `groups[skills].search.topics` / `lanes` |
 | AIGC 抓取范围 | `groups[aigc].search.topics` / `lanes` |
