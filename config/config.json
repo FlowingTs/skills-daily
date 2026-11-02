@@ -209,7 +209,13 @@
       "^awesome-[a-z-]+$",
       "interview",
       "leetcode",
-      "roadmap"
+      "roadmap",
+      "nsfw",
+      "uncensored",
+      "porn",
+      "hentai",
+      "nsfl",
+      "onlyfans"
     ]
   },
   "deepseek": {
