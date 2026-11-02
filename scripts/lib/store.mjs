@@ -13,9 +13,24 @@ export const P = {
 };
 
 export async function ensureDirs() {
-  for (const d of [P.snapshots, P.daily, path.join(P.site, 'assets'), path.join(P.site, 'archive')]) {
+  for (const d of [
+    P.snapshots,
+    P.daily,
+    path.join(P.site, 'assets'),
+    path.join(P.site, 'archive'),
+  ]) {
     await fs.mkdir(d, { recursive: true });
   }
+}
+
+/** 每个领域一个独立仓库池：data/pool.json、data/pool-aigc.json */
+export function groupPoolFile(name) {
+  return path.join(ROOT, 'data', `${name}.json`);
+}
+
+/** 每个领域一套独立快照目录：data/snapshots/、data/snapshots-aigc/ */
+export function groupSnapshotDir(name) {
+  return path.join(ROOT, 'data', name);
 }
 
 export async function readJSON(file, fallback = null) {
@@ -53,13 +68,13 @@ export async function loadConfig() {
 }
 
 /** 读取最近 n 天的快照，返回 { 'YYYY-MM-DD': { fullName: stars } } */
-export async function loadRecentSnapshots(latestDate, maxDays) {
+export async function loadRecentSnapshots(dir, latestDate, maxDays) {
   const out = {};
-  const names = await listJSONNames(P.snapshots);
+  const names = await listJSONNames(dir);
   const cutoff = Date.parse(`${latestDate}T12:00:00Z`) - maxDays * 86400000;
   for (const name of names) {
     if (Date.parse(`${name}T12:00:00Z`) < cutoff) continue;
-    const s = await readJSON(path.join(P.snapshots, `${name}.json`));
+    const s = await readJSON(path.join(dir, `${name}.json`));
     if (s?.repos) out[name] = s.repos;
   }
   return out;

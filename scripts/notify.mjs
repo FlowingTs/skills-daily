@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { P, loadConfig, readJSON } from './lib/store.mjs';
-import { addDays, bjToday, cnDate, fmtNum, fmtDelta, log } from './lib/util.mjs';
+import { addDays, bjToday, cnDate, fmtNum, log } from './lib/util.mjs';
 
 const WEBHOOK = process.env.WECOM_WEBHOOK || '';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
@@ -10,58 +10,59 @@ function trim(s, max) {
   return s.length > max ? `${s.slice(0, max - 1)}…` : s;
 }
 
+/**
+ * 只推两个领域的潜力榜：日/周/月/总已经收进页面切换里，
+ * 早上八点最值得看的其实是「昨天又冒出来什么」，而不是「谁又涨了」。
+ */
 function buildMarkdown(report, config, opts = {}) {
   const topN = opts.topN ?? config.notify.topNPerColumn ?? 3;
   const whyLen = opts.whyLen ?? 46;
   const showRec = opts.rec !== false;
   const lines = [];
 
+  const pools = report.groups.map((g) => `${g.label} ${g.pool_size}`).join(' · ');
   lines.push(`## ◤◢ SKILLS DAILY · ${cnDate(report.date)}`);
-  lines.push(
-    `<font color="comment">池 ${report.pool_size} 个仓库 · 快照 ${report.snapshot_days} 天 · 生成 ${report.generated_at.slice(11)}</font>`,
-  );
+  lines.push(`<font color="comment">${pools} 个仓库 · 生成 ${report.generated_at.slice(11)}</font>`);
 
-  for (const col of report.columns) {
+  for (const g of report.groups) {
+    const pot = g.potential;
     lines.push('');
-    lines.push(`> **${col.label}**　<font color="comment">${col.status === 'live' ? 'LIVE' : 'COLD START'}</font>`);
-    if (!col.items.length) {
-      lines.push('> <font color="comment">今日空置（宁缺勿滥）</font>');
+    const window = pot.used_window ? `近 ${pot.used_window} 天新建` : '新建仓库';
+    lines.push(`> **${g.label} ${pot.label}**　<font color="comment">${window} · 按每天拿到的 star 排</font>`);
+    if (!pot.items.length) {
+      lines.push('> <font color="comment">今天没有满足条件的仓库（宁缺勿滥）</font>');
       continue;
     }
-    col.items.slice(0, topN).forEach((it, i) => {
-      const metric =
-        col.metric === 'delta' && typeof it.delta === 'number'
-          ? `<font color="warning">${fmtDelta(it.delta)}</font>`
-          : `★${fmtNum(it.stars)}`;
-      const why = it.summary && whyLen > 0 ? trim(it.summary, whyLen) : '';
+    pot.items.slice(0, topN).forEach((it, i) => {
+      const speed = Math.round(it.velocity ?? 0);
       const rec = showRec && typeof it.score === 'number' ? `　<font color="comment">REC ${it.score}</font>` : '';
-      lines.push(`> ${i + 1}. [${it.full_name}](${it.url}) ${metric}${rec}`);
-      if (why) lines.push(`> 　<font color="comment">${why}</font>`);
+      lines.push(`> ${i + 1}. [${it.full_name}](${it.url}) <font color="warning">+${fmtNum(speed)}/天</font>${rec}`);
+      if (it.summary && whyLen > 0) {
+        lines.push(`> 　<font color="comment">${trim(it.summary, whyLen)}</font>`);
+      }
     });
-    if (col.items.length > topN) {
-      lines.push(`> <font color="comment">…另有 ${col.items.length - topN} 条</font>`);
+    if (pot.items.length > topN) {
+      lines.push(`> <font color="comment">…另有 ${pot.items.length - topN} 个</font>`);
     }
   }
 
   if (SITE_URL) {
     lines.push('');
-    lines.push(`[◆ 打开完整日报](${SITE_URL})`);
+    lines.push(`[◆ 打开完整日报 · 日/周/月/总四档可切换](${SITE_URL})`);
   }
 
   return lines.join('\n');
 }
 
 /**
- * 企业微信 markdown 上限 4096 字节，多一栏就会顶到。
- * 逐级降级，而不是只打一行日志假装截断了：
- * 先压点评长度，再减少每栏条数，最后按行硬截。
+ * 企业微信 markdown 上限 4096 字节。
+ * 逐级降级，而不是只打一行日志假装截断了。
  */
 const PLANS = [
   { topN: 3, whyLen: 46, rec: true },
   { topN: 3, whyLen: 30, rec: true },
-  // 保住每栏 3 条：宁可摘掉 REC 标签、压短点评，也不把条目减半
   { topN: 3, whyLen: 26, rec: false },
-  { topN: 2, whyLen: 34, rec: true },
+  { topN: 2, whyLen: 30, rec: true },
   { topN: 2, whyLen: 0, rec: false },
   { topN: 1, whyLen: 0, rec: false },
 ];

@@ -7,26 +7,53 @@ function createdWithin(repo, targetDate, days) {
   return Date.parse(repo.created_at) >= cutoff;
 }
 
-function pushedWithin(repo, targetDate, days) {
-  const cutoff = Date.parse(`${addDays(targetDate, -(days - 1))}T00:00:00+08:00`);
-  return Date.parse(repo.pushed_at) >= cutoff;
+function keep(repo, exclude) {
+  return !exclude || !exclude.has(repo.full_name);
 }
 
 /**
- * 计算某一列的增量榜
- * @returns {{status:string, items:Array, have:number, need:number}}
+ * 计算某个领域在某个周期下的榜单
+ * @param {'delta'|'stars'} period.metric
+ * @returns {{status:string, items:Array, have:number, need:number, badge:string}}
  */
-export function computeDeltaColumn(pool, snapshots, targetDate, windowDays, minStars, perColumn) {
-  const nowKey = targetDate;
-  const baseKey = addDays(targetDate, -windowDays);
-  const nowSnap = snapshots[nowKey];
-  const baseSnap = snapshots[baseKey];
+export function buildPeriodColumn({
+  pool,
+  snapshots,
+  targetDate,
+  period,
+  minStars,
+  perColumn,
+  allSinceDays = null,
+  exclude = null,
+}) {
+  if (period.metric === 'stars') {
+    const cutoff = allSinceDays ? Date.parse(`${addDays(targetDate, -allSinceDays)}T00:00:00+08:00`) : null;
+    const items = pool
+      .filter((r) => r.stargazers_count >= minStars)
+      .filter((r) => keep(r, exclude))
+      .filter((r) => !cutoff || Date.parse(r.created_at) >= cutoff)
+      .map((repo) => ({ repo, delta: null, kind: 'stars' }))
+      .sort((x, y) => y.repo.stargazers_count - x.repo.stargazers_count);
+    const top = items.slice(0, perColumn);
+    return {
+      status: top.length ? 'live' : 'empty',
+      items: top,
+      have: 0,
+      need: 0,
+      badge: '热度总量',
+    };
+  }
+
+  const nowSnap = snapshots[targetDate];
+  const baseSnap = snapshots[addDays(targetDate, -period.window)];
   const have = Object.keys(snapshots).filter((d) => d <= targetDate).length;
-  const need = windowDays + 1;
+  const need = period.window + 1;
 
   if (nowSnap && baseSnap) {
     const items = [];
     for (const repo of pool) {
+      if (repo.stargazers_count < minStars) continue;
+      if (!keep(repo, exclude)) continue;
       const a = nowSnap[repo.full_name];
       const b = baseSnap[repo.full_name];
       if (typeof a !== 'number' || typeof b !== 'number') continue;
@@ -35,32 +62,29 @@ export function computeDeltaColumn(pool, snapshots, targetDate, windowDays, minS
       items.push({ repo, delta, kind: 'delta' });
     }
     items.sort((x, y) => y.delta - x.delta || y.repo.stargazers_count - x.repo.stargazers_count);
-    return { status: 'live', items: items.slice(0, perColumn), have, need };
+    return { status: 'live', items: items.slice(0, perColumn), have, need, badge: `近 ${period.window} 天净增` };
   }
 
-  return { status: 'collecting', items: [], have, need };
-}
-
-/** 冷启动降级口径：窗口内新建的仓库，按 star 排 */
-export function computeColdStart(pool, targetDate, windowDays, minStars, perColumn) {
-  const items = pool
+  // 冷启动降级：窗口内新建的仓库按 star 排。角标与说明必须写明这不是净增。
+  // 单日档在冷启动时用 7 天窗（period.coldWindow）：「一天内新建且够门槛」的仓库太少，
+  // 硬按 1 天算会得到一张空榜，反而没法判断这一档有没有东西。
+  const coldWindow = period.coldWindow ?? Math.max(period.window, 1);
+  const cold = pool
     .filter((r) => r.stargazers_count >= minStars)
-    .filter((r) => createdWithin(r, targetDate, Math.max(windowDays, 1)))
+    .filter((r) => keep(r, exclude))
+    .filter((r) => createdWithin(r, targetDate, coldWindow))
     .map((repo) => ({ repo, delta: null, kind: 'stars' }))
-    .sort((x, y) => y.repo.stargazers_count - x.repo.stargazers_count);
-  return items.slice(0, perColumn);
-}
+    .sort((x, y) => y.repo.stargazers_count - x.repo.stargazers_count)
+    .slice(0, perColumn);
 
-/** 总热门：近 12 个月新建 + star 总量 */
-export function computeAllTime(pool, minStars, perColumn) {
-  const now = Date.now();
-  const cutoff = now - 365 * DAY;
-  const items = pool
-    .filter((r) => r.stargazers_count >= minStars)
-    .filter((r) => Date.parse(r.created_at) >= cutoff)
-    .map((repo) => ({ repo, delta: null, kind: 'stars' }))
-    .sort((x, y) => y.repo.stargazers_count - x.repo.stargazers_count);
-  return items.slice(0, perColumn);
+  return {
+    status: cold.length ? 'coldstart' : 'collecting',
+    items: cold.map((x) => ({ ...x, approx: true })),
+    have,
+    need,
+    coldWindow,
+    badge: '冷启动',
+  };
 }
 
 /**
@@ -68,10 +92,11 @@ export function computeAllTime(pool, minStars, perColumn) {
  * 排序用「每天拿到的 star」而不是总量：一个 3 天涨 300 的仓库，比 20 天涨 900 的更值得看。
  * 窗口被撑到哪一步，要在页面上写明，不能让人以为是固定 7 天。
  */
-export function computePotential(pool, targetDate, col, minStars) {
-  const steps = col.windowSteps ?? [col.window ?? 7];
-  const limit = col.limit ?? 5;
-  const minCount = col.minCount ?? 3;
+export function computePotential(pool, targetDate, cfg, exclude = null) {
+  const steps = cfg.windowSteps ?? [cfg.window ?? 7];
+  const limit = cfg.limit ?? 5;
+  const minCount = cfg.minCount ?? 3;
+  const minStars = cfg.minStars ?? 10;
   const refEnd = Date.parse(`${targetDate}T23:59:59+08:00`);
 
   let last = { window: steps[0], items: [] };
@@ -79,6 +104,7 @@ export function computePotential(pool, targetDate, col, minStars) {
   for (const windowDays of steps) {
     const items = pool
       .filter((r) => r.stargazers_count >= minStars)
+      .filter((r) => keep(r, exclude))
       .filter((r) => createdWithin(r, targetDate, windowDays))
       .map((repo) => {
         const ageDays = Math.max(1, Math.ceil((refEnd - Date.parse(repo.created_at)) / DAY));
@@ -91,58 +117,6 @@ export function computePotential(pool, targetDate, col, minStars) {
   }
 
   return { window: last.window, items: last.items.slice(0, limit) };
-}
-
-export function buildColumns({ pool, snapshots, targetDate, config }) {
-  const { perColumn, minStars } = config;
-  const out = [];
-
-  for (const col of config.columns) {
-    if (col.metric === 'velocity') {
-      const res = computePotential(pool, targetDate, col, minStars);
-      out.push({
-        ...col,
-        status: res.items.length ? 'live' : 'empty',
-        items: res.items,
-        usedWindow: res.window,
-        have: 0,
-        need: 0,
-        badge: `${res.window}D NEW`,
-      });
-      continue;
-    }
-
-    if (col.metric === 'stars') {
-      const items = computeAllTime(pool, minStars, perColumn);
-      out.push({
-        ...col,
-        status: items.length ? 'live' : 'empty',
-        items,
-        have: 0,
-        need: 0,
-        badge: 'STAR TOTAL',
-      });
-      continue;
-    }
-
-    const live = computeDeltaColumn(pool, snapshots, targetDate, col.window, minStars, perColumn);
-    if (live.status === 'live') {
-      out.push({ ...col, ...live, badge: `+${col.window}D NET` });
-      continue;
-    }
-
-    const cold = computeColdStart(pool, targetDate, col.window, minStars, perColumn);
-    out.push({
-      ...col,
-      status: cold.length ? 'coldstart' : 'collecting',
-      items: cold.map((x) => ({ ...x, approx: true })),
-      have: live.have,
-      need: live.need,
-      badge: 'COLD START',
-    });
-  }
-
-  return out;
 }
 
 /** 热度原始值（对数压缩），列内再做归一化才有区分度 */

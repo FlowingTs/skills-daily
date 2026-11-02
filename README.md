@@ -1,28 +1,43 @@
 # SKILLS DAILY · 技能日报
 
-每天北京时间 **08:00**（cron-job.org 触发，见下文「定时触发」）抓取 GitHub 上的 AI Agent 技能仓库，
+每天北京时间 **08:00**（cron-job.org 触发，见下文「定时触发」）抓取 GitHub 上的仓库，
 生成一份黑色宇宙风格的日报页面，并把摘要推到企业微信群。
 
-五个栏目：**总热门 / 月热门 / 周热门 / 单日热门 / 潜力榜**。前四栏每栏最多 10 条，
-潜力榜最多 5 条，抓不满就空着。页面顶部有粘顶导航，点栏目名可直接定位到对应榜单。
+两个领域 × 四个周期：**Skills / AIGC** 各出 **日 / 周 / 月 / 总** 四档，每档最多 10 条；
+下面是两份独立的**潜力榜**（Skills 新苗 / AIGC 新苗），各最多 5 条。
+
+页面打开默认只显示 **Skills 日榜**，想看别的就点一下：顶部粘顶导航切周期（日/周/月/总），
+榜单区的分段标签切领域（Skills / AIGC）。抓不满就空着，不补位。
 
 ---
 
 ## 口径说明（先看这段，不然会误读榜单）
 
-| 栏目 | 口径 | 冷启动期 |
+| 档位 | 口径 | 冷启动期 |
 |---|---|---|
-| 总热门 | 近 12 个月新建的仓库，按 star 总数排 | 立即有数据 |
+| 总热门 | Skills：近 12 个月新建，按 star 总量；AIGC：全历史，按 star 总量 | 立即有数据 |
 | 月热门 | 近 30 天 star **净增** | 快照不足 31 天时，降级为「近 30 天新建仓库按 star」 |
 | 周热门 | 近 7 天 star 净增 | 快照不足 8 天时，降级为「近 7 天新建仓库按 star」 |
-| 单日热门 | 前一天 00:00–24:00 的 star 净增 | 快照不足 2 天时，降级为空置 |
+| 单日热门 | 前一天 00:00–24:00 的 star 净增 | 快照不足 2 天时，降级为「近 7 天新建仓库按 star」 |
 | 潜力榜 | 新建仓库按**每天拿到的 star** 排（速度，不是存量） | 无需快照，立即有数据 |
+
+两个领域各自一套仓库池和快照，互不干扰：
+
+| | Skills | AIGC |
+|---|---|---|
+| 收什么 | `SKILL.md` 那类 Agent 技能仓库 | 不限 skills，生成式 AI 全范围（模型、推理、图像/视频/语音生成、框架、Agent、RAG） |
+| star 门槛 | 统一 10 | 日/周 50，月/总 100 |
+| 潜力榜门槛 | 10 | 50 |
+| 池子 | `data/pool.json` · `data/snapshots/` | `data/pool-aigc.json` · `data/snapshots-aigc/` |
+
+**AIGC 单向让路**：AIGC 的某一档会剔掉同一档里已经出现在 Skills 榜上的仓库，Skills 榜不受影响。
+潜力榜同理（AIGC 剔掉 Skills 潜力榜上已有的）。所以两个榜不会出现同一个仓库。
 
 潜力榜的排序刻意不用 star 总量：一个 3 天涨 300 的仓库，比 20 天涨 900 的更值得看。
 
 **窗口会自动外扩。** 从近 7 天开始，如果凑不够 3 条，就放宽到 14 天、21 天、28 天，
 直到够 3 条为止（上限 28 天）。页面会写明当期实际用的是哪个窗口，不会让人以为固定 7 天。
-参数在 `config.json` 的 `columns[potential]`：`windowSteps` / `minCount` / `limit`。
+参数在 `config.json` 的 `potential.skills` / `potential.aigc`：`windowSteps` / `minCount` / `limit`。
 
 **为什么净增要等？** GitHub 官方 API 只返回当前 star 总数，不提供历史曲线。净增只能靠每天存一次快照、用相邻两次快照相减得到。
 
@@ -36,6 +51,16 @@
 不会把代理数据伪装成净增。
 
 **发布日与数据日的关系**：8:00 发布的日报，标题日期是**前一天**，覆盖前一天整天。快照在每天同一时刻采集，因此相邻快照相减恰好是 24 小时窗口。
+
+---
+
+## 推送什么
+
+早八点只推**两份潜力榜**：Skills 新苗 top3 + AIGC 新苗 top3，带一句中文点评。
+
+理由是日/周/月/总已经收进页面切换里，早上最值得看的是「昨天又冒出来什么」，而不是「谁又涨了」。
+完整四档要看就点链接进页面。企业微信 markdown 上限 4096 字节，`notify.mjs` 里有逐级降级阶梯
+（先压点评长度 → 再去掉 REC 标签 → 再减条目 → 最后按行硬截），不会因为字数超限整条发不出去。
 
 ---
 
@@ -61,9 +86,25 @@
 
 | 改动 | 做法 |
 |---|---|
-| 粘顶导航 | 五条栏目锚点 + 一个动作。原来手机端整条 `display:none`、桌面端随页面滚走，等于没有。现在手机上折成第二行的横滑条，桌面端粘顶；离开首屏换一层底色（色阶，不是阴影/毛玻璃）；当前所在栏目的链接自动点亮 |
+| 粘顶导航 | 五条锚点 + 一个动作。原来手机端整条 `display:none`、桌面端随页面滚走，等于没有。现在手机上折成第二行的横滑条，桌面端粘顶；离开首屏换一层底色（色阶，不是阴影/毛玻璃）；当前所在栏目的链接自动点亮 |
 | 潜力榜 | 版式刻意与另外四栏不同：没有 168px 的大头像头名，改成双列紧凑行，右侧给「每天 +N」。条目为奇数时最后一条横跨两列，不留空洞 |
 | 动效 | 入场 `translateY + scale(.985)`，缓动末段过冲 1.04 做弹起；悬停整行右移 6–8px、头像放大 1.06–1.14；按下回缩 0.994–0.997。全部只动 transform，`prefers-reduced-motion` 下全部关闭；**不使用透明动画**，脚本失败时内容依然可见 |
+
+### 第三轮：两个领域 × 四个周期
+
+原来的四栏并排，其中总热门几乎不变、月榜也在趋稳，等于每天有一半屏幕在重复昨天。
+改成「一次只看一档」：
+
+| 改动 | 做法 |
+|---|---|
+| 周期切换 | 顶部粘顶导航就是周期切换器：日榜 / 周榜 / 月榜 / 总榜 + 潜力榜。点日榜不只是跳转，会真的把面板切到当日 |
+| 领域切换 | 榜单区的分段标签 Skills / AIGC，下方只有一块内容区；换领域时保留当前周期 |
+| 潜力榜 | 独立一段，自带 Skills / AIGC 子切换。首名单独一层（168 头像 + 速度大字），其余是双列紧凑行 |
+| 默认状态 | Skills + 日榜。刷新回到默认，不做记忆 |
+| 无脚本时 | `no-js` 下八个面板全部展开，内容不丢 |
+
+面板用 `display:none` 隐藏，所以切换时必须重算图片尺寸——`few-pictures` 这条体检规则会因此
+只数到一张榜内大图。解法是让潜力榜首名也占一张 168px 头像，页面同时有三处大图。
 
 锚点需要 `scroll-margin-top` 抵消粘顶栏（桌面 84px、手机 116px），否则标题会被盖住。
 
@@ -77,15 +118,17 @@
 
 ```
 .github/workflows/daily.yml   定时任务：采集 → 生成 → 提交 → 部署 → 推送
-config/config.json             阈值、权重、栏目、搜索车道
+config/config.json             阈值、权重、领域与周期、搜索车道
 scripts/collect.mjs            抓仓库、落快照
 scripts/build.mjs              算榜、调模型点评、生成页面
-scripts/notify.mjs             企业微信群机器人推送
+scripts/notify.mjs             企业微信群机器人推送（只推两份潜力榜）
 scripts/lib/github.mjs         GitHub API（带限流退避）
 scripts/lib/rank.mjs           榜单计算与推荐分
 scripts/lib/render.mjs         页面渲染
-data/pool.json                 仓库池（累积，不重置）
-data/snapshots/                每日 star 快照（净增的唯一依据）
+data/pool.json                 Skills 仓库池（累积，不重置）
+data/pool-aigc.json            AIGC 仓库池
+data/snapshots/                Skills 每日快照（净增的唯一来源，别删）
+data/snapshots-aigc/           AIGC 每日快照
 data/daily/                    每日日报成品
 data/enrich-cache.json         模型点评缓存（30 天 / 仓库更新后失效）
 site/                          生成的静态站，GitHub Pages 直接从这儿取
@@ -249,10 +292,13 @@ token 过期、仓库改名都会触发这条路径——有邮件才能及时�
 
 | 想改什么 | 改哪里 |
 |---|---|
-| 每栏条数 | `config.perColumn` |
-| 最低 star 门槛 | `config.minStars`（默认 10，个位数直接不纳入统计）|
+| 每档条数 | `config.perColumn`（默认 10） |
+| star 门槛 | `groups[].minStars` 与 `groups[].minStarsByPeriod`（Skills 10；AIGC 日/周 50、月/总 100）|
+| 潜力榜条数 / 窗口 | `potential.skills` / `potential.aigc` 的 `limit` / `windowSteps` / `minCount` |
+| 领域顺序（默认哪个在前） | `config.groups` 数组顺序，第一个就是默认打开的领域 |
 | 推荐分权重 | `config.scoreWeights` |
-| 抓取范围 | `config.search.topics` / `lanes` |
+| Skills 抓取范围 | `groups[skills].search.topics` / `lanes` |
+| AIGC 抓取范围 | `groups[aigc].search.topics` / `lanes` |
 | 推送条数 | `config.notify.topNPerColumn` |
 | 模型批次大小 | `config.deepseek.batchSize` |
 
