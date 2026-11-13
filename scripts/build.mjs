@@ -269,17 +269,29 @@ async function main() {
   await writeText(path.join(P.site, 'index.html'), renderPage({ ...shared, root: '' }));
   await writeText(path.join(P.site, 'archive', `${TARGET}.html`), renderPage({ ...shared, root: '../' }));
 
-  // 生成每日分享图（竖版 PNG）：潜力榜 Top5 + 二维码扫码进首页。
+  // 生成每日分享图（竖版 PNG）：三个领域潜力榜各取前三（带一句介绍）+ 二维码。
   // 主路径用 HTML/CSS 排版后截图（真字体、真层级）；没有浏览器时退回点阵版。
   try {
-    const shareItems = built[0]?.potential?.items?.slice(0, 5).map((it) => ({
-      full_name: it.repo.full_name,
-      velocity: it.velocity,
-    })) ?? [];
+    // 每个领域把整份潜力榜都传过去：分享图会先折叠同类镜像仓库再取前三，
+    // 折叠掉几条就要能往后补位，这里不能提前切。
+    const perGroup = (b) =>
+      (b.potential?.items ?? []).map((it) => ({
+        full_name: it.repo.full_name,
+        velocity: it.velocity,
+        summary: it.summary,
+      }));
+    const shareGroups = built.map((b) => ({
+      id: b.group.id,
+      label: b.group.label,
+      window: b.potential?.usedWindow,
+      items: perGroup(b),
+    }));
+    // 点阵兜底版只认单列 items，把它拍平成一份
+    const shareItems = built.flatMap(perGroup).slice(0, 5);
     const shareUrl = (config.siteUrl || '').replace(/\/$/, '') + '/';
     let shareRes;
     try {
-      shareRes = await writeShareCard({ date: TARGET, items: shareItems, url: shareUrl });
+      shareRes = await writeShareCard({ date: TARGET, groups: shareGroups, url: shareUrl });
     } catch (err) {
       log(`HTML 分享图失败（${err.message}），退回点阵版`);
       shareRes = await writeShareCardBitmap({ date: TARGET, items: shareItems, url: shareUrl });
