@@ -1,6 +1,7 @@
 {
   "timezone": "Asia/Shanghai",
   "publishHour": 8,
+  "siteUrl": "https://flowingts.github.io/skills-daily",
   "perColumn": 10,
   "minStars": 10,
   "title": "SKILLS DAILY",

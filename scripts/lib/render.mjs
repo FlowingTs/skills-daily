@@ -260,13 +260,28 @@ export function renderPage({
 
   const risePanels = groups.map((g, i) => renderRisePanel(g, g.potential, root, faces, i === 0)).join('');
 
+  // 微信/企业微信转发链接卡片抓取的就是首页的 <title> 和 <meta name="description">。
+  // 让卡片直接露出「潜力榜 Top3 的仓库名」，一眼能看到具体内容，想了解细节再点进站。
+  const metaDescription = (() => {
+    const pot = groups[0]?.potential?.items ?? [];
+    const names = pot.slice(0, 3).map((it) => it.repo?.full_name).filter(Boolean);
+    if (names.length === 0) {
+      return '每天从 GitHub 抓取 AI 技能与 AIGC 仓库，按 star 净增排出日、周、月、总四档榜单，外加只看新项目的潜力榜。';
+    }
+    return `今日潜力榜：${names.join(' · ')}。点击查看完整日报，日/周/月/总四档可切换。`;
+  })();
+
   return `<!DOCTYPE html>
 <html lang="zh-CN" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skills Daily · ${esc(date)}</title>
-<meta name="description" content="每天从 GitHub 抓取 AI 技能与 AIGC 仓库，按 star 净增排出日、周、月、总四档榜单，外加两份只看新项目的潜力榜。">
+<meta name="description" content="${esc(metaDescription)}">
+<meta property="og:title" content="Skills Daily · ${esc(date)}">
+<meta property="og:description" content="${esc(metaDescription)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${(config.siteUrl || process.env.SITE_URL || '').replace(/\/$/, '')}/index.html">
 <link rel="stylesheet" href="${root}assets/style.css">
 </head>
 <body>
