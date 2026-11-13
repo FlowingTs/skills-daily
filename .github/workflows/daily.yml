@@ -48,6 +48,14 @@ jobs:
           FORCE: ${{ inputs.force }}
         run: node scripts/guard.mjs
 
+      # 分享图用 HTML/CSS 排版后由无头 Chromium 截图，需要中文字体；
+      # 装不上也不致命，会自动退回点阵版分享图。
+      - name: 准备分享图的截图环境
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          sudo apt-get update -qq || true
+          sudo apt-get install -y -qq fonts-noto-cjk || echo "中文字体安装失败，将退回点阵版分享图"
+
       - name: 采集 GitHub 技能仓库快照
         if: steps.guard.outputs.skip != 'true'
         env:

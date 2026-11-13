@@ -17,6 +17,7 @@ import { enrichRepos } from './lib/enrich.mjs';
 import { fetchImages } from './lib/faces.mjs';
 import { renderPage } from './lib/render.mjs';
 import { writeShareCard } from './lib/share-card.mjs';
+import { writeShareCard as writeShareCardBitmap } from './lib/share-card-bitmap.mjs';
 import { addDays, bjNowISO, bjToday, log } from './lib/util.mjs';
 
 const TARGET = process.env.REPORT_DATE || addDays(bjToday(), -1);
@@ -269,18 +270,20 @@ async function main() {
   await writeText(path.join(P.site, 'archive', `${TARGET}.html`), renderPage({ ...shared, root: '../' }));
 
   // 生成每日分享图（竖版 PNG）：潜力榜 Top5 + 二维码扫码进首页。
-  // 企业微信每日推送与手动转发都用这张图。
+  // 主路径用 HTML/CSS 排版后截图（真字体、真层级）；没有浏览器时退回点阵版。
   try {
     const shareItems = built[0]?.potential?.items?.slice(0, 5).map((it) => ({
       full_name: it.repo.full_name,
       velocity: it.velocity,
     })) ?? [];
     const shareUrl = (config.siteUrl || '').replace(/\/$/, '') + '/';
-    const shareRes = await writeShareCard({
-      date: TARGET,
-      items: shareItems,
-      url: shareUrl,
-    });
+    let shareRes;
+    try {
+      shareRes = await writeShareCard({ date: TARGET, items: shareItems, url: shareUrl });
+    } catch (err) {
+      log(`HTML 分享图失败（${err.message}），退回点阵版`);
+      shareRes = await writeShareCardBitmap({ date: TARGET, items: shareItems, url: shareUrl });
+    }
     log(`分享图已生成：${path.relative(ROOT, shareRes.path)}（${(shareRes.bytes / 1024).toFixed(1)} KB）`);
   } catch (err) {
     log(`分享图生成失败，跳过（不影响日报）: ${err.message}`);

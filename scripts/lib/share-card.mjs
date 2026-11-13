@@ -1,196 +1,232 @@
-// 生成每日分享图（竖版 PNG，黑色宇宙风）。
-// 图上：标题、日期、潜力榜 Top5 仓库名 + star 净增、二维码（扫码进首页）。
-// 纯 Node 零依赖：自绘 bitmap + 5×7 点阵字体 + 自实现 QR + 自实现 PNG。
+// 生成每日分享图：先用 HTML/CSS 排版，再用本机 Chromium 截图成 PNG。
+//
+// 设计：榜首是整幅暖色块（= 100% 宽度的那条），下面四个按「每天涨星数」的
+// 比例缩短，于是整张图是一个自上而下的下行阶梯——数据本身就是版式，
+// 不用卡片、不用细线、不用装饰。
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { encodePNG } from './png.mjs';
+import os from 'node:os';
 import { encodeQR } from './qr.mjs';
-import { glyph } from './font5x7.mjs';
+import { screenshotHTML } from './chrome-shot.mjs';
 import { P } from './store.mjs';
 
-// ── 配色（与站点 style.css 的黑色宇宙一致） ──
-const BG = [6, 6, 9];        // --bg: #060609
-const ACCENT = [230, 211, 167]; // --accent: #e6d3a7 暖星色
-const TEXT = [236, 234, 228];   // 主文字
-const MUTED = [128, 128, 138];  // 次要文字
-const WARN = [255, 168, 92];    // 涨（暖橙，与 +N 呼应）
-const CARD = [16, 16, 22];      // 卡片底色
+const W = 1080;
+const H = 1450;
+const SCALE = 2;
 
-// ── 画布 ──
-class Canvas {
-  constructor(w, h) {
-    this.w = w;
-    this.h = h;
-    this.data = new Uint8Array(w * h * 4);
-  }
-  set(x, y, [r, g, b, a = 255]) {
-    if (x < 0 || x >= this.w || y < 0 || y >= this.h) return;
-    const i = (y * this.w + x) * 4;
-    // 简单 alpha 混合（源覆盖）
-    this.data[i] = r;
-    this.data[i + 1] = g;
-    this.data[i + 2] = b;
-    this.data[i + 3] = a;
-  }
-  fillRect(x, y, w, h, color) {
-    for (let yy = y; yy < y + h; yy++)
-      for (let xx = x; xx < x + w; xx++) this.set(xx, yy, color);
-  }
-  // 画圆角矩形（用于卡片）
-  fillRoundRect(x, y, w, h, r, color) {
-    for (let yy = y; yy < y + h; yy++) {
-      for (let xx = x; xx < x + w; xx++) {
-        let inside = true;
-        if (xx < x + r && yy < y + r) inside = (xx - (x + r)) ** 2 + (yy - (y + r)) ** 2 <= r * r;
-        else if (xx >= x + w - r && yy < y + r) inside = (xx - (x + w - r - 1)) ** 2 + (yy - (y + r)) ** 2 <= r * r;
-        else if (xx < x + r && yy >= y + h - r) inside = (xx - (x + r)) ** 2 + (yy - (y + h - r - 1)) ** 2 <= r * r;
-        else if (xx >= x + w - r && yy >= y + h - r) inside = (xx - (x + w - r - 1)) ** 2 + (yy - (y + h - r - 1)) ** 2 <= r * r;
-        if (inside) this.set(xx, yy, color);
-      }
-    }
-  }
-  // 画点阵字符（scale = 每个点放大倍数）
-  drawGlyph(g, x, y, scale, color) {
-    if (!g) return;
-    for (let col = 0; col < 5; col++) {
-      const bits = g[col];
-      for (let row = 0; row < 7; row++) {
-        if (bits & (1 << row)) {
-          this.fillRect(x + col * scale, y + row * scale, scale, scale, color);
-        }
-      }
-    }
-  }
-  text(str, x, y, scale, color) {
-    let cx = x;
-    for (const ch of str) {
-      const g = glyph(ch);
-      if (g) {
-        this.drawGlyph(g, cx, y, scale, color);
-        cx += 6 * scale; // 5 列 + 1 空格
-      } else {
-        cx += 6 * scale; // 未知字符占位
-      }
-    }
-    return cx; // 返回结束 x
-  }
-  textWidth(str, scale) {
-    return str.length * 6 * scale;
-  }
-  centeredText(str, y, scale, color) {
-    const w = this.textWidth(str, scale);
-    this.text(str, Math.floor((this.w - w) / 2), y, scale, color);
-  }
+const esc = (s) =>
+  String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+const fmtInt = (n) => (typeof n === 'number' ? n.toLocaleString('en-US') : '—');
+
+function cnDate(dateStr) {
+  const [y, m, d] = String(dateStr).split('-');
+  return `${Number(y)} 年 ${Number(m)} 月 ${Number(d)} 日`;
 }
 
-// 把 QR 布尔矩阵画到画布（带白色 quiet zone）
-function drawQR(canvas, matrix, size, qx, qy, cell) {
-  const quiet = 4; // 4 模块 quiet zone
+/** 二维码内联 SVG：白底 + 4 模块留白 + 黑色模块。 */
+function qrSVG(text, moduleSize = 6) {
+  const { matrix, size } = encodeQR(text);
+  const quiet = 4;
   const total = size + quiet * 2;
-  const box = total * cell;
-  // 白色背景
-  canvas.fillRect(qx, qy, box, box, [255, 255, 255]);
+  const px = total * moduleSize;
+  let rects = '';
   for (let r = 0; r < size; r++) {
     for (let c = 0; c < size; c++) {
       if (matrix[r][c]) {
-        canvas.fillRect(qx + (c + quiet) * cell, qy + (r + quiet) * cell, cell, cell, [6, 6, 9]);
+        rects += `<rect x="${(c + quiet) * moduleSize}" y="${(r + quiet) * moduleSize}" width="${moduleSize}" height="${moduleSize}"/>`;
       }
     }
   }
-  return box;
+  return `<svg class="qr" width="${px}" height="${px}" viewBox="0 0 ${px} ${px}" role="img" aria-label="扫码打开日报"><rect width="${px}" height="${px}" fill="#ffffff"/><g fill="#000000">${rects}</g></svg>`;
+}
+
+/** 第二句：把榜首和末位的差距算出来，让它成为一句真实的话，而不是标签。 */
+function supportSentence(list) {
+  if (list.length < 2) return '按新建仓库平均每天拿到的 star 排。';
+  const top = Math.round(list[0].velocity ?? 0);
+  const last = Math.round(list[list.length - 1].velocity ?? 0);
+  const cn = { 2: '二', 3: '三', 4: '四', 5: '五' };
+  const ordinal = `第${cn[list.length] || list.length}名`;
+  if (last <= 0) return `第一名每天涨 ${top} 颗，其余几个还在个位数。`;
+  const ratio = (top / last).toFixed(1).replace(/\.0$/, '');
+  return `第一名每天涨 ${top} 颗，是${ordinal}的 ${ratio} 倍。`;
 }
 
 /**
- * 生成分享图，返回 PNG Buffer。
- * @param {object} opts
- * @param {string} opts.date  YYYY-MM-DD
- * @param {Array}  opts.items 潜力榜 Top 项 [{full_name, velocity}]
- * @param {string} opts.url  二维码内容（首页地址）
+ * 生成分享图的 HTML（不含外链资源，可离线渲染）。
  */
-export function renderShareCard({ date, items, url }) {
-  const W = 1080;
-  const H = 1450;
-  const c = new Canvas(W, H);
-  c.fillRect(0, 0, W, H, BG);
+export function shareCardHTML({ date, items, url, siteName = 'SKILLS DAILY' }) {
+  const list = (items || []).filter((it) => it && it.full_name).slice(0, 5);
+  const top = list[0] || null;
+  const rest = list.slice(1);
+  const maxVel = Math.max(1, ...list.map((it) => Math.round(it.velocity ?? 0)));
 
-  // 顶部装饰线（暖星色）
-  c.fillRect(0, 0, W, 6, ACCENT);
+  const heroName = top?.full_name ?? '今天没有新冒出来的仓库';
+  const heroVel = top ? Math.round(top.velocity ?? 0) : 0;
 
-  // 标题 SKILLS DAILY
-  const title = 'SKILLS DAILY';
-  c.centeredText(title, 90, 5, ACCENT);
+  const rows = rest
+    .map((it, i) => {
+      const v = Math.round(it.velocity ?? 0);
+      const pct = Math.max(6, Math.round((v / maxVel) * 100));
+      return `<li>
+      <div class="row-head">
+        <span class="n">${i + 2}</span>
+        <span class="name">${esc(it.full_name)}</span>
+        <span class="v">+${fmtInt(v)}</span><span class="u">颗/天</span>
+      </div>
+      <div class="bar" style="width:${pct}%"></div>
+    </li>`;
+    })
+    .join('\n    ');
 
-  // 副标题 + 日期
-  const subtitle = `GITHUB RISING · ${date.replace(/-/g, '.')}`;
-  c.centeredText(subtitle, 150, 2, MUTED);
-
-  // 分割线
-  c.fillRect(80, 210, W - 160, 2, [40, 40, 50]);
-
-  // 榜单标题
-  c.centeredText('TODAY RISING TOP', 250, 3, TEXT);
-
-  // 卡片列表
-  const cardX = 90;
-  const cardW = W - 180;
-  const cardH = 130;
-  const cardGap = 24;
-  const listStartY = 320;
-  const maxItems = Math.min(items.length, 5);
-
-  for (let i = 0; i < maxItems; i++) {
-    const it = items[i];
-    const cy = listStartY + i * (cardH + cardGap);
-    c.fillRoundRect(cardX, cy, cardW, cardH, 20, CARD);
-
-    // 序号
-    const num = String(i + 1);
-    c.text(num, cardX + 36, cy + 45, 4, ACCENT);
-
-    // 仓库名 owner/repo（可能过长，截断）
-    const name = it.full_name || '';
-    const nameScale = 3;
-    const maxNameChars = Math.floor((cardW - 160) / (6 * nameScale));
-    let shown = name;
-    if (shown.length > maxNameChars) shown = shown.slice(0, maxNameChars - 1) + '~';
-    c.text(shown, cardX + 100, cy + 40, nameScale, TEXT);
-
-    // star 净增
-    const vel = Math.round(it.velocity ?? 0);
-    const velText = `+${vel}/day`;
-    c.text(velText, cardX + 100, cy + 80, 2, WARN);
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: ${W}px ${H}px; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: ${W}px; height: ${H}px; }
+  body {
+    background: #08080b;
+    color: #edeae2;
+    font-family: "Helvetica Neue", Helvetica, Arial,
+                 "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC",
+                 "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    padding: 62px 72px 54px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
-  // 底部二维码区
-  const footerY = listStartY + maxItems * (cardH + cardGap) + 50;
-  c.centeredText('SCAN TO OPEN', footerY, 3, TEXT);
-  c.centeredText('LONG-PRESS TO SCAN', footerY + 40, 2, MUTED);
+  /* ── 页头 ── */
+  header { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; }
+  h1 { font-size: 47px; line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; white-space: nowrap; }
+  .sub { font-size: 24px; color: #9d9ca6; margin-top: 18px; font-weight: 400; }
+  .meta { text-align: right; padding-top: 2px; flex: none; }
+  .brand { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .date { font-size: 22px; color: #8b8a94; margin-top: 7px; }
 
-  // 二维码（居中，白色 quiet zone）
-  const qrMatrix = qrMatrixFor(url);
-  const qrCell = 5;
-  const qrTotal = qrMatrix.length + 8; // 矩阵 + 2*4 模块 quiet zone
-  const qx = Math.floor((W - qrTotal * qrCell) / 2);
-  const qy = footerY + 90;
-  drawQR(c, qrMatrix, qrMatrix.length, qx, qy, qrCell);
+  /* ── 榜首：整幅暖色块 ── */
+  .hero {
+    margin-top: 40px;
+    background: #e6d3a7;
+    color: #0a0a0c;
+    padding: 38px 40px 32px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    height: 384px;
+  }
+  .hero-line { display: flex; align-items: baseline; gap: 16px; }
+  .rank { font-size: 38px; font-weight: 700; opacity: .34; }
+  .hero-name {
+    font-size: 43px; font-weight: 700; letter-spacing: -0.025em;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .hero-fig { display: flex; align-items: baseline; gap: 14px; }
+  .hero-num { font-size: 172px; font-weight: 700; letter-spacing: -0.05em; line-height: .78; }
+  .hero-unit { font-size: 26px; font-weight: 600; opacity: .58; }
+  .hero-cap { font-size: 21px; font-weight: 500; opacity: .55; margin-top: 20px; }
 
-  return encodePNG(W, H, c.data);
+  /* ── 其余四个：条形的阶梯 ── */
+  .rest { margin-top: 44px; list-style: none; }
+  .rest li { margin-bottom: 56px; }
+  .rest li:last-child { margin-bottom: 0; }
+  .row-head { display: flex; align-items: baseline; gap: 4px; }
+  .rest .n { font-size: 28px; color: #67666f; font-weight: 500; width: 46px; flex: none; }
+  .rest .name {
+    font-size: 32px; font-weight: 600; letter-spacing: -0.015em;
+    flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .rest .v { font-size: 36px; font-weight: 700; color: #e6d3a7; letter-spacing: -0.02em; }
+  .rest .u { font-size: 17px; color: #6e6d78; margin-left: 7px; font-weight: 400; }
+  .bar { height: 16px; background: #6a6047; margin-top: 16px; }
+
+  /* ── 页脚 ── */
+  footer {
+    margin-top: auto;
+    display: flex; align-items: flex-end; gap: 34px;
+  }
+  .qr { display: block; flex: none; }
+  .foot-text p { font-size: 25px; line-height: 1.45; font-weight: 500; }
+  .foot-text .sub2 { font-size: 21px; color: #8b8a94; margin-top: 11px; font-weight: 400; }
+  .foot-text .src { font-size: 19px; color: #63626c; margin-top: 7px; font-weight: 400; }
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>昨天新冒出来的 ${list.length} 个仓库</h1>
+      <p class="sub">${esc(supportSentence(list))}</p>
+    </div>
+    <div class="meta">
+      <div class="brand">${esc(siteName)}</div>
+      <div class="date">${esc(cnDate(date))}</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-line">
+      <span class="rank">1</span>
+      <span class="hero-name">${esc(heroName)}</span>
+    </div>
+    <div>
+      <div class="hero-fig">
+        <span class="hero-num">+${fmtInt(heroVel)}</span>
+        <span class="hero-unit">颗星 / 天</span>
+      </div>
+      <div class="hero-cap">新建仓库 · 近 7 天平均每天拿到的 star</div>
+    </div>
+  </section>
+
+  <ol class="rest" start="2">
+    ${rows}
+  </ol>
+
+  <footer>
+    ${qrSVG(url)}
+    <div class="foot-text">
+      <p>长按识别二维码，进站看完整日报。</p>
+      <p class="sub2">日 / 周 / 月 / 总 四档榜单可切换，另有两份潜力榜。</p>
+      <p class="src">数据来自 GitHub，每天早八点更新</p>
+    </div>
+  </footer>
+</body>
+</html>`;
 }
 
-// 缓存 QR 矩阵避免重复计算
-function qrMatrixFor(url) {
-  return encodeQR(url).matrix;
+/**
+ * 渲染并返回 PNG Buffer。
+ */
+export async function renderShareCard({ date, items, url, siteName }) {
+  const html = shareCardHTML({ date, items, url, siteName });
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'card-'));
+  const htmlPath = path.join(tmp, 'card.html');
+  try {
+    await fs.writeFile(htmlPath, html, 'utf8');
+    return await screenshotHTML(htmlPath, { width: W, height: H, scale: SCALE });
+  } finally {
+    await fs.rm(tmp, { recursive: true, force: true }).catch(() => {});
+  }
 }
 
 /**
  * 生成并写入分享图文件。
  */
-export async function writeShareCard({ date, items, url, outDir }) {
-  const png = renderShareCard({ date, items, url });
+export async function writeShareCard({ date, items, url, siteName, outDir }) {
+  const png = await renderShareCard({ date, items, url, siteName });
   const dir = outDir || path.join(P.site, 'share');
   await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(path.join(dir, `${date}.png`), png);
+  const file = path.join(dir, `${date}.png`);
+  await fs.writeFile(file, png);
   await fs.writeFile(path.join(dir, 'latest.png'), png);
-  return { path: path.join(dir, `${date}.png`), bytes: png.length };
+  return { path: file, bytes: png.length };
 }
