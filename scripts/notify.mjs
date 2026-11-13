@@ -1,4 +1,6 @@
 import path from 'node:path';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
 import { P, loadConfig, readJSON } from './lib/store.mjs';
 import { addDays, bjToday, cnDate, fmtNum, log } from './lib/util.mjs';
 
@@ -88,6 +90,38 @@ function fitMarkdown(report, config) {
   return { text, plan: { ...PLANS[PLANS.length - 1], hard: true }, bytes: Buffer.byteLength(text, 'utf8') };
 }
 
+/** 读取当天分享图，返回 base64 字符串（或 null）。企业微信 image 消息限制 2MB。 */
+function loadShareImage(date) {
+  const candidates = [
+    path.join(P.site, 'share', `${date}.png`),
+    path.join(P.site, 'share', 'latest.png'),
+  ];
+  for (const f of candidates) {
+    try {
+      const buf = fs.readFileSync(f);
+      if (buf.length === 0) continue;
+      if (buf.length > 2 * 1024 * 1024) {
+        log(`分享图 ${path.basename(f)} 超过 2MB（${(buf.length / 1024 / 1024).toFixed(2)}MB），回退文字`);
+        continue;
+      }
+      return { base64: buf.toString('base64'), md5: crypto.createHash('md5').update(buf).digest('hex'), bytes: buf.length };
+    } catch {
+      /* 继续找下一个 */
+    }
+  }
+  return null;
+}
+
+async function post(payload) {
+  const res = await fetch(WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const json = await res.json().catch(() => ({}));
+  return json;
+}
+
 async function main() {
   const config = await loadConfig();
   const report = await readJSON(path.join(P.daily, `${TARGET}.json`));
@@ -102,23 +136,34 @@ async function main() {
     return;
   }
 
-  const { text: content, plan, bytes } = fitMarkdown(report, config);
+  // 优先发分享图；图缺失或超限则回退文字 markdown。
+  const img = loadShareImage(TARGET);
 
   if (process.env.NOTIFY_DRY === '1') {
-    console.log('--- 预览推送内容 ---');
-    console.log(content);
-    console.log(`--- 共 ${bytes} 字节 / 上限 4096 · 方案 ${JSON.stringify(plan)} ---`);
+    if (img) {
+      console.log(`--- 预览：将推送分享图（${(img.bytes / 1024).toFixed(1)} KB）---`);
+    } else {
+      console.log('--- 预览：分享图缺失，将回退文字 ---');
+      const { text, plan, bytes } = fitMarkdown(report, config);
+      console.log(text);
+      console.log(`--- 共 ${bytes} 字节 / 上限 4096 · 方案 ${JSON.stringify(plan)} ---`);
+    }
     return;
   }
 
+  if (img) {
+    const json = await post({ msgtype: 'image', image: { base64: img.base64, md5: img.md5 } });
+    if (json.errcode === 0) {
+      log(`已推送分享图（${(img.bytes / 1024).toFixed(1)} KB）`);
+      return;
+    }
+    log(`图片推送失败（${JSON.stringify(json)}），回退文字`);
+  }
+
+  const { text: content, plan, bytes } = fitMarkdown(report, config);
   log(`消息 ${bytes} 字节（上限 4096）· 方案 ${JSON.stringify(plan)}`);
 
-  const res = await fetch(WEBHOOK, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ msgtype: 'markdown', markdown: { content } }),
-  });
-  const json = await res.json().catch(() => ({}));
+  const json = await post({ msgtype: 'markdown', markdown: { content } });
   if (json.errcode === 0) {
     log('企业微信群机器人推送成功');
   } else {

@@ -1,6 +1,7 @@
 import path from 'node:path';
 import {
   P,
+  ROOT,
   ensureDirs,
   loadConfig,
   loadRecentSnapshots,
@@ -15,6 +16,7 @@ import { buildPeriodColumn, computePotential, scoreItem, heatRange } from './lib
 import { enrichRepos } from './lib/enrich.mjs';
 import { fetchImages } from './lib/faces.mjs';
 import { renderPage } from './lib/render.mjs';
+import { writeShareCard } from './lib/share-card.mjs';
 import { addDays, bjNowISO, bjToday, log } from './lib/util.mjs';
 
 const TARGET = process.env.REPORT_DATE || addDays(bjToday(), -1);
@@ -265,6 +267,24 @@ async function main() {
 
   await writeText(path.join(P.site, 'index.html'), renderPage({ ...shared, root: '' }));
   await writeText(path.join(P.site, 'archive', `${TARGET}.html`), renderPage({ ...shared, root: '../' }));
+
+  // 生成每日分享图（竖版 PNG）：潜力榜 Top5 + 二维码扫码进首页。
+  // 企业微信每日推送与手动转发都用这张图。
+  try {
+    const shareItems = built[0]?.potential?.items?.slice(0, 5).map((it) => ({
+      full_name: it.repo.full_name,
+      velocity: it.velocity,
+    })) ?? [];
+    const shareUrl = (config.siteUrl || '').replace(/\/$/, '') + '/';
+    const shareRes = await writeShareCard({
+      date: TARGET,
+      items: shareItems,
+      url: shareUrl,
+    });
+    log(`分享图已生成：${path.relative(ROOT, shareRes.path)}（${(shareRes.bytes / 1024).toFixed(1)} KB）`);
+  } catch (err) {
+    log(`分享图生成失败，跳过（不影响日报）: ${err.message}`);
+  }
 
   const totalItems = allItems.length;
   log(`页面已生成：site/index.html（${totalItems} 条）· 归档 ${TARGET}.html`);
