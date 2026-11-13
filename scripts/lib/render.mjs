@@ -76,7 +76,8 @@ function renderRise(item, index, root, faces) {
    ──────────────────────────────────────────────────────────── */
 
 function columnNote(col, group) {
-  const tail = col.excluded ? '已剔除同期 Skills 榜上出现过的仓库。' : '';
+  // 排在后面的领域（MCP、AIGC）会剔掉前面所有领域已上榜的仓库，这里只说事实、不点名
+  const tail = col.excluded ? '已剔除排在前面的榜上出现过的仓库。' : '';
 
   if (col.metric === 'velocity') {
     const w = col.usedWindow ?? col.window;
@@ -94,7 +95,7 @@ function columnNote(col, group) {
     return `真净增要攒满 ${col.need} 天快照，${group.label} 现在只有 ${col.have} 天，这一栏暂时按「近 ${w} 天新建仓库的 star 总量」排。${tail}`;
   }
   if (col.status === 'collecting') {
-    return '快照还在攒，这一栏今天空着。宁缺勿滥。';
+    return `真净增要攒满 ${col.need} 天快照，${group.label} 现在只有 ${col.have} 天。这一栏今天空着，明天自动有数。`;
   }
   return (col.note || '') + tail;
 }
@@ -107,9 +108,12 @@ function renderBoardPanel(group, col, root, faces, isOn = false) {
   const count = col.items.length;
   const lead = col.items[0];
   const rest = col.items.slice(1);
+  const emptyText = col.status === 'collecting'
+    ? ''  // 说明里已经写清「今天空着，明天自动有数」，不重复
+    : '<p class="col-empty">这一栏今天没有满足条件的仓库。空着，也不拿低质量项目补位。</p>';
   const body = count
     ? `${renderLeader(lead, root, faces)}${rest.length ? `<ol class="ranking" start="2">${rest.map((it, i) => renderEntry(it, i + 1, root, faces)).join('')}</ol>` : ''}`
-    : '<p class="col-empty">这一栏今天没有满足条件的仓库。空着，也不拿低质量项目补位。</p>';
+    : emptyText;
 
   return `<div class="panel${isOn ? ' is-on' : ''}" data-panel="${esc(group.id)}-${esc(col.id)}" role="tabpanel" aria-label="${esc(group.label)} ${esc(col.label)}">
 <div class="panel-head"><h2>${esc(col.label)}<span class="badge">${esc(col.badge)}</span></h2><span class="col-count">${count} 条</span></div>
@@ -167,7 +171,7 @@ function renderStats({ groups, snapshotDays }) {
   const wet = [...wetMap].map(([label, gs]) => `${label}（${gs.join('、')}）`);
   const totalPool = groups.reduce((n, g) => n + g.poolSize, 0);
 
-  const sentence = `两个池子共 ${fmtInt(totalPool)} 个仓库，${total} 个上榜。`;
+  const sentence = `${groups.length} 个池子共 ${fmtInt(totalPool)} 个仓库，${total} 个上榜。`;
 
   const wetNote = wet.length
     ? `${wet.join('、')}还没攒够快照，暂时按窗口内新建仓库的 star 排，不是净增。`
@@ -220,7 +224,7 @@ export function renderPage({
   const B = top ? (hasDelta ? `涨了 ${fmtInt(top.delta)}` : `${fmtNum(top.repo.stargazers_count)} 颗`) : '—';
 
   const heroNote = top
-    ? `每天八点，比对 GitHub 上两个池子共 ${fmtInt(poolSize)} 个仓库的 star 变化。下面这张卡片是${
+    ? `每天八点，比对 GitHub 上 ${fmtInt(poolSize)} 个仓库的 star 变化。下面这张卡片是${
         hasDelta ? `昨夜涨得最多的 ${top.repo.full_name}` : `今天排在第一的 ${top.repo.full_name}`
       }。`
     : '每天八点，比对 GitHub 上技能与 AIGC 仓库的 star 变化。';

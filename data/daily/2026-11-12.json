@@ -1,8 +1,8 @@
 {
   "date": "2026-11-12",
-  "generated_at": "2026-11-13T08:04",
+  "generated_at": "2026-11-13T16:01",
   "snapshot_days": 24,
-  "pool_size": 2700,
+  "pool_size": 3473,
   "groups": [
     {
       "id": "skills",
@@ -395,7 +395,7 @@
                 "spec-driven-development"
               ],
               "summary": "Google 出品的 agent 插件，用于在写代码前后做设计评审与方案推演，适合想让 agent 先想清楚再动手的团队。",
-              "score": 82
+              "score": 81
             },
             {
               "full_name": "obra/superpowers",
@@ -448,7 +448,7 @@
                 "writing-tools"
               ],
               "summary": "去除文本 AI 味的 agent 技能，改写句式与用词让输出更像人写，适合要交稿、发公众号或过审的写作者。",
-              "score": 66
+              "score": 65
             },
             {
               "full_name": "thedotmack/claude-mem",
@@ -484,7 +484,7 @@
                 "supermemory"
               ],
               "summary": "跨会话持久记忆插件，自动抓取 agent 操作、AI 压缩后回注上下文，解决每次重开会话都要重新交代背景的痛点。",
-              "score": 74
+              "score": 73
             },
             {
               "full_name": "lemomo-ai/lemo-opuscar",
@@ -758,7 +758,7 @@
                 "video"
               ],
               "summary": "中文作者的 agent 技能，一键生成带配乐的产品宣传片，支持指着画面改，适合独立开发者做发布视频。",
-              "score": 64
+              "score": 63
             },
             {
               "full_name": "caru-ini/stack-diagram",
@@ -990,7 +990,7 @@
                 "yagni"
               ],
               "summary": "用 YAGNI 提示词让 agent 少写代码、拒绝过度设计，装完即生效，适合被 AI 生成冗余代码困扰的开发者。",
-              "score": 62
+              "score": 61
             },
             {
               "full_name": "Graphify-Labs/graphify",
@@ -1204,7 +1204,7 @@
                 "visualization"
               ],
               "summary": "把想法或代码库转成可交互架构图的 agent 技能，装进 Claude Code 就能用，适合需要快速画清系统结构、给团队讲设计的开发者。",
-              "score": 59
+              "score": 58
             }
           ]
         }
@@ -1308,7 +1308,7 @@
               "writing"
             ],
             "summary": "把 AI 味文本改写成 ASD-STE100 简化技术英语的 Agent 技能，适合写文档、说明书、对外文案需要去 AI 腔的人。",
-            "score": 72
+            "score": 71
           },
           {
             "full_name": "dabingfy-dot/solo-to-team-skills",
@@ -1352,6 +1352,766 @@
             ],
             "summary": "MiniMax 开源的 1600 万像素图像生成与编辑模型权重，需自备 GPU 推理，适合要私有化部署或微调图像模型的研究与工程团队。",
             "score": 47
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcp",
+      "label": "MCP",
+      "en": "MODEL CONTEXT PROTOCOL",
+      "desc": "只收主业是 MCP 的项目",
+      "pool_size": 773,
+      "snapshot_days": 1,
+      "columns": [
+        {
+          "id": "day",
+          "label": "单日热门",
+          "nav_label": "日榜",
+          "en": "DAILY",
+          "status": "collecting",
+          "badge": "冷启动",
+          "metric": "delta",
+          "note": "昨日（00:00–24:00）star 净增",
+          "min_stars": 50,
+          "excluded": true,
+          "have": 1,
+          "need": 2,
+          "items": []
+        },
+        {
+          "id": "week",
+          "label": "周热门",
+          "nav_label": "周榜",
+          "en": "WEEKLY",
+          "status": "coldstart",
+          "badge": "冷启动",
+          "metric": "delta",
+          "note": "近 7 天 star 净增",
+          "min_stars": 50,
+          "excluded": true,
+          "have": 1,
+          "need": 8,
+          "items": [
+            {
+              "full_name": "hitkeeen/blender-ai-mcp-addon",
+              "url": "https://github.com/hitkeeen/blender-ai-mcp-addon",
+              "stars": 80,
+              "forks": 1,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-12T14:32:15Z",
+              "pushed_at": "2026-11-12T14:33:16Z",
+              "language": "",
+              "topics": [
+                "ai-agents",
+                "ai-assistant",
+                "blender",
+                "blender-addon",
+                "blender-ai",
+                "blender-automation",
+                "blender-mcp",
+                "blender-plugin",
+                "blender-scripting",
+                "bpy",
+                "chatgpt",
+                "claude",
+                "gemini",
+                "llm",
+                "mcp",
+                "mcp-for-blender",
+                "mcp-server",
+                "model-context-protocol",
+                "ollama",
+                "opencode"
+              ],
+              "summary": "Blender 插件内置 MCP 服务，让 Claude、GPT 等直接读写场景、跑 bpy 脚本，适合想用自然语言做 3D 建模的 Blender 用户。",
+              "score": 84
+            },
+            {
+              "full_name": "racdeufindurch198812/Blender-AI-MCP-Studio",
+              "url": "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
+              "stars": 79,
+              "forks": 1,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-12T19:28:20Z",
+              "pushed_at": "2026-11-12T20:07:57Z",
+              "language": "",
+              "topics": [
+                "3d-automation",
+                "3d-modeling",
+                "blender",
+                "blender-addon",
+                "blender-agents",
+                "blender-ai",
+                "blender-assistant",
+                "blender-automation",
+                "blender-chatgpt",
+                "blender-copilot",
+                "blender-extension",
+                "blender-llm",
+                "blender-mcp",
+                "blender-plugin",
+                "blender-scripting",
+                "blender3d",
+                "bpy",
+                "mcp",
+                "mcp-server",
+                "model-context-protocol"
+              ],
+              "summary": "Blender 里的 AI 助手加 MCP 服务，把自然语言需求转成可预览、可回滚的场景操作，适合怕 AI 改坏工程的 3D 工作者。",
+              "score": 77
+            },
+            {
+              "full_name": "findavoulot1973/Blender-AI-MCP-Suite",
+              "url": "https://github.com/findavoulot1973/Blender-AI-MCP-Suite",
+              "stars": 76,
+              "forks": 1,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-12T19:26:22Z",
+              "pushed_at": "2026-11-12T20:07:39Z",
+              "language": "",
+              "topics": [
+                "3d-automation",
+                "3d-modeling",
+                "blender",
+                "blender-addon",
+                "blender-agents",
+                "blender-ai",
+                "blender-assistant",
+                "blender-automation",
+                "blender-chatgpt",
+                "blender-copilot",
+                "blender-extension",
+                "blender-llm",
+                "blender-mcp",
+                "blender-plugin",
+                "blender-scripting",
+                "blender3d",
+                "bpy",
+                "mcp",
+                "mcp-server",
+                "model-context-protocol"
+              ],
+              "summary": "与前者描述、星数、更新时间几乎一致的 Blender AI MCP 套件，疑似同源复制仓库，功能重叠且来源不明，建议先观望。",
+              "score": 68
+            },
+            {
+              "full_name": "kanaworksai-hue/sozai-search-mcp",
+              "url": "https://github.com/kanaworksai-hue/sozai-search-mcp",
+              "stars": 51,
+              "forks": 4,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-08T13:25:15Z",
+              "pushed_at": "2026-11-11T15:26:46Z",
+              "language": "Python",
+              "topics": [
+                "3d-assets",
+                "cc0",
+                "claude-code",
+                "game-assets",
+                "hdri",
+                "mcp",
+                "mcp-server",
+                "model-context-protocol",
+                "pbr",
+                "polyhaven"
+              ],
+              "summary": "MCP 服务接入约 3.6 万个 CC0 模型、材质与 HDRI，带真实尺寸，适合做游戏或 3D 场景时让 agent 直接找免费素材。",
+              "score": 55
+            }
+          ]
+        },
+        {
+          "id": "month",
+          "label": "月热门",
+          "nav_label": "月榜",
+          "en": "MONTHLY",
+          "status": "coldstart",
+          "badge": "冷启动",
+          "metric": "delta",
+          "note": "近 30 天 star 净增",
+          "min_stars": 100,
+          "excluded": true,
+          "have": 1,
+          "need": 31,
+          "items": [
+            {
+              "full_name": "phone-harness/mcp",
+              "url": "https://github.com/phone-harness/mcp",
+              "stars": 795,
+              "forks": 69,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-10-23T06:27:40Z",
+              "pushed_at": "2026-11-11T17:01:06Z",
+              "language": "Python",
+              "topics": [
+                "ai-agents",
+                "android",
+                "iphone",
+                "mcp",
+                "mcp-server",
+                "mobile-automation",
+                "model-context-protocol",
+                "phone-automation"
+              ],
+              "summary": "把 AI agent 接到真实 iPhone 和安卓手机上操作，Python 实现、近 800 星，适合做移动端自动化测试或 App 流程验证的团队。",
+              "score": 91
+            },
+            {
+              "full_name": "shanselman/sandbox-mcp",
+              "url": "https://github.com/shanselman/sandbox-mcp",
+              "stars": 422,
+              "forks": 21,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-06T19:02:14Z",
+              "pushed_at": "2026-11-12T07:54:12Z",
+              "language": "JavaScript",
+              "topics": [
+                "ai-agents",
+                "mcp",
+                "mcp-server",
+                "testing",
+                "ui-automation",
+                "windows",
+                "windows-sandbox"
+              ],
+              "summary": "用 MCP 服务器和 CLI 自动拉起一次性 Windows Sandbox 虚拟机，让 agent 安全跑装包与 UI 测试，适合 Windows 桌面应用开发者。",
+              "score": 77
+            },
+            {
+              "full_name": "gogoymh/auto-ontology-mcp",
+              "url": "https://github.com/gogoymh/auto-ontology-mcp",
+              "stars": 383,
+              "forks": 53,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-06T12:09:07Z",
+              "pushed_at": "2026-11-13T02:16:30Z",
+              "language": "Python",
+              "topics": [
+                "chatgpt",
+                "claude",
+                "mcp",
+                "mcp-server",
+                "model-context-protocol",
+                "ontology",
+                "semantic-layer",
+                "text-to-sql"
+              ],
+              "summary": "把 NVIDIA Auto Ontology 语义层和个人知识库封装成 MCP，无需 LLM API key，适合想让 Claude 用自然语言查结构化数据的开发者。",
+              "score": 72
+            },
+            {
+              "full_name": "Glen-Web-App/best-agent-memory-mcp",
+              "url": "https://github.com/Glen-Web-App/best-agent-memory-mcp",
+              "stars": 238,
+              "forks": 8,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-05T01:23:58Z",
+              "pushed_at": "2026-11-05T02:37:58Z",
+              "language": "",
+              "topics": [
+                "agent-memory",
+                "ai-agents",
+                "ai-memory",
+                "awesome",
+                "awesome-list",
+                "claude-code",
+                "codex",
+                "coding-agents",
+                "cursor",
+                "llm-memory",
+                "long-term-memory",
+                "mcp",
+                "mcp-memory",
+                "mcp-memory-server",
+                "mcp-server",
+                "mcp-servers",
+                "mem0",
+                "memory-mcp",
+                "model-context-protocol",
+                "persistent-memory"
+              ],
+              "summary": "横向对比 Glen、Mem0、Zep 等 agent 长期记忆 MCP 服务的清单站，帮你选型；本质是导流型 awesome 列表，参考价值有但需自行验证。",
+              "score": 49
+            },
+            {
+              "full_name": "NJohansen/handle-mcp",
+              "url": "https://github.com/NJohansen/handle-mcp",
+              "stars": 135,
+              "forks": 17,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-01T11:17:48Z",
+              "pushed_at": "2026-11-12T11:31:57Z",
+              "language": "Python",
+              "topics": [
+                "ai-agent",
+                "bilkatogo",
+                "denmark",
+                "grocery",
+                "mcp",
+                "mcp-client",
+                "mcp-server",
+                "model-context-protocol",
+                "nemlig",
+                "nemlig-com",
+                "nemligcom",
+                "python",
+                "rema1000",
+                "rema1000-api"
+              ],
+              "summary": "丹麦三家超市的 MCP 服务，可搜商品、加购物车、比价，付款仍需本人确认，只对在丹麦生活、想语音下单的人有用。",
+              "score": 42
+            },
+            {
+              "full_name": "DevCrabs-Inc/yandex-metrika-mcp",
+              "url": "https://github.com/DevCrabs-Inc/yandex-metrika-mcp",
+              "stars": 130,
+              "forks": 1,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-06T12:18:59Z",
+              "pushed_at": "2026-11-10T13:08:49Z",
+              "language": "TypeScript",
+              "topics": [
+                "ai-agents",
+                "analytics",
+                "claude",
+                "claude-code",
+                "claude-desktop",
+                "codex",
+                "cursor",
+                "mcp",
+                "mcp-server",
+                "mcpb",
+                "metrika",
+                "model-context-protocol",
+                "seo",
+                "typescript",
+                "vscode",
+                "web-analytics",
+                "yandex",
+                "yandex-metrica",
+                "yandex-metrika"
+              ],
+              "summary": "Yandex Metrika 的只读 MCP，支持报表、周期对比、时序和导出，TypeScript 编写，适合用 Claude 或 Cursor 查俄区站点流量的运营。",
+              "score": 46
+            }
+          ]
+        },
+        {
+          "id": "all",
+          "label": "总热门",
+          "nav_label": "总榜",
+          "en": "ALL TIME",
+          "status": "live",
+          "badge": "热度总量",
+          "metric": "stars",
+          "note": "全历史 · 按 star 总量",
+          "min_stars": 100,
+          "excluded": true,
+          "have": 0,
+          "need": 0,
+          "items": [
+            {
+              "full_name": "modelcontextprotocol/servers",
+              "url": "https://github.com/modelcontextprotocol/servers",
+              "stars": 91962,
+              "forks": 11960,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2024-11-19T01:10:17Z",
+              "pushed_at": "2026-11-12T05:37:52Z",
+              "language": "TypeScript",
+              "topics": [],
+              "summary": "官方 MCP 参考服务器合集，含文件、Git、数据库等现成实现，可直接装进 Claude Code 试用，适合想快速摸清 MCP 能力边界的开发者。",
+              "score": 95
+            },
+            {
+              "full_name": "ChromeDevTools/chrome-devtools-mcp",
+              "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+              "stars": 55187,
+              "forks": 4604,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-09-11T10:39:55Z",
+              "pushed_at": "2026-11-13T05:13:09Z",
+              "language": "TypeScript",
+              "topics": [
+                "browser",
+                "chrome",
+                "chrome-devtools",
+                "debugging",
+                "devtools",
+                "mcp",
+                "mcp-server",
+                "puppeteer"
+              ],
+              "summary": "把 Chrome 调试器交给 agent，能看网络请求、抓控制台报错、跑性能分析，适合排查前端线上问题的开发者。",
+              "score": 86
+            },
+            {
+              "full_name": "DeusData/codebase-memory-mcp",
+              "url": "https://github.com/DeusData/codebase-memory-mcp",
+              "stars": 48588,
+              "forks": 4025,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-02-24T22:01:00Z",
+              "pushed_at": "2026-11-13T06:38:19Z",
+              "language": "C",
+              "topics": [
+                "aider",
+                "ast",
+                "claude-code",
+                "code-analysis",
+                "code-intelligence",
+                "codex",
+                "cursor",
+                "cypher",
+                "developer-tools",
+                "gemini-cli",
+                "graph-visualization",
+                "kilocode",
+                "knowledge-graph",
+                "mcp",
+                "mcp-server",
+                "model-context-protocol",
+                "opencode",
+                "sqlite",
+                "tree-sitter",
+                "windsurf"
+              ],
+              "summary": "把代码、文档、基础设施建成持久图，供 agent 查询调用，还支持按改动选测试；C 实现较重，适合大仓库团队。",
+              "score": 77
+            },
+            {
+              "full_name": "microsoft/playwright-mcp",
+              "url": "https://github.com/microsoft/playwright-mcp",
+              "stars": 39573,
+              "forks": 3429,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-03-21T17:48:36Z",
+              "pushed_at": "2026-11-13T00:15:28Z",
+              "language": "TypeScript",
+              "topics": [
+                "mcp",
+                "playwright"
+              ],
+              "summary": "微软官方 Playwright MCP，让 agent 用无障碍树操作浏览器，做端到端测试和网页抓取都稳，前端与测试同学首选。",
+              "score": 78
+            },
+            {
+              "full_name": "github/github-mcp-server",
+              "url": "https://github.com/github/github-mcp-server",
+              "stars": 34424,
+              "forks": 5342,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-03-04T16:42:04Z",
+              "pushed_at": "2026-11-13T04:48:05Z",
+              "language": "Go",
+              "topics": [
+                "github",
+                "mcp",
+                "mcp-server"
+              ],
+              "summary": "GitHub 官方 MCP 服务器，agent 可直接读写 issue、PR、代码搜索，省去手动贴上下文，日常协作开发必备。",
+              "score": 74
+            },
+            {
+              "full_name": "ahujasid/mcp-for-blender",
+              "url": "https://github.com/ahujasid/mcp-for-blender",
+              "stars": 34254,
+              "forks": 3117,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-03-07T09:58:58Z",
+              "pushed_at": "2026-11-13T06:54:07Z",
+              "language": "Python",
+              "topics": [
+                "3d-modeling",
+                "ai",
+                "blender",
+                "blender-addon",
+                "blender-mcp",
+                "claude",
+                "generative-ai",
+                "llm",
+                "mcp",
+                "model-context-protocol",
+                "python"
+              ],
+              "summary": "社区 Blender 插件，让任意 LLM 通过 MCP 建模型、调材质、跑脚本，适合想用对话做 3D 的美术与创意开发者。",
+              "score": 71
+            },
+            {
+              "full_name": "PrefectHQ/fastmcp",
+              "url": "https://github.com/PrefectHQ/fastmcp",
+              "stars": 28407,
+              "forks": 2587,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2024-11-30T01:47:40Z",
+              "pushed_at": "2026-11-13T07:42:30Z",
+              "language": "Python",
+              "topics": [
+                "agents",
+                "fastmcp",
+                "llms",
+                "mcp",
+                "mcp-clients",
+                "mcp-servers",
+                "mcp-tools",
+                "model-context-protocol",
+                "python"
+              ],
+              "summary": "Python 写 MCP 服务端和客户端的主流框架，封装协议细节，几行代码就能把函数暴露成工具。做 agent 工具链的开发者几乎必装。",
+              "score": 73
+            },
+            {
+              "full_name": "modelcontextprotocol/python-sdk",
+              "url": "https://github.com/modelcontextprotocol/python-sdk",
+              "stars": 24841,
+              "forks": 4122,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2024-09-24T21:01:35Z",
+              "pushed_at": "2026-11-05T13:38:56Z",
+              "language": "Python",
+              "topics": [
+                "mcp",
+                "mcp-client",
+                "mcp-server",
+                "python"
+              ],
+              "summary": "MCP 官方 Python SDK，服务器与客户端底层实现，稳定但偏底层，适合需要精细控制协议行为的开发者。",
+              "score": 61
+            },
+            {
+              "full_name": "czlonkowski/n8n-mcp",
+              "url": "https://github.com/czlonkowski/n8n-mcp",
+              "stars": 23252,
+              "forks": 3682,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-06-07T12:15:57Z",
+              "pushed_at": "2026-11-11T21:15:59Z",
+              "language": "TypeScript",
+              "topics": [
+                "mcp",
+                "mcp-server",
+                "n8n",
+                "workflows"
+              ],
+              "summary": "让 Claude、Cursor 直接读写调试 n8n 工作流的 MCP 服务端，省去手动改节点和查文档，适合重度用 n8n 做自动化又嫌编辑器慢的开发者。",
+              "score": 67
+            },
+            {
+              "full_name": "microsoft/mcp-for-beginners",
+              "url": "https://github.com/microsoft/mcp-for-beginners",
+              "stars": 17644,
+              "forks": 5689,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-04-04T20:46:17Z",
+              "pushed_at": "2026-11-13T07:09:08Z",
+              "language": "Jupyter Notebook",
+              "topics": [
+                "csharp",
+                "java",
+                "javascript",
+                "javascript-applications",
+                "mcp",
+                "mcp-client",
+                "mcp-security",
+                "mcp-server",
+                "model",
+                "model-context-protocol",
+                "modelcontextprotocol",
+                "python",
+                "rust",
+                "typescript"
+              ],
+              "summary": "微软官方 MCP 入门课程，六种语言示例讲清协议原理与安全实践，适合想自己写 MCP server 但还没摸清规范的中文开发者系统学习。",
+              "score": 58
+            }
+          ]
+        }
+      ],
+      "potential": {
+        "id": "potential",
+        "label": "潜力榜",
+        "en": "RISING",
+        "status": "live",
+        "badge": "7 天新苗",
+        "note": "新建仓库 · 按每天拿到的 star 排",
+        "used_window": 7,
+        "min_stars": 10,
+        "window_steps": [
+          7,
+          14,
+          21,
+          28
+        ],
+        "min_count": 3,
+        "excluded": true,
+        "items": [
+          {
+            "full_name": "SternI/FortniteMCP",
+            "url": "https://github.com/SternI/FortniteMCP",
+            "stars": 11,
+            "forks": 0,
+            "delta": null,
+            "velocity": 11,
+            "age_days": 1,
+            "created_at": "2026-11-11T22:58:09Z",
+            "pushed_at": "2026-11-12T09:09:21Z",
+            "language": "C++",
+            "topics": [
+              "fortnite",
+              "mcp"
+            ],
+            "summary": "把 MCP 服务嵌进 Unreal 引擎进程，用于《堡垒之夜》游戏研究和自动化测试。场景极窄且依赖特定游戏环境，普通开发者用不上。",
+            "score": 66
+          },
+          {
+            "full_name": "tailucanh/offload-mcp-server",
+            "url": "https://github.com/tailucanh/offload-mcp-server",
+            "stars": 22,
+            "forks": 4,
+            "delta": null,
+            "velocity": 4.4,
+            "age_days": 5,
+            "created_at": "2026-11-08T03:40:29Z",
+            "pushed_at": "2026-11-10T13:12:07Z",
+            "language": "TypeScript",
+            "topics": [
+              "ai-agents",
+              "antigravity",
+              "claude-code",
+              "developer-tools",
+              "gemini",
+              "mcp",
+              "mcp-server",
+              "model-context-protocol",
+              "token-optimization"
+            ],
+            "summary": "让主 agent 把大量阅读外包给第二个 agent，只回传结论以省 token。思路实用，但项目新、星少，需自行验证稳定性。",
+            "score": 62
+          },
+          {
+            "full_name": "mert-ozkul/ozdisan-mcp",
+            "url": "https://github.com/mert-ozkul/ozdisan-mcp",
+            "stars": 30,
+            "forks": 3,
+            "delta": null,
+            "velocity": 4.285714285714286,
+            "age_days": 7,
+            "created_at": "2026-11-06T11:00:49Z",
+            "pushed_at": "2026-11-10T10:07:41Z",
+            "language": "TypeScript",
+            "topics": [
+              "ai-tools",
+              "bom",
+              "claude",
+              "cursor",
+              "datasheet",
+              "electronic-components",
+              "electronics",
+              "elektronik",
+              "mcp",
+              "mcp-server",
+              "model-context-protocol",
+              "ozdisan",
+              "pcb",
+              "turkce"
+            ],
+            "summary": "接入土耳其电子元件商城 Özdisan，可查库存价格、找替代料、读 BOM 和规格书。只对采购该平台元器件的硬件团队有价值。",
+            "score": 50
+          },
+          {
+            "full_name": "timoncool/google-ai-mode-mcp",
+            "url": "https://github.com/timoncool/google-ai-mode-mcp",
+            "stars": 22,
+            "forks": 2,
+            "delta": null,
+            "velocity": 3.6666666666666665,
+            "age_days": 6,
+            "created_at": "2026-11-07T12:46:13Z",
+            "pushed_at": "2026-11-12T11:17:52Z",
+            "language": "JavaScript",
+            "topics": [
+              "ai-mode",
+              "ai-search",
+              "chrome-extension",
+              "claude",
+              "google",
+              "mcp",
+              "mcp-server",
+              "model-context-protocol",
+              "python",
+              "web-search"
+            ],
+            "summary": "借本地浏览器扩展把 Google AI 搜索的带引用答案接进 Claude 等客户端，免 API key、约 3 秒返回。适合想要联网检索又不想付费的人。",
+            "score": 63
+          },
+          {
+            "full_name": "Garyu-tt/noosphere-lite-mcp",
+            "url": "https://github.com/Garyu-tt/noosphere-lite-mcp",
+            "stars": 11,
+            "forks": 1,
+            "delta": null,
+            "velocity": 2.2,
+            "age_days": 5,
+            "created_at": "2026-11-08T01:53:58Z",
+            "pushed_at": "2026-11-09T16:03:16Z",
+            "language": "Python",
+            "topics": [
+              "ai-agents",
+              "ai-memory",
+              "context-management",
+              "encrypted-storage",
+              "event-sourcing",
+              "graph-memory",
+              "knowledge-graph",
+              "local-first",
+              "long-term-memory",
+              "mcp",
+              "model-context-protocol",
+              "python"
+            ],
+            "summary": "本地优先的 agent 长期记忆服务，用知识图谱记录来源、历史并标记过期事实。方向对但项目很新、星数少，建议先小规模试用。",
+            "score": 45
           }
         ]
       }
@@ -1412,7 +2172,7 @@
                 "team-chat"
               ],
               "summary": "自托管 Slack 替代品，把 Claude、Codex 等 agent 拉进频道与人协作，带 MCP 工具和浏览器，适合团队搭建内部 agent 协作平台。",
-              "score": 92
+              "score": 91
             },
             {
               "full_name": "CopilotKit/OpenBot",
@@ -1646,7 +2406,7 @@
                 "typescript"
               ],
               "summary": "本地优先桌面工作台，为 Codex、Claude 等分配独立工作区、任务队列与浏览器控制，适合重度多 agent 并行用户，仅 macOS。",
-              "score": 54
+              "score": 53
             },
             {
               "full_name": "TauricResearch/TradingAgents",
@@ -1709,7 +2469,7 @@
                 "openai-compatible"
               ],
               "summary": "dsh 插件免登录免 Key 直连 DeepSeek、Kimi，装完即用；但来源不明、随时可能失效，只适合尝鲜。",
-              "score": 78
+              "score": 77
             },
             {
               "full_name": "milind-soni/OpenMausBot",
@@ -1835,7 +2595,7 @@
                 "rust"
               ],
               "summary": "Rust 写的 macOS 电脑操作 CLI，走无障碍 API 让 agent 控制桌面，可挂 MCP。适合在 Mac 上给 Claude Code 补上「看得见屏幕、点得动按钮」能力的开发者。",
-              "score": 80
+              "score": 79
             },
             {
               "full_name": "yetone/magpie",
@@ -2089,7 +2849,7 @@
                 "web"
               ],
               "summary": "用 Rust 写一套跨 Web、macOS、iOS、Linux 的原生应用，并让 agent 在每个平台上构建、运行、截图和测试，适合做多端交付的团队。",
-              "score": 64
+              "score": 63
             },
             {
               "full_name": "OpenMOSS/MOSS-Image",
@@ -2156,7 +2916,7 @@
                 "usd"
               ],
               "summary": "用 Python 写 3D 建模、面向 LLM 生成与修改场景，适合让 agent 产出程序化模型或 CAD 几何的开发者。",
-              "score": 53
+              "score": 52
             },
             {
               "full_name": "voyager-so/vork",
@@ -2277,7 +3037,7 @@
                 "dsh-plugin"
               ],
               "summary": "DeepSeek 官方 agent 运行时，一切皆插件，可替换工具链与模型适配层，适合想深度定制 agent 骨架、不愿被单一框架绑定的开发者。",
-              "score": 93
+              "score": 92
             },
             {
               "full_name": "NousResearch/hermes-agent",
@@ -2432,7 +3192,7 @@
                 "typescript"
               ],
               "summary": "社区提示词库加自托管站点，可私有化部署给团队共享收藏，适合需要沉淀 prompt 资产的组织，对编码 agent 帮助有限。",
-              "score": 57
+              "score": 56
             },
             {
               "full_name": "huggingface/transformers",
@@ -2589,29 +3349,6 @@
         "excluded": true,
         "items": [
           {
-            "full_name": "shanselman/sandbox-mcp",
-            "url": "https://github.com/shanselman/sandbox-mcp",
-            "stars": 421,
-            "forks": 20,
-            "delta": null,
-            "velocity": 70.16666666666667,
-            "age_days": 6,
-            "created_at": "2026-11-06T19:02:14Z",
-            "pushed_at": "2026-11-12T07:54:12Z",
-            "language": "JavaScript",
-            "topics": [
-              "ai-agents",
-              "mcp",
-              "mcp-server",
-              "testing",
-              "ui-automation",
-              "windows",
-              "windows-sandbox"
-            ],
-            "summary": "用 MCP 服务器和 CLI 自动拉起一次性 Windows Sandbox 虚拟机，让 agent 安全跑装包与 UI 测试，适合 Windows 桌面应用开发者。",
-            "score": 90
-          },
-          {
             "full_name": "SsKanDon/blender-ai-mcp-addon",
             "url": "https://github.com/SsKanDon/blender-ai-mcp-addon",
             "stars": 70,
@@ -2675,7 +3412,7 @@
               "vllm"
             ],
             "summary": "华为开源的模型无关 GGUF 量化方案，覆盖文本图像视频音频，兼容 llama.cpp 与 vLLM，适合本地推理玩家压显存。",
-            "score": 82
+            "score": 85
           },
           {
             "full_name": "dhruvthakur11/youtube-ai-video-editing-system",
@@ -2702,7 +3439,7 @@
               "youtube"
             ],
             "summary": "用 JSON 驱动动画与动效的提词器加剪辑 agent 工作流，偏个人 YouTube 制作，文档与可复用性一般，尝鲜价值大于实用。",
-            "score": 59
+            "score": 67
           },
           {
             "full_name": "threerocks/article2media",
@@ -2738,7 +3475,29 @@
               "xiaohongshu"
             ],
             "summary": "Claude Code/Codex 技能，把文章或视频转成小红书图文、长图与配音短视频，内置 21 套主题和自动验收，适合做内容分发的自媒体。",
-            "score": 55
+            "score": 74
+          },
+          {
+            "full_name": "bookleme/bookleme",
+            "url": "https://github.com/bookleme/bookleme",
+            "stars": 182,
+            "forks": 1,
+            "delta": null,
+            "velocity": 45.5,
+            "age_days": 4,
+            "created_at": "2026-11-09T03:29:27Z",
+            "pushed_at": "2026-11-10T03:44:20Z",
+            "language": "Python",
+            "topics": [
+              "agent-skills",
+              "book-to-skill",
+              "document-processing",
+              "knowledge-management",
+              "llm",
+              "prompt-engineering"
+            ],
+            "summary": "把整本书编译成可加载的 Agent Skill，带体裁插件和逐字回验，适合想让 agent 吃透长文档做知识库的人，但项目新、生态小需自行验证。",
+            "score": 46
           }
         ]
       }

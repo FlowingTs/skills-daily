@@ -78,6 +78,31 @@ function hasAigcSignal(e) {
 const SIGNALS = { skills: hasSkillSignal, aigc: hasAigcSignal };
 
 /**
+ * MCP 只收「主业是 MCP」的项目。
+ *
+ * 刻意不认 topic：topic:mcp 在 GitHub 上有 11 万个仓库，dify、open-webui、lobehub、
+ * cherry-studio 都挂着它——它们只是「顺带支持 MCP」。按 topic 收，MCP 总榜会被这批
+ * 十几万星的项目占满，变成第二个 AIGC 榜。
+ *
+ * 所以 hasTopic 永远返回 false，只看「名字/作者带 mcp」或「描述以 MCP 为主体」。
+ */
+function hasMcpSignal(e) {
+  const name = String(e.name || '').toLowerCase();
+  const owner = String(e.owner || '').toLowerCase();
+  const desc = String(e.description || '').trim();
+
+  const nameHit = /mcp/i.test(name) || /mcp|modelcontextprotocol|model.context.protocol/i.test(owner);
+  const descHit =
+    /^(an?\s+|the\s+)?(mcp|model[\s-]context[\s-]protocol)\s+(server|client|gateway|proxy|hub|router|toolkit|toolbox)/i.test(
+      desc,
+    );
+
+  return { hasTopic: false, hasText: nameHit || descHit };
+}
+
+SIGNALS.mcp = hasMcpSignal;
+
+/**
  * 多条车道并行发现：
  *  高星 —— 按 star 降序，保证覆盖成熟项目
  *  新芽 —— 近 7 天新建，潜力榜的候选来源
@@ -104,8 +129,10 @@ async function discover(group, config) {
       jobs.push({ lane: lane.name, q, sort: lane.sort, pages });
     }
   }
+  // 补充查询默认只取 1 页；name 类查询（如 "mcp-server in:name" 有 5.6 万个）需要更多页
+  const extraPages = pageCap > 0 ? pageCap : (search.extraPages ?? 1);
   for (const q of search.extraQueries || []) {
-    jobs.push({ lane: '补充', q, sort: 'stars', pages: pageCap > 0 ? pageCap : 1 });
+    jobs.push({ lane: '补充', q, sort: 'stars', pages: extraPages });
   }
 
   const selected = limit > 0 ? jobs.slice(0, limit) : jobs;
@@ -118,13 +145,19 @@ async function discover(group, config) {
           const e = toEntry(it);
           const prev = found.get(e.full_name);
           if (prev) {
-            // 同一仓库在多条车道命中时，保留更新鲜的元数据
-            if (Date.parse(e.pushed_at) > Date.parse(prev.pushed_at)) found.set(e.full_name, e);
+            // 同一仓库在多条车道命中时，保留更新鲜的元数据。
+            // 替换时必须把 lanes 带过去，否则下一次命中读 prev.lanes 会报
+            // 「Cannot read properties of undefined (reading 'includes')」，
+            // 整页剩余条目连同后续分页一起丢掉（曾静默吃掉 3 个查询）。
+            if (Date.parse(e.pushed_at) > Date.parse(prev.pushed_at)) {
+              e.lanes = prev.lanes ?? [job.lane];
+              found.set(e.full_name, e);
+            }
           } else {
             e.lanes = [job.lane];
             found.set(e.full_name, e);
           }
-          if (prev && !prev.lanes.includes(job.lane)) {
+          if (prev && !(prev.lanes ?? []).includes(job.lane)) {
             const cur = found.get(e.full_name);
             cur.lanes = [...(cur.lanes || []), job.lane];
           }

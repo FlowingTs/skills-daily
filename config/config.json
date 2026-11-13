@@ -106,6 +106,59 @@
       }
     },
     {
+      "id": "mcp",
+      "label": "MCP",
+      "en": "MODEL CONTEXT PROTOCOL",
+      "desc": "只收主业是 MCP 的项目",
+      "pool": "pool-mcp",
+      "snapshots": "snapshots-mcp",
+      "poolLimit": 1000,
+      "minStars": 10,
+      "minStarsByPeriod": {
+        "day": 50,
+        "week": 50,
+        "month": 100,
+        "all": 100
+      },
+      "allSinceDays": null,
+      "allNote": "全历史 · 按 star 总量",
+      "search": {
+        "topics": [
+          "mcp",
+          "mcp-server",
+          "mcp-client",
+          "mcp-servers",
+          "model-context-protocol"
+        ],
+        "extraQueries": [
+          "mcp in:name",
+          "mcp-server in:name",
+          "\"model context protocol\" in:description"
+        ],
+        "lanes": [
+          {
+            "name": "高星",
+            "sort": "stars",
+            "pages": 2,
+            "sinceDays": null
+          },
+          {
+            "name": "新芽",
+            "sort": "stars",
+            "pages": 2,
+            "sinceDays": 7
+          },
+          {
+            "name": "活跃",
+            "sort": "updated",
+            "pages": 1,
+            "sinceDays": 7
+          }
+        ],
+        "extraPages": 3
+      }
+    },
+    {
       "id": "aigc",
       "label": "AIGC",
       "en": "GENERATIVE AI",
@@ -185,6 +238,23 @@
       "label": "潜力榜",
       "en": "RISING",
       "minStars": 50,
+      "window": 7,
+      "windowSteps": [
+        7,
+        14,
+        21,
+        28
+      ],
+      "minCount": 3,
+      "limit": 5,
+      "note": "新建仓库 · 按每天拿到的 star 排",
+      "metric": "velocity"
+    },
+    "mcp": {
+      "id": "potential",
+      "label": "潜力榜",
+      "en": "RISING",
+      "minStars": 10,
       "window": 7,
       "windowSteps": [
         7,

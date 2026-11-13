@@ -50,8 +50,10 @@ async function main() {
   // 这个顺序和页面展示顺序（日/周/月/总）不同，不能混用。
   const dedupeOrder = config.dedupeOrder ?? ['all', 'month', 'week', 'day'];
 
-  // 主领域（Skills）去重后的全集：四档 + 潜力榜。AIGC 让路时用它。
-  let primarySet = null;
+  // 前面所有领域去重后的全集（四档 + 潜力榜）。
+  // 让路顺序 = config.groups 的顺序：Skills 先挑 → MCP 次 → AIGC 最后，后者剔掉前面全部。
+  // 用累积集合而不是「只让主领域」，否则第三个领域会撞上前两个。
+  let priorSet = null;
   let heroItem = null;
 
   for (const g of config.groups) {
@@ -64,8 +66,8 @@ async function main() {
     log(`[${g.id}] 池 ${pool.length} · 可用快照 ${days} 天`);
 
     const isPrimary = g.id === primary.id;
-    // AIGC 单向让路：主领域出现过的仓库，不再进 AIGC 的任何一档
-    const crossExclude = isPrimary ? null : primarySet;
+    // 排在后面的领域要剔掉前面所有领域已经挑走的仓库
+    const crossExclude = priorSet;
 
     // 本领域已经上过榜的仓库，随着优先级推进不断累积
     const taken = new Set();
@@ -119,8 +121,10 @@ async function main() {
     for (const it of pot.items) taken.add(it.repo.full_name);
     log(`[${g.id}] ${potCfg.label}: ${pot.items.length} 条 · 窗口 ${pot.window} 天`);
 
+    // 本领域挑完后并入累积集合，供后面的领域排除
+    priorSet = priorSet ? new Set([...priorSet, ...taken]) : new Set(taken);
+
     if (isPrimary) {
-      primarySet = new Set(taken);
 
       // 首屏单独取一次：全站当日净增第一，不参与去重。
       // 去重后日榜第一会掉到 +415 这种量级，首屏需要的是「今天最值得看的一件事」，

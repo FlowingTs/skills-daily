@@ -3,11 +3,11 @@
 每天北京时间 **08:00**（cron-job.org 触发，见下文「定时触发」）抓取 GitHub 上的仓库，
 生成一份黑色宇宙风格的日报页面，并把摘要推到企业微信群。
 
-两个领域 × 四个周期：**Skills / AIGC** 各出 **日 / 周 / 月 / 总** 四档，每档最多 10 条；
-下面是两份独立的**潜力榜**（Skills 新苗 / AIGC 新苗），各最多 5 条。
+三个领域 × 四个周期：**Skills / MCP / AIGC** 各出 **日 / 周 / 月 / 总** 四档，每档最多 10 条；
+下面三份独立的**潜力榜**，各最多 5 条。
 
 页面打开默认只显示 **Skills 日榜**，想看别的就点一下：顶部粘顶导航切周期（日/周/月/总），
-榜单区的分段标签切领域（Skills / AIGC）。抓不满就空着，不补位。
+榜单区的分段标签切领域（Skills / MCP / AIGC）。抓不满就空着，不补位。
 
 ---
 
@@ -15,22 +15,32 @@
 
 | 档位 | 口径 | 冷启动期 |
 |---|---|---|
-| 总热门 | Skills：近 12 个月新建，按 star 总量；AIGC：全历史，按 star 总量 | 立即有数据 |
+| 总热门 | Skills：近 12 个月新建；MCP / AIGC：全历史，都按 star 总量 | 立即有数据 |
 | 月热门 | 近 30 天 star **净增** | 快照不足 31 天时，降级为「近 30 天新建仓库按 star」 |
 | 周热门 | 近 7 天 star 净增 | 快照不足 8 天时，降级为「近 7 天新建仓库按 star」 |
 | 单日热门 | 前一天 00:00–24:00 的 star 净增 | 快照不足 2 天时，降级为「近 7 天新建仓库按 star」 |
 | 潜力榜 | 新建仓库按**每天拿到的 star** 排（速度，不是存量） | 无需快照，立即有数据 |
 
-两个领域各自一套仓库池和快照，互不干扰：
+三个领域各自一套仓库池和快照，互不干扰：
 
-| | Skills | AIGC |
-|---|---|---|
-| 收什么 | `SKILL.md` 那类 Agent 技能仓库 | 不限 skills，生成式 AI 全范围（模型、推理、图像/视频/语音生成、框架、Agent、RAG） |
-| star 门槛 | 统一 10 | 日/周 50，月/总 100 |
-| 潜力榜门槛 | 10 | 50 |
-| 池子 | `data/pool.json` · `data/snapshots/` | `data/pool-aigc.json` · `data/snapshots-aigc/` |
+| | Skills | MCP | AIGC |
+|---|---|---|---|
+| 收什么 | `SKILL.md` 那类 Agent 技能仓库 | **主业是 MCP** 的项目（名字/作者带 mcp，或描述以 MCP server/client 开头） | 不限 skills，生成式 AI 全范围 |
+| 建池门槛 | 10 | **10** | 50 |
+| 上榜门槛 | 10 | 日/周 50，月/总 100 | 日/周 50，月/总 100 |
+| 潜力榜门槛 | 10 | 10 | 50 |
+| 池子 | `data/pool.json` · `data/snapshots/` | `data/pool-mcp.json` · `data/snapshots-mcp/` | `data/pool-aigc.json` · `data/snapshots-aigc/` |
 
-**AIGC 单向让路**：AIGC 的每一档都会剔掉 Skills 榜上出现过的仓库（四档 + 潜力榜全算），Skills 榜不受影响。
+**建池门槛和上榜门槛是两回事，别混。** MCP 建池按 10 星收，是因为 10–50 星的新项目要留给潜力榜；
+如果按 50 星建池，那些仓库在建池那一刻就被丢掉，潜力榜永远是空的（实测过：722 个仓库里近 28 天
+新建的只有 10 个，降潜力榜门槛也没用，因为池子里根本没有）。
+
+**MCP 刻意不认 topic**。`topic:mcp` 在 GitHub 上有 11 万个仓库，dify、open-webui、lobehub 都挂着它，
+但它们只是「顺带支持 MCP」。按 topic 收，MCP 总榜会被这批十几万星的项目占满，变成第二个 AIGC 榜。
+现在的判定是「名字或作者带 mcp」或「描述以 MCP server / Model Context Protocol 开头」。
+
+**让路顺序 = `config.groups` 的顺序：Skills → MCP → AIGC。** 排在后面的领域剔掉前面所有领域已上榜的
+仓库（四档 + 潜力榜全算），Skills 榜一个字节都不动。
 
 ### 跨档去重：一个仓库一天只出现一次
 
@@ -55,6 +65,9 @@
 潜力榜排在日榜之后，所以它现在是「四档都没收下的新苗」。AIGC 潜力榜的实际力度会明显下降
 （原来那 5 条全被四档吃掉），数量仍靠窗口外扩（7→28 天）补满 5 条，不降门槛。
 
+MCP 榜上线第一周会明显偏薄：它只有 1 份快照起步，日榜显示「采集中」（要 2 天），周榜月榜走冷启动。
+第二天日榜转真净增，第 8 天周转真，第 31 天月转真。
+
 潜力榜的排序刻意不用 star 总量：一个 3 天涨 300 的仓库，比 20 天涨 900 的更值得看。
 
 **窗口会自动外扩。** 从近 7 天开始，如果凑不够 3 条，就放宽到 14 天、21 天、28 天，
@@ -78,7 +91,7 @@
 
 ## 推送什么
 
-早八点只推**两份潜力榜**：Skills 新苗 top3 + AIGC 新苗 top3，带一句中文点评。
+早八点只推**三份潜力榜**：Skills / MCP / AIGC 各 top3，带一句中文点评，共 9 条。
 
 理由是日/周/月/总已经收进页面切换里，早上最值得看的是「昨天又冒出来什么」，而不是「谁又涨了」。
 完整四档要看就点链接进页面。企业微信 markdown 上限 4096 字节，`notify.mjs` 里有逐级降级阶梯
@@ -143,11 +156,13 @@
 config/config.json             阈值、权重、领域与周期、搜索车道
 scripts/collect.mjs            抓仓库、落快照
 scripts/build.mjs              算榜、调模型点评、生成页面
-scripts/notify.mjs             企业微信群机器人推送（只推两份潜力榜）
+scripts/notify.mjs             企业微信群机器人推送（只推三份潜力榜）
 scripts/lib/github.mjs         GitHub API（带限流退避）
 scripts/lib/rank.mjs           榜单计算与推荐分
 scripts/lib/render.mjs         页面渲染
 data/pool.json                 Skills 仓库池（累积，不重置）
+data/pool-mcp.json             MCP 仓库池（只收主业 MCP，建池按 10 星）
+data/snapshots-mcp/            MCP 每日快照
 data/pool-aigc.json            AIGC 仓库池
 data/snapshots/                Skills 每日快照（净增的唯一来源，别删）
 data/snapshots-aigc/           AIGC 每日快照
@@ -315,7 +330,9 @@ token 过期、仓库改名都会触发这条路径——有邮件才能及时�
 | 想改什么 | 改哪里 |
 |---|---|
 | 每档条数 | `config.perColumn`（默认 10） |
-| star 门槛 | `groups[].minStars` 与 `groups[].minStarsByPeriod`（Skills 10；AIGC 日/周 50、月/总 100）|
+| 建池门槛 | `groups[].minStars`（Skills 10、MCP 10、AIGC 50）|
+| 上榜门槛 | `groups[].minStarsByPeriod`（MCP / AIGC 都是 日/周 50、月/总 100）|
+| 领域让路顺序 | `config.groups` 数组顺序：第一个先挑，后面的剔掉前面的 |
 | 潜力榜条数 / 窗口 | `potential.skills` / `potential.aigc` 的 `limit` / `windowSteps` / `minCount` |
 | 领域顺序（默认哪个在前） | `config.groups` 数组顺序，第一个就是默认打开的领域 |
 | 去重优先级 | `config.dedupeOrder`（默认 `all,month,week,day`，潜力榜永远排最后） |
