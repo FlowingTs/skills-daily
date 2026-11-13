@@ -99,6 +99,37 @@ MCP 榜上线第一周会明显偏薄：它只有 1 份快照起步，日榜显�
 
 ---
 
+## 分享图（转发到微信用的那张）
+
+**为什么要有它。** 2021 年之后微信对外链只开放「访问」、不开放「传播」：从聊天或网页里
+打开一个链接，再转发出去，那张带标题和缩略图的卡片会被收走，只剩一行网址。改网页的
+`og:` 标签治不了这一步——它管的是「卡片长什么样」，管不了「卡片能不能被转发」。
+所以除了网页，每期还生成一张竖版图：内容画在图里，二维码画在图里，转发一张图，
+接收方看到的就是完整信息，想细看再扫码进站。
+
+**图上有什么**（1080×1450，`site/share/YYYY-MM-DD.png` 与固定名 `latest.png`）：
+
+- 一句事实性的标题：「昨天新冒出来的 N 个仓库」，N 是当天实际条数；
+- 一句算出来的副题：「第一名每天涨 271 颗，是第五名的 2.5 倍」——倍数由数据现算，不是文案；
+- 榜首占一整幅暖色块（等于 100% 宽度的那个条），下面四个按「每天涨星数」等比缩短，
+  于是整张图是一个自上而下的下行阶梯：**数据的形状本身就是版式**；
+- 底部二维码，指向 `config.siteUrl`（首页，永远是最新一期）。
+
+**怎么生成的。** `scripts/lib/share-card.mjs` 先把数据拼成一份内联样式、无外链的 HTML，
+再用本机 Chromium 内核浏览器（Chrome / Edge / Chromium，`scripts/lib/chrome-shot.mjs`）
+截图为 PNG。**不装任何 npm 包**，字体用系统字体栈（`PingFang SC` / `微软雅黑` /
+`Noto Sans CJK SC` 等）。找不到浏览器时自动退回 `share-card-bitmap.mjs` 的点阵版，
+两条路都失败也只是没有图，不影响日报本体和文字推送。
+
+CI 上多一步 `apt-get install fonts-noto-cjk`：GitHub 的 ubuntu 镜像默认没有中文字体，
+不装会渲染成方框。装失败不致命，会退回点阵版。
+
+**推送怎么用它。** `notify.mjs` 优先发图（`msgtype: image`，base64 + md5，上限 2MB，
+实测约 250KB）；图不存在、超过 2MB 或发送失败，自动回退到原来的文字 markdown
+（4096 字节逐级降级阶梯仍在）。
+
+---
+
 ## 页面设计
 
 方向：**The sentence is the layout**（seed 1609627027）——一句短话就是整个版式。
@@ -160,6 +191,12 @@ scripts/notify.mjs             企业微信群机器人推送（只推三份潜�
 scripts/lib/github.mjs         GitHub API（带限流退避）
 scripts/lib/rank.mjs           榜单计算与推荐分
 scripts/lib/render.mjs         页面渲染
+scripts/lib/share-card.mjs     分享图：拼 HTML 再截图（主路径）
+scripts/lib/chrome-shot.mjs    调用本机 Chrome/Edge/Chromium 截图
+scripts/lib/share-card-bitmap.mjs  分享图点阵版（没有浏览器时的兜底）
+scripts/lib/qr.mjs             二维码（纯 Node 自实现，逐位对齐 qrcode 库）
+scripts/lib/png.mjs            PNG 编码（zlib + CRC32，仅兜底版使用）
+scripts/lib/font5x7.mjs        5×7 点阵字体（仅兜底版使用）
 data/pool.json                 Skills 仓库池（累积，不重置）
 data/pool-mcp.json             MCP 仓库池（只收主业 MCP，建池按 10 星）
 data/snapshots-mcp/            MCP 每日快照
