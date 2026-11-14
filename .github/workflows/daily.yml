@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: 幂等检查（今天是否已发布）
+      - name: 幂等检查（最近 4 小时内是否已发布）
         id: guard
         env:
           REPORT_DATE: ${{ inputs.report_date }}
