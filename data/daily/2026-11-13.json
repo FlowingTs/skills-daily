@@ -1,8 +1,8 @@
 {
   "date": "2026-11-13",
-  "generated_at": "2026-11-14T09:36",
+  "generated_at": "2026-11-14T14:11",
   "snapshot_days": 25,
-  "pool_size": 3503,
+  "pool_size": 3508,
   "groups": [
     {
       "id": "skills",
@@ -29,13 +29,13 @@
             {
               "full_name": "alibaba/open-code-review",
               "url": "https://github.com/alibaba/open-code-review",
-              "stars": 50641,
-              "forks": 3769,
-              "delta": 549,
+              "stars": 50810,
+              "forks": 3782,
+              "delta": 718,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-05-18T02:16:36Z",
-              "pushed_at": "2026-11-14T01:29:46Z",
+              "pushed_at": "2026-11-14T05:39:05Z",
               "language": "Go",
               "topics": [
                 "agent",
@@ -45,15 +45,15 @@
                 "harness",
                 "repository-level-context"
               ],
-              "summary": "阿里开源的代码审查工具，确定性流水线加 LLM Agent 做行级评论，内置 NPE、线程安全、XSS 规则集，适合团队接入 CI 做自动化审查。",
-              "score": 95
+              "summary": "阿里大规模实战的代码审查工具，确定性流水线加 LLM Agent，能精确到行级评论，内置 NPE、线程安全、XSS 规则集，适合团队接入 CI 做自动化评审。",
+              "score": 96
             },
             {
               "full_name": "emilkowalski/skills",
               "url": "https://github.com/emilkowalski/skills",
-              "stars": 56684,
-              "forks": 3317,
-              "delta": 191,
+              "stars": 56730,
+              "forks": 3320,
+              "delta": 237,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-16T13:52:31Z",
@@ -68,14 +68,40 @@
                 "design-engineering"
               ],
               "summary": "设计师兼工程师写的动效与交互类 skill 合集，纯 Markdown 直接丢进 Claude Code 或 Cursor 就能用；适合做前端界面、想让 agent 输出更有设计品味的人。",
-              "score": 68
+              "score": 67
+            },
+            {
+              "full_name": "lobehub/lobehub",
+              "url": "https://github.com/lobehub/lobehub",
+              "stars": 85449,
+              "forks": 16303,
+              "delta": 220,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2023-05-21T07:19:12Z",
+              "pushed_at": "2026-11-14T06:05:48Z",
+              "language": "TypeScript",
+              "topics": [
+                "agent",
+                "agent-collaboration",
+                "agent-harness",
+                "loop-engineering",
+                "mcp",
+                "personal-assistant",
+                "proactive-agent",
+                "skills",
+                "super-agent",
+                "task-management"
+              ],
+              "summary": "把超级 Agent 塞进团队现有聊天工具，自主接活并持续迭代，适合想要多人多 Agent 协作、统一任务管理的团队，但部署和配置成本不低。",
+              "score": 63
             },
             {
               "full_name": "JayPokale/Chisle",
               "url": "https://github.com/JayPokale/Chisle",
-              "stars": 950,
-              "forks": 57,
-              "delta": 190,
+              "stars": 980,
+              "forks": 61,
+              "delta": 220,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-06-30T05:36:44Z",
@@ -104,14 +130,49 @@
                 "token-optimization"
               ],
               "summary": "从精简文风、YAGNI 代码、工具输出压缩三方面削减 agent token 消耗，零依赖，支持 Claude Code、Cursor 等，适合在意 API 账单的开发者。",
-              "score": 64
+              "score": 61
+            },
+            {
+              "full_name": "kaomei/stickman-video-director",
+              "url": "https://github.com/kaomei/stickman-video-director",
+              "stars": 6138,
+              "forks": 1046,
+              "delta": 212,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-08-03T07:44:33Z",
+              "pushed_at": "2026-11-14T05:42:24Z",
+              "language": "JavaScript",
+              "topics": [
+                "agent-skills-manager",
+                "ai-animation-generator",
+                "ai-video-production",
+                "automated-video",
+                "codex-skills",
+                "content-creation",
+                "creator-tools",
+                "faceless-youtube",
+                "gemini",
+                "generative-ai",
+                "llm",
+                "open-source",
+                "stickman",
+                "stickman-characters",
+                "storyboarding",
+                "storytelling",
+                "text-to-video",
+                "video-generation",
+                "youtube-automation"
+              ],
+              "summary": "输入脚本自动产出多风格火柴人动画，含配音、字幕和音效，面向无露脸 YouTube 频道批量出片，适合内容创作者而非开发者日常提效。",
+              "score": 55
             },
             {
               "full_name": "obsidianmd/obsidian-skills",
               "url": "https://github.com/obsidianmd/obsidian-skills",
-              "stars": 52310,
-              "forks": 3719,
-              "delta": 175,
+              "stars": 52338,
+              "forks": 3725,
+              "delta": 203,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-01-02T21:45:11Z",
@@ -137,7 +198,91 @@
                 "skills"
               ],
               "summary": "Obsidian 官方出的 agent 技能包，让 Claude Code 等直接读写 Markdown、Bases、JSON Canvas 和 CLI，适合重度笔记用户把知识库接进工作流。",
-              "score": 61
+              "score": 59
+            },
+            {
+              "full_name": "Adkid-Zephyr/anti-defensive-writing-Skill",
+              "url": "https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill",
+              "stars": 6194,
+              "forks": 152,
+              "delta": 179,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-08-11T18:02:07Z",
+              "pushed_at": "2026-10-27T13:01:00Z",
+              "language": "Python",
+              "topics": [
+                "academic-writing",
+                "ai-writing",
+                "claude-skill",
+                "paper-writing",
+                "prompt"
+              ],
+              "summary": "轻量学术写作 Skill，专门压制论文里过度铺垫和防御性表述，适合用 AI 写论文、需要润色语气的学生研究者。",
+              "score": 40
+            },
+            {
+              "full_name": "coreyhaines31/marketingskills",
+              "url": "https://github.com/coreyhaines31/marketingskills",
+              "stars": 60206,
+              "forks": 8791,
+              "delta": 178,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-01-15T19:45:23Z",
+              "pushed_at": "2026-11-11T17:49:23Z",
+              "language": "JavaScript",
+              "topics": [
+                "agent-skills",
+                "ai-agents",
+                "ai-seo",
+                "claude",
+                "claude-code",
+                "claude-code-plugin",
+                "claude-skills",
+                "codex",
+                "content-marketing",
+                "conversion-rate-optimization",
+                "copywriting",
+                "cursor",
+                "email-marketing",
+                "generative-engine-optimization",
+                "growth-marketing",
+                "marketing",
+                "marketing-automation",
+                "saas-marketing",
+                "seo",
+                "skill-md"
+              ],
+              "summary": "把 CRO、文案、SEO、分析和增长工程打包成 Claude Code 技能，适合没有营销团队的独立开发者做产品推广。",
+              "score": 52
+            },
+            {
+              "full_name": "NVIDIA/SkillSpector",
+              "url": "https://github.com/NVIDIA/SkillSpector",
+              "stars": 25923,
+              "forks": 2300,
+              "delta": 178,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-03-21T00:28:43Z",
+              "pushed_at": "2026-11-14T04:49:48Z",
+              "language": "Python",
+              "topics": [
+                "agent-security",
+                "agent-skills",
+                "agentic-ai",
+                "ai-security",
+                "claude-code",
+                "mcp",
+                "prompt-injection",
+                "security-scanner",
+                "security-tools",
+                "security-workflow",
+                "supply-chain-security"
+              ],
+              "summary": "装技能前先扫一遍：检测提示注入、数据外泄、恶意模式和供应链风险，覆盖 Claude Code、Codex 与 MCP 技能，适合把第三方技能纳入工作流的团队。",
+              "score": 62
             },
             {
               "full_name": "NVIDIA/SkillEvaluator",
@@ -171,152 +316,7 @@
                 "skills"
               ],
               "summary": "NVIDIA 出的 agent 技能评测框架，带质量门禁、语义重叠检测和合成数据集生成，适合批量维护 skill 库、需要量化技能效果的团队。",
-              "score": 61
-            },
-            {
-              "full_name": "lobehub/lobehub",
-              "url": "https://github.com/lobehub/lobehub",
-              "stars": 85401,
-              "forks": 16293,
-              "delta": 172,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2023-05-21T07:19:12Z",
-              "pushed_at": "2026-11-14T00:04:10Z",
-              "language": "TypeScript",
-              "topics": [
-                "agent",
-                "agent-collaboration",
-                "agent-harness",
-                "loop-engineering",
-                "mcp",
-                "personal-assistant",
-                "proactive-agent",
-                "skills",
-                "super-agent",
-                "task-management"
-              ],
-              "summary": "LobeHub 团队协作式超级 agent 平台，可接入现有聊天工具自主接活，功能全但体量大、部署成本高，适合想要成品 agent 工作台的团队。",
-              "score": 59
-            },
-            {
-              "full_name": "kaomei/stickman-video-director",
-              "url": "https://github.com/kaomei/stickman-video-director",
-              "stars": 6091,
-              "forks": 1030,
-              "delta": 165,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-08-03T07:44:33Z",
-              "pushed_at": "2026-11-13T13:43:06Z",
-              "language": "JavaScript",
-              "topics": [
-                "agent-skills-manager",
-                "ai-animation-generator",
-                "ai-video-production",
-                "automated-video",
-                "codex-skills",
-                "content-creation",
-                "creator-tools",
-                "faceless-youtube",
-                "gemini",
-                "generative-ai",
-                "llm",
-                "open-source",
-                "stickman",
-                "stickman-characters",
-                "storyboarding",
-                "storytelling",
-                "text-to-video",
-                "video-generation",
-                "youtube-automation"
-              ],
-              "summary": "把脚本自动转成火柴人动画短视频，配画面、配音、字幕和音效，面向无脸 YouTube 频道批量出片，适合做内容流水线、能接受模板化风格的人。",
-              "score": 54
-            },
-            {
-              "full_name": "NVIDIA/SkillSpector",
-              "url": "https://github.com/NVIDIA/SkillSpector",
-              "stars": 25898,
-              "forks": 2298,
-              "delta": 153,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-03-21T00:28:43Z",
-              "pushed_at": "2026-11-13T23:13:59Z",
-              "language": "Python",
-              "topics": [
-                "agent-security",
-                "agent-skills",
-                "agentic-ai",
-                "ai-security",
-                "claude-code",
-                "mcp",
-                "prompt-injection",
-                "security-scanner",
-                "security-tools",
-                "security-workflow",
-                "supply-chain-security"
-              ],
-              "summary": "安装前扫描 Claude Code、Codex、MCP 技能的安全工具，检测提示注入、数据外泄和供应链风险，适合从第三方仓库拉 skill 的谨慎用户。",
-              "score": 61
-            },
-            {
-              "full_name": "coreyhaines31/marketingskills",
-              "url": "https://github.com/coreyhaines31/marketingskills",
-              "stars": 60180,
-              "forks": 8789,
-              "delta": 152,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-01-15T19:45:23Z",
-              "pushed_at": "2026-11-11T17:49:23Z",
-              "language": "JavaScript",
-              "topics": [
-                "agent-skills",
-                "ai-agents",
-                "ai-seo",
-                "claude",
-                "claude-code",
-                "claude-code-plugin",
-                "claude-skills",
-                "codex",
-                "content-marketing",
-                "conversion-rate-optimization",
-                "copywriting",
-                "cursor",
-                "email-marketing",
-                "generative-engine-optimization",
-                "growth-marketing",
-                "marketing",
-                "marketing-automation",
-                "saas-marketing",
-                "seo",
-                "skill-md"
-              ],
-              "summary": "把 CRO、文案、SEO、分析和增长工程打包成 Claude Code 技能，适合没有营销团队的独立开发者做产品推广。",
-              "score": 54
-            },
-            {
-              "full_name": "Adkid-Zephyr/anti-defensive-writing-Skill",
-              "url": "https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill",
-              "stars": 6154,
-              "forks": 150,
-              "delta": 139,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-08-11T18:02:07Z",
-              "pushed_at": "2026-10-27T13:01:00Z",
-              "language": "Python",
-              "topics": [
-                "academic-writing",
-                "ai-writing",
-                "claude-skill",
-                "paper-writing",
-                "prompt"
-              ],
-              "summary": "轻量学术写作 Skill，专门压制论文里过度铺垫和防御性表述，适合用 AI 写论文、需要润色语气的学生研究者。",
-              "score": 39
+              "score": 55
             }
           ]
         },
@@ -337,9 +337,9 @@
             {
               "full_name": "cloudflare/security-audit-skill",
               "url": "https://github.com/cloudflare/security-audit-skill",
-              "stars": 71944,
-              "forks": 4793,
-              "delta": 8005,
+              "stars": 72052,
+              "forks": 4803,
+              "delta": 8113,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-06-18T14:08:44Z",
@@ -352,9 +352,9 @@
             {
               "full_name": "anthropics/skills",
               "url": "https://github.com/anthropics/skills",
-              "stars": 194151,
-              "forks": 22833,
-              "delta": 5983,
+              "stars": 194222,
+              "forks": 22849,
+              "delta": 6054,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-09-22T15:53:31Z",
@@ -369,13 +369,13 @@
             {
               "full_name": "google/elephant-goldfish-model",
               "url": "https://github.com/google/elephant-goldfish-model",
-              "stars": 18633,
-              "forks": 1389,
-              "delta": 5559,
+              "stars": 18721,
+              "forks": 1398,
+              "delta": 5647,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-13T16:31:06Z",
-              "pushed_at": "2026-11-13T17:16:33Z",
+              "pushed_at": "2026-11-14T03:30:16Z",
               "language": "Python",
               "topics": [
                 "agent-skills",
@@ -395,15 +395,15 @@
                 "prompt-engineering",
                 "spec-driven-development"
               ],
-              "summary": "Google 开源的软件设计与评审插件，把上下文工程和评审流程固化成技能，兼容 Claude Code、Codex、Gemini。适合想让 agent 参与架构评审、减少返工的工程团队。",
-              "score": 85
+              "summary": "谷歌出的 Agent 插件，用于辅助软件设计与评审，主打上下文工程，可挂到 Claude Code、Codex、Gemini 上，适合想让 Agent 参与架构讨论的开发者。",
+              "score": 84
             },
             {
               "full_name": "obra/superpowers",
               "url": "https://github.com/obra/superpowers",
-              "stars": 317248,
-              "forks": 28242,
-              "delta": 3650,
+              "stars": 317316,
+              "forks": 28255,
+              "delta": 3718,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-10-09T19:45:18Z",
@@ -425,9 +425,9 @@
             {
               "full_name": "blader/humanizer",
               "url": "https://github.com/blader/humanizer",
-              "stars": 68832,
-              "forks": 5398,
-              "delta": 3194,
+              "stars": 68897,
+              "forks": 5406,
+              "delta": 3259,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-01-18T05:30:15Z",
@@ -454,9 +454,9 @@
             {
               "full_name": "thedotmack/claude-mem",
               "url": "https://github.com/thedotmack/claude-mem",
-              "stars": 116856,
-              "forks": 10141,
-              "delta": 2843,
+              "stars": 116899,
+              "forks": 10145,
+              "delta": 2886,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-08-31T20:50:03Z",
@@ -490,9 +490,9 @@
             {
               "full_name": "lemomo-ai/lemo-opuscar",
               "url": "https://github.com/lemomo-ai/lemo-opuscar",
-              "stars": 15728,
-              "forks": 1944,
-              "delta": 2693,
+              "stars": 15782,
+              "forks": 1957,
+              "delta": 2747,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-26T10:10:41Z",
@@ -526,9 +526,9 @@
             {
               "full_name": "Vincentwei1021/video-shotcraft",
               "url": "https://github.com/Vincentwei1021/video-shotcraft",
-              "stars": 19203,
-              "forks": 1812,
-              "delta": 1735,
+              "stars": 19240,
+              "forks": 1817,
+              "delta": 1772,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-07-19T11:44:41Z",
@@ -556,13 +556,13 @@
             {
               "full_name": "career-ops-hq/career-ops",
               "url": "https://github.com/career-ops-hq/career-ops",
-              "stars": 82410,
-              "forks": 15114,
-              "delta": 1688,
+              "stars": 82435,
+              "forks": 15121,
+              "delta": 1713,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-04T18:21:18Z",
-              "pushed_at": "2026-11-13T20:53:13Z",
+              "pushed_at": "2026-11-14T05:59:29Z",
               "language": "JavaScript",
               "topics": [
                 "agent-skills",
@@ -586,15 +586,15 @@
                 "open-source",
                 "resume"
               ],
-              "summary": "求职 agent 技能，扫描招聘板、按简历给岗位打 1-5 分、定制 ATS 简历和求职信并跟踪投递，适合正在找工作的开发者顺手一用。",
-              "score": 52
+              "summary": "求职流水线 Agent：扫岗位、按简历打 1-5 分、定制 ATS 友好简历与求职信，还带面试准备和投递追踪，适合正在密集找工作的人。",
+              "score": 56
             },
             {
               "full_name": "wheresryan22/anatomy",
               "url": "https://github.com/wheresryan22/anatomy",
-              "stars": 27133,
-              "forks": 2290,
-              "delta": 1582,
+              "stars": 27165,
+              "forks": 2297,
+              "delta": 1614,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-08T10:12:49Z",
@@ -628,13 +628,13 @@
             {
               "full_name": "JuneYaooo/rea-video",
               "url": "https://github.com/JuneYaooo/rea-video",
-              "stars": 7994,
-              "forks": 1190,
+              "stars": 8094,
+              "forks": 1202,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-29T16:15:01Z",
-              "pushed_at": "2026-11-13T17:41:27Z",
+              "pushed_at": "2026-11-14T03:37:29Z",
               "language": "Python",
               "topics": [
                 "agent-skills",
@@ -656,14 +656,14 @@
                 "videomd",
                 "vlm"
               ],
-              "summary": "把任意视频逐镜头拆开，判断是实拍、AI 生成还是代码渲染，并给出复刻方案，输出统一 VIDEO.md；适合做短视频拆解、想复刻爆款镜头语言的内容创作者。",
-              "score": 91
+              "summary": "逐镜头逆向拆解视频，判断是实拍、AI 生成还是代码合成，并给出复刻方案，输出 VIDEO.md，适合做短视频拆解与二创的创作者。",
+              "score": 89
             },
             {
               "full_name": "Jakeschincariol/day-trader-skill",
               "url": "https://github.com/Jakeschincariol/day-trader-skill",
-              "stars": 7628,
-              "forks": 1840,
+              "stars": 7653,
+              "forks": 1845,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -683,8 +683,8 @@
             {
               "full_name": "patch-gg/pixelfx",
               "url": "https://github.com/patch-gg/pixelfx",
-              "stars": 7334,
-              "forks": 950,
+              "stars": 7365,
+              "forks": 953,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -707,7 +707,7 @@
             {
               "full_name": "haydenschmitty/floorplan",
               "url": "https://github.com/haydenschmitty/floorplan",
-              "stars": 4140,
+              "stars": 4163,
               "forks": 347,
               "delta": null,
               "velocity": null,
@@ -735,7 +735,7 @@
             {
               "full_name": "alchaincyf/huashu-motion",
               "url": "https://github.com/alchaincyf/huashu-motion",
-              "stars": 2694,
+              "stars": 2695,
               "forks": 272,
               "delta": null,
               "velocity": null,
@@ -759,13 +759,13 @@
                 "video"
               ],
               "summary": "中文作者的 agent 技能，一键生成带配乐的产品宣传片，支持指着画面改，适合独立开发者做发布视频。",
-              "score": 63
+              "score": 62
             },
             {
               "full_name": "caru-ini/stack-diagram",
               "url": "https://github.com/caru-ini/stack-diagram",
-              "stars": 2482,
-              "forks": 134,
+              "stars": 2486,
+              "forks": 133,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -788,7 +788,7 @@
             {
               "full_name": "DenisSergeevitch/ex-ussr-kinship-research",
               "url": "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
-              "stars": 2420,
+              "stars": 2422,
               "forks": 240,
               "delta": null,
               "velocity": null,
@@ -812,13 +812,13 @@
             {
               "full_name": "shinyobjectz/raea",
               "url": "https://github.com/shinyobjectz/raea",
-              "stars": 2362,
-              "forks": 174,
+              "stars": 2390,
+              "forks": 175,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-18T18:08:48Z",
-              "pushed_at": "2026-11-14T01:30:59Z",
+              "pushed_at": "2026-11-14T05:26:11Z",
               "language": "TypeScript",
               "topics": [
                 "3d",
@@ -841,13 +841,13 @@
                 "wgpu",
                 "windows"
               ],
-              "summary": "用自然语言让 agent 生成视频、动效、3D 和游戏，输出 React+TS 代码并在本地 GPU 渲染，适合做创意原型和动效的开发者。",
-              "score": 61
+              "summary": "用自然语言让 AI 生成视频、动效、3D 和游戏，产物是 React 加 TypeScript 并在本地 GPU 渲染，适合想自托管创作管线的技术型创作者。",
+              "score": 57
             },
             {
               "full_name": "DUNHKpcc/Claude-Guardian",
               "url": "https://github.com/DUNHKpcc/Claude-Guardian",
-              "stars": 2043,
+              "stars": 2059,
               "forks": 252,
               "delta": null,
               "velocity": null,
@@ -866,30 +866,35 @@
               "score": 44
             },
             {
-              "full_name": "morganlinton/BeautifulRust",
-              "url": "https://github.com/morganlinton/BeautifulRust",
-              "stars": 1808,
-              "forks": 93,
+              "full_name": "daveebbelaar/bama",
+              "url": "https://github.com/daveebbelaar/bama",
+              "stars": 1811,
+              "forks": 223,
               "delta": null,
               "velocity": null,
               "age_days": null,
-              "created_at": "2026-10-23T03:01:11Z",
-              "pushed_at": "2026-11-08T17:21:11Z",
-              "language": "Python",
+              "created_at": "2026-10-24T08:44:36Z",
+              "pushed_at": "2026-11-05T13:09:56Z",
+              "language": "Swift",
               "topics": [
                 "agent-skills",
+                "ai-agents",
+                "app-clone",
                 "claude-code",
-                "claude-plugin",
-                "claude-skills",
-                "clippy",
-                "code-review",
-                "coding-agent",
-                "cursor",
-                "rust",
-                "style-guide"
+                "claude-code-plugin",
+                "codex",
+                "computer-use",
+                "liquid-glass",
+                "macos",
+                "macos-app",
+                "native-apps",
+                "skills",
+                "swift",
+                "swiftdata",
+                "swiftui"
               ],
-              "summary": "教编码 agent 写、审、迁移地道 Rust，附实测 clippy 配置，兼容主流 CLI；适合用 agent 写 Rust 但总被借用检查器和风格问题卡住的开发者。",
-              "score": 53
+              "summary": "一套让 agent 研究、克隆、设计并测试原生 macOS 应用的 Swift/SwiftUI 技能包，适合想用 Claude Code 快速产出 Mac 桌面 App 的开发者。",
+              "score": 47
             }
           ]
         },
@@ -910,13 +915,13 @@
             {
               "full_name": "morluto/rea",
               "url": "https://github.com/morluto/rea",
-              "stars": 457726,
-              "forks": 112318,
+              "stars": 458092,
+              "forks": 112378,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-14T00:51:32Z",
-              "pushed_at": "2026-11-13T23:00:09Z",
+              "pushed_at": "2026-11-14T06:07:02Z",
               "language": "TypeScript",
               "topics": [
                 "agent-skills",
@@ -940,14 +945,14 @@
                 "touhou",
                 "typescript"
               ],
-              "summary": "让 agent 逆向分析 App 行为直到原生二进制，覆盖安卓、JS、C++ 等场景，适合做安全审计和协议分析的人，但上手门槛不低。",
-              "score": 89
+              "summary": "用 agent 逆向分析应用行为直至原生二进制，覆盖安卓、Web 与 C++ 场景，适合做安全研究或兼容性分析的人，普通开发者用不上。",
+              "score": 85
             },
             {
               "full_name": "affaan-m/ECC",
               "url": "https://github.com/affaan-m/ECC",
-              "stars": 302477,
-              "forks": 44616,
+              "stars": 302548,
+              "forks": 44627,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -970,8 +975,8 @@
             {
               "full_name": "DietrichGebert/ponytail",
               "url": "https://github.com/DietrichGebert/ponytail",
-              "stars": 190378,
-              "forks": 10629,
+              "stars": 190457,
+              "forks": 10639,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -996,8 +1001,8 @@
             {
               "full_name": "Graphify-Labs/graphify",
               "url": "https://github.com/Graphify-Labs/graphify",
-              "stars": 147304,
-              "forks": 14118,
+              "stars": 147372,
+              "forks": 14126,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1032,13 +1037,13 @@
             {
               "full_name": "addyosmani/agent-skills",
               "url": "https://github.com/addyosmani/agent-skills",
-              "stars": 117159,
-              "forks": 12250,
+              "stars": 117225,
+              "forks": 12260,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-02-15T20:20:26Z",
-              "pushed_at": "2026-11-01T19:24:49Z",
+              "pushed_at": "2026-11-14T04:33:56Z",
               "language": "JavaScript",
               "topics": [
                 "agent-skills",
@@ -1048,14 +1053,14 @@
                 "cursor",
                 "skills"
               ],
-              "summary": "Addy Osmani 出品的生产级编码 agent 技能集，覆盖评审、测试、重构等常见工程环节，装了就能直接用在 Claude Code 和 Cursor 上。",
-              "score": 58
+              "summary": "Addy Osmani 出品的生产级编码技能集，可直接装进 Claude Code、Cursor 等工具，补足工程规范与最佳实践，适合日常写业务代码的人。",
+              "score": 66
             },
             {
               "full_name": "Leonxlnx/taste-skill",
               "url": "https://github.com/Leonxlnx/taste-skill",
-              "stars": 115065,
-              "forks": 7721,
+              "stars": 115161,
+              "forks": 7725,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1081,13 +1086,13 @@
             {
               "full_name": "paperclipai/paperclip",
               "url": "https://github.com/paperclipai/paperclip",
-              "stars": 113710,
-              "forks": 18871,
+              "stars": 113744,
+              "forks": 18879,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-02T15:01:51Z",
-              "pushed_at": "2026-11-14T01:31:06Z",
+              "pushed_at": "2026-11-14T06:05:45Z",
               "language": "TypeScript",
               "topics": [
                 "acpx",
@@ -1111,19 +1116,19 @@
                 "project-management",
                 "workflow-automation"
               ],
-              "summary": "开源的多 agent 工作流管理台，统一编排、监控和治理 Claude Code 等 agent，适合团队里同时跑多个 agent 的工程负责人。",
-              "score": 62
+              "summary": "开源的多 agent 工作流管理台，统一编排、治理与监控 Claude 等 agent 任务，适合团队里已有多 agent 并行、需要集中管控的场景。",
+              "score": 60
             },
             {
               "full_name": "pbakaus/impeccable",
               "url": "https://github.com/pbakaus/impeccable",
-              "stars": 109632,
-              "forks": 6540,
+              "stars": 109744,
+              "forks": 6548,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-11-16T01:52:04Z",
-              "pushed_at": "2026-11-14T01:32:19Z",
+              "pushed_at": "2026-11-14T06:06:41Z",
               "language": "Rust",
               "topics": [
                 "agent-skills",
@@ -1132,14 +1137,14 @@
                 "design",
                 "slop"
               ],
-              "summary": "给编码 agent 一套设计词汇，用 polish、bolder、critique 等指令控制产出质感并审查 AI 味，适合在意 UI 细节的前端开发者。",
-              "score": 63
+              "summary": "给编码 agent 一套设计词汇，用 polish、critique 等指令驱动 UI 打磨与审查，专治 AI 生成界面的塑料感，适合在意前端质感的开发者。",
+              "score": 62
             },
             {
               "full_name": "nexu-io/open-design",
               "url": "https://github.com/nexu-io/open-design",
-              "stars": 107531,
-              "forks": 12224,
+              "stars": 107551,
+              "forks": 12226,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -1174,13 +1179,13 @@
             {
               "full_name": "tt-a1i/archify",
               "url": "https://github.com/tt-a1i/archify",
-              "stars": 96229,
-              "forks": 6576,
+              "stars": 96264,
+              "forks": 6582,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-15T05:27:37Z",
-              "pushed_at": "2026-11-13T18:15:49Z",
+              "pushed_at": "2026-11-14T05:02:16Z",
               "language": "JavaScript",
               "topics": [
                 "agent-skills",
@@ -1204,7 +1209,7 @@
                 "system-design",
                 "visualization"
               ],
-              "summary": "把想法、方案或代码库转成可交互架构图的 agent 技能，支持 Claude Code 与 Codex，适合需要快速讲清系统结构的开发者。",
+              "summary": "把想法、方案或代码库转成可交互架构图的 agent 技能，支持 Claude Code 与 Codex，适合需要快速讲清系统结构、写文档和做评审的人。",
               "score": 58
             }
           ]
@@ -1231,10 +1236,10 @@
           {
             "full_name": "alexeyw/lot-map",
             "url": "https://github.com/alexeyw/lot-map",
-            "stars": 737,
-            "forks": 86,
+            "stars": 750,
+            "forks": 87,
             "delta": null,
-            "velocity": 184.25,
+            "velocity": 187.5,
             "age_days": 4,
             "created_at": "2026-11-09T19:13:52Z",
             "pushed_at": "2026-11-13T21:15:05Z",
@@ -1256,10 +1261,10 @@
           {
             "full_name": "JDhruv14/line-art-animation",
             "url": "https://github.com/JDhruv14/line-art-animation",
-            "stars": 662,
-            "forks": 106,
+            "stars": 672,
+            "forks": 107,
             "delta": null,
-            "velocity": 165.5,
+            "velocity": 168,
             "age_days": 4,
             "created_at": "2026-11-10T09:25:25Z",
             "pushed_at": "2026-11-10T09:25:38Z",
@@ -1276,10 +1281,10 @@
           {
             "full_name": "op7418/guizang-game-skill",
             "url": "https://github.com/op7418/guizang-game-skill",
-            "stars": 314,
+            "stars": 322,
             "forks": 48,
             "delta": null,
-            "velocity": 157,
+            "velocity": 161,
             "age_days": 2,
             "created_at": "2026-11-11T16:28:54Z",
             "pushed_at": "2026-11-11T18:22:31Z",
@@ -1309,10 +1314,10 @@
           {
             "full_name": "Dodaios/ste80-humanizer",
             "url": "https://github.com/Dodaios/ste80-humanizer",
-            "stars": 490,
+            "stars": 493,
             "forks": 29,
             "delta": null,
-            "velocity": 122.5,
+            "velocity": 123.25,
             "age_days": 4,
             "created_at": "2026-11-09T17:18:59Z",
             "pushed_at": "2026-11-10T08:52:47Z",
@@ -1334,15 +1339,15 @@
               "writing"
             ],
             "summary": "把 AI 味文本改写成 ASD-STE100 简化技术英语的 Agent 技能，适合写文档、说明书、对外文案需要去 AI 腔的人。",
-            "score": 55
+            "score": 54
           },
           {
             "full_name": "dabingfy-dot/solo-to-team-skills",
             "url": "https://github.com/dabingfy-dot/solo-to-team-skills",
-            "stars": 844,
+            "stars": 851,
             "forks": 90,
             "delta": null,
-            "velocity": 120.57142857142857,
+            "velocity": 121.57142857142857,
             "age_days": 7,
             "created_at": "2026-11-07T01:36:28Z",
             "pushed_at": "2026-11-07T01:36:36Z",
@@ -1365,7 +1370,7 @@
       "label": "MCP",
       "en": "MODEL CONTEXT PROTOCOL",
       "desc": "只收主业是 MCP 的项目",
-      "pool_size": 803,
+      "pool_size": 808,
       "snapshot_days": 2,
       "columns": [
         {
@@ -1383,31 +1388,11 @@
           "need": 2,
           "items": [
             {
-              "full_name": "apify/apify-mcp-server",
-              "url": "https://github.com/apify/apify-mcp-server",
-              "stars": 16152,
-              "forks": 452,
-              "delta": 120,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2025-01-02T15:43:09Z",
-              "pushed_at": "2026-11-13T22:31:34Z",
-              "language": "TypeScript",
-              "topics": [
-                "agents",
-                "ai",
-                "mcp",
-                "mcp-server"
-              ],
-              "summary": "接入 Apify 数千个现成爬虫的 MCP 服务，让 agent 直接抓取社媒、地图和电商数据，适合需要外部数据采集的 agent 项目。",
-              "score": 94
-            },
-            {
               "full_name": "helloHub1212/dsh-windows-mcp",
               "url": "https://github.com/helloHub1212/dsh-windows-mcp",
-              "stars": 1049,
+              "stars": 1095,
               "forks": 6,
-              "delta": 110,
+              "delta": 156,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-11T02:20:53Z",
@@ -1424,14 +1409,34 @@
                 "windows-mcp"
               ],
               "summary": "给 DeepSeek Harness 接上 Windows 桌面自动化能力，内置依赖安装与默认关闭的 Computer Use 开关，适合在 Windows 上玩桌面 agent 的人。",
-              "score": 81
+              "score": 83
+            },
+            {
+              "full_name": "apify/apify-mcp-server",
+              "url": "https://github.com/apify/apify-mcp-server",
+              "stars": 16171,
+              "forks": 454,
+              "delta": 139,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-01-02T15:43:09Z",
+              "pushed_at": "2026-11-13T22:31:34Z",
+              "language": "TypeScript",
+              "topics": [
+                "agents",
+                "ai",
+                "mcp",
+                "mcp-server"
+              ],
+              "summary": "接入 Apify 数千个现成爬虫的 MCP 服务，让 agent 直接抓取社媒、地图和电商数据，适合需要外部数据采集的 agent 项目。",
+              "score": 91
             },
             {
               "full_name": "Ryze-AI-Adgent/open-seo-mcp-skills",
               "url": "https://github.com/Ryze-AI-Adgent/open-seo-mcp-skills",
-              "stars": 9502,
+              "stars": 9536,
               "forks": 397,
-              "delta": 61,
+              "delta": 95,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-08-29T23:37:01Z",
@@ -1460,14 +1465,14 @@
                 "seo-mcp-server"
               ],
               "summary": "免费 SEO MCP 服务加关键词、排名、外链、审计与 AI 可见度技能，接入真实 GSC/GA4 数据，适合做 SEO 的开发者，但托管服务有数据授权与稳定性风险。",
-              "score": 65
+              "score": 69
             },
             {
               "full_name": "irinabuht12-oss/google-ads-meta-ads-mcp",
               "url": "https://github.com/irinabuht12-oss/google-ads-meta-ads-mcp",
-              "stars": 7569,
+              "stars": 7594,
               "forks": 374,
-              "delta": 48,
+              "delta": 73,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-06T04:41:14Z",
@@ -1496,18 +1501,18 @@
                 "remote-mcp"
               ],
               "summary": "把 Google Ads、Meta Ads、GA4 和 Search Console 打包成一个托管 MCP，OAuth 登录免密钥，适合投手和营销团队查数据改投放。",
-              "score": 55
+              "score": 59
             },
             {
               "full_name": "homeassistant-ai/ha-mcp",
               "url": "https://github.com/homeassistant-ai/ha-mcp",
-              "stars": 7757,
-              "forks": 472,
-              "delta": 43,
+              "stars": 7762,
+              "forks": 471,
+              "delta": 48,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-09-14T13:23:45Z",
-              "pushed_at": "2026-11-14T01:15:36Z",
+              "pushed_at": "2026-11-14T05:10:05Z",
               "language": "Python",
               "topics": [
                 "ai",
@@ -1519,15 +1524,37 @@
                 "mcp",
                 "model-context-protocol"
               ],
-              "summary": "通过 MCP 让 Claude、ChatGPT 直接配置和自动化 Home Assistant，适合折腾智能家居、想用自然语言写自动化的玩家。",
+              "summary": "通过 MCP 让 Claude、ChatGPT 直接配置和自动化 Home Assistant，省去手写 YAML，适合折腾智能家居又不想啃文档的玩家。",
               "score": 70
+            },
+            {
+              "full_name": "CursorTouch/Windows-MCP",
+              "url": "https://github.com/CursorTouch/Windows-MCP",
+              "stars": 11638,
+              "forks": 1247,
+              "delta": 44,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2025-05-13T02:27:53Z",
+              "pushed_at": "2026-11-14T00:55:21Z",
+              "language": "Python",
+              "topics": [
+                "ai",
+                "desktop",
+                "mcp",
+                "tools",
+                "windows",
+                "windows-automation"
+              ],
+              "summary": "让 Agent 直接操作 Windows 桌面的 MCP Server，可点击、输入、控制窗口。适合需要自动化 Windows 软件或做电脑操作类 Agent 的开发者，装完即用。",
+              "score": 69
             },
             {
               "full_name": "mcp-use/mcp-use",
               "url": "https://github.com/mcp-use/mcp-use",
-              "stars": 10953,
-              "forks": 1553,
-              "delta": 32,
+              "stars": 10955,
+              "forks": 1552,
+              "delta": 34,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-03-28T10:06:31Z",
@@ -1556,40 +1583,18 @@
                 "skills"
               ],
               "summary": "全栈 MCP 开发框架，既能写 MCP Server 也能做 ChatGPT/Claude 的 MCP App，含客户端与网关。适合想把工具接进 Claude Code 或自建 Agent 的 TS 开发者。",
-              "score": 70
-            },
-            {
-              "full_name": "CursorTouch/Windows-MCP",
-              "url": "https://github.com/CursorTouch/Windows-MCP",
-              "stars": 11625,
-              "forks": 1246,
-              "delta": 31,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2025-05-13T02:27:53Z",
-              "pushed_at": "2026-11-14T00:55:21Z",
-              "language": "Python",
-              "topics": [
-                "ai",
-                "desktop",
-                "mcp",
-                "tools",
-                "windows",
-                "windows-automation"
-              ],
-              "summary": "让 Agent 直接操作 Windows 桌面的 MCP Server，可点击、输入、控制窗口。适合需要自动化 Windows 软件或做电脑操作类 Agent 的开发者，装完即用。",
-              "score": 66
+              "score": 68
             },
             {
               "full_name": "CoplayDev/unity-mcp",
               "url": "https://github.com/CoplayDev/unity-mcp",
-              "stars": 15959,
+              "stars": 15961,
               "forks": 1635,
-              "delta": 21,
+              "delta": 23,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-03-18T11:01:58Z",
-              "pushed_at": "2026-10-30T18:15:23Z",
+              "pushed_at": "2026-11-14T05:45:53Z",
               "language": "C#",
               "topics": [
                 "ai",
@@ -1609,15 +1614,15 @@
                 "unity3d",
                 "videogames"
               ],
-              "summary": "在 AI 助手与 Unity 编辑器间搭桥，让模型管理资源、控制场景、改脚本，适合用 Claude/Cursor 做游戏的开发者。",
-              "score": 51
+              "summary": "在 AI 助手与 Unity 编辑器之间架桥，让模型管理资源、操控场景、改脚本，适合想用自然语言加速 Unity 游戏开发的独立开发者。",
+              "score": 61
             },
             {
               "full_name": "54yyyu/zotero-mcp",
               "url": "https://github.com/54yyyu/zotero-mcp",
-              "stars": 5909,
+              "stars": 5911,
               "forks": 465,
-              "delta": 20,
+              "delta": 22,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-03-22T14:47:42Z",
@@ -1637,14 +1642,14 @@
                 "zotero-plugin"
               ],
               "summary": "把 Zotero 文献库接进 Claude 等助手，支持语义检索、论文摘要和引文分析，适合写论文、做综述的研究者直接查库。",
-              "score": 60
+              "score": 59
             },
             {
               "full_name": "vybenetwork/solana-mcp-vybe",
               "url": "https://github.com/vybenetwork/solana-mcp-vybe",
-              "stars": 2682,
+              "stars": 2685,
               "forks": 101,
-              "delta": 19,
+              "delta": 22,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-09T21:58:55Z",
@@ -1686,7 +1691,7 @@
             {
               "full_name": "claynicholson/copper-kicad-mcp",
               "url": "https://github.com/claynicholson/copper-kicad-mcp",
-              "stars": 68,
+              "stars": 77,
               "forks": 5,
               "delta": null,
               "velocity": null,
@@ -1758,7 +1763,7 @@
             {
               "full_name": "phone-harness/mcp",
               "url": "https://github.com/phone-harness/mcp",
-              "stars": 796,
+              "stars": 797,
               "forks": 69,
               "delta": null,
               "velocity": null,
@@ -1824,7 +1829,7 @@
                 "text-to-sql"
               ],
               "summary": "把 NVIDIA Auto Ontology 语义层和个人知识库封装成 MCP，无需 LLM API key，适合想让 Claude 用自然语言查结构化数据的开发者。",
-              "score": 72
+              "score": 71
             },
             {
               "full_name": "Glen-Web-App/best-agent-memory-mcp",
@@ -1865,7 +1870,7 @@
             {
               "full_name": "hitkeeen/blender-ai-mcp-addon",
               "url": "https://github.com/hitkeeen/blender-ai-mcp-addon",
-              "stars": 173,
+              "stars": 202,
               "forks": 3,
               "delta": null,
               "velocity": null,
@@ -1896,48 +1901,12 @@
                 "opencode"
               ],
               "summary": "Blender 插件内置 MCP 服务，让 Claude、GPT 等直接读写场景、跑 bpy 脚本，适合想用自然语言做 3D 建模的 Blender 用户。",
-              "score": 54
-            },
-            {
-              "full_name": "racdeufindurch198812/Blender-AI-MCP-Studio",
-              "url": "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
-              "stars": 167,
-              "forks": 4,
-              "delta": null,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2026-11-12T19:28:20Z",
-              "pushed_at": "2026-11-12T20:07:57Z",
-              "language": "",
-              "topics": [
-                "3d-automation",
-                "3d-modeling",
-                "blender",
-                "blender-addon",
-                "blender-agents",
-                "blender-ai",
-                "blender-assistant",
-                "blender-automation",
-                "blender-chatgpt",
-                "blender-copilot",
-                "blender-extension",
-                "blender-llm",
-                "blender-mcp",
-                "blender-plugin",
-                "blender-scripting",
-                "blender3d",
-                "bpy",
-                "mcp",
-                "mcp-server",
-                "model-context-protocol"
-              ],
-              "summary": "Blender 里的 AI 助手加 MCP 服务，把自然语言需求转成可预览、可回滚的场景操作，适合怕 AI 改坏工程的 3D 工作者。",
-              "score": 48
+              "score": 57
             },
             {
               "full_name": "findavoulot1973/Blender-AI-MCP-Suite",
               "url": "https://github.com/findavoulot1973/Blender-AI-MCP-Suite",
-              "stars": 167,
+              "stars": 196,
               "forks": 4,
               "delta": null,
               "velocity": null,
@@ -1968,7 +1937,43 @@
                 "model-context-protocol"
               ],
               "summary": "与前者描述、星数、更新时间几乎一致的 Blender AI MCP 套件，疑似同源复制仓库，功能重叠且来源不明，建议先观望。",
-              "score": 42
+              "score": 45
+            },
+            {
+              "full_name": "racdeufindurch198812/Blender-AI-MCP-Studio",
+              "url": "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
+              "stars": 195,
+              "forks": 4,
+              "delta": null,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-11-12T19:28:20Z",
+              "pushed_at": "2026-11-12T20:07:57Z",
+              "language": "",
+              "topics": [
+                "3d-automation",
+                "3d-modeling",
+                "blender",
+                "blender-addon",
+                "blender-agents",
+                "blender-ai",
+                "blender-assistant",
+                "blender-automation",
+                "blender-chatgpt",
+                "blender-copilot",
+                "blender-extension",
+                "blender-llm",
+                "blender-mcp",
+                "blender-plugin",
+                "blender-scripting",
+                "blender3d",
+                "bpy",
+                "mcp",
+                "mcp-server",
+                "model-context-protocol"
+              ],
+              "summary": "Blender 里的 AI 助手加 MCP 服务，把自然语言需求转成可预览、可回滚的场景操作，适合怕 AI 改坏工程的 3D 工作者。",
+              "score": 51
             },
             {
               "full_name": "NJohansen/handle-mcp",
@@ -2054,8 +2059,8 @@
             {
               "full_name": "modelcontextprotocol/servers",
               "url": "https://github.com/modelcontextprotocol/servers",
-              "stars": 91976,
-              "forks": 11963,
+              "stars": 91977,
+              "forks": 11964,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2069,8 +2074,8 @@
             {
               "full_name": "ChromeDevTools/chrome-devtools-mcp",
               "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
-              "stars": 55466,
-              "forks": 4603,
+              "stars": 55645,
+              "forks": 4614,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2093,13 +2098,13 @@
             {
               "full_name": "DeusData/codebase-memory-mcp",
               "url": "https://github.com/DeusData/codebase-memory-mcp",
-              "stars": 48612,
-              "forks": 4028,
+              "stars": 48614,
+              "forks": 4029,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-02-24T22:01:00Z",
-              "pushed_at": "2026-11-14T01:18:33Z",
+              "pushed_at": "2026-11-14T05:43:30Z",
               "language": "C",
               "topics": [
                 "aider",
@@ -2123,13 +2128,13 @@
                 "tree-sitter",
                 "windsurf"
               ],
-              "summary": "把代码、文档、基础设施建成持久图谱，供 Agent 查询并做变更感知的测试选择。C 实现、星数极高，适合大型代码库的上下文与影响分析。",
+              "summary": "把代码、文档和基础设施建成持久图，通过 MCP 给 Claude Code 等 agent 提供跨文件检索与改动感知测试选择，适合中大型代码库。",
               "score": 81
             },
             {
               "full_name": "microsoft/playwright-mcp",
               "url": "https://github.com/microsoft/playwright-mcp",
-              "stars": 39612,
+              "stars": 39613,
               "forks": 3433,
               "delta": null,
               "velocity": null,
@@ -2147,7 +2152,7 @@
             {
               "full_name": "github/github-mcp-server",
               "url": "https://github.com/github/github-mcp-server",
-              "stars": 34447,
+              "stars": 34451,
               "forks": 5346,
               "delta": null,
               "velocity": null,
@@ -2166,8 +2171,8 @@
             {
               "full_name": "ahujasid/mcp-for-blender",
               "url": "https://github.com/ahujasid/mcp-for-blender",
-              "stars": 34329,
-              "forks": 3124,
+              "stars": 34346,
+              "forks": 3128,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2193,13 +2198,13 @@
             {
               "full_name": "PrefectHQ/fastmcp",
               "url": "https://github.com/PrefectHQ/fastmcp",
-              "stars": 28414,
-              "forks": 2587,
+              "stars": 28415,
+              "forks": 2588,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2024-11-30T01:47:40Z",
-              "pushed_at": "2026-11-14T01:24:40Z",
+              "pushed_at": "2026-11-14T05:42:45Z",
               "language": "Python",
               "topics": [
                 "agents",
@@ -2212,14 +2217,14 @@
                 "model-context-protocol",
                 "python"
               ],
-              "summary": "用 Python 快速写 MCP Server 和 Client 的事实标准库，装饰器风格、生态成熟。想自建工具给 Claude Code 或 Agent 用，基本从这里起步。",
-              "score": 73
+              "summary": "用 Python 快速写 MCP server 和 client 的框架，装饰器即出工具，省去手搓协议样板，适合想给自己工具接 agent 的后端开发者。",
+              "score": 72
             },
             {
               "full_name": "modelcontextprotocol/python-sdk",
               "url": "https://github.com/modelcontextprotocol/python-sdk",
-              "stars": 24853,
-              "forks": 4128,
+              "stars": 24855,
+              "forks": 4131,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2238,8 +2243,8 @@
             {
               "full_name": "czlonkowski/n8n-mcp",
               "url": "https://github.com/czlonkowski/n8n-mcp",
-              "stars": 23254,
-              "forks": 3680,
+              "stars": 23252,
+              "forks": 3679,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -2253,12 +2258,12 @@
                 "workflows"
               ],
               "summary": "让 Claude、Cursor 直接读写调试 n8n 工作流的 MCP 服务端，省去手动改节点和查文档，适合重度用 n8n 做自动化又嫌编辑器慢的开发者。",
-              "score": 67
+              "score": 66
             },
             {
               "full_name": "microsoft/mcp-for-beginners",
               "url": "https://github.com/microsoft/mcp-for-beginners",
-              "stars": 17644,
+              "stars": 17646,
               "forks": 5691,
               "delta": null,
               "velocity": null,
@@ -2498,18 +2503,18 @@
                 "transformers"
               ],
               "summary": "用一份 YAML 微调 LLM，分层流式训练让 4GB 显存的笔记本也能跑 8B 模型，适合想本地练小模型的玩家。",
-              "score": 82
+              "score": 81
             },
             {
               "full_name": "CopilotKit/OpenBot",
               "url": "https://github.com/CopilotKit/OpenBot",
-              "stars": 12121,
-              "forks": 1487,
-              "delta": 236,
+              "stars": 12151,
+              "forks": 1491,
+              "delta": 266,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-08-17T00:44:59Z",
-              "pushed_at": "2026-11-14T01:19:14Z",
+              "pushed_at": "2026-11-14T06:08:35Z",
               "language": "TypeScript",
               "topics": [
                 "ag-ui",
@@ -2520,19 +2525,47 @@
                 "generative-ui",
                 "mcp"
               ],
-              "summary": "给每个 AI 同事配独立浏览器与文件环境，动作先决策后记录，可接任意 AG-UI Agent。适合关注 Agent 治理与可审计自动化的团队，部署成本偏高。",
-              "score": 65
+              "summary": "给每个 AI 同事独立浏览器、文件和工具，动作先审批后留痕，适合需要可审计自动化而非黑盒执行的团队。",
+              "score": 63
+            },
+            {
+              "full_name": "Donchitos/Claude-Code-Game-Studios",
+              "url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+              "stars": 39052,
+              "forks": 5079,
+              "delta": 254,
+              "velocity": null,
+              "age_days": null,
+              "created_at": "2026-02-12T05:21:38Z",
+              "pushed_at": "2026-11-09T23:33:14Z",
+              "language": "Shell",
+              "topics": [
+                "ai-agents",
+                "ai-assisted-development",
+                "anthropic",
+                "claude",
+                "claude-code",
+                "game-design",
+                "game-development",
+                "gamedev",
+                "godot",
+                "indie-game-dev",
+                "unity",
+                "unreal-engine"
+              ],
+              "summary": "给 Claude Code 套上 49 个角色 agent 和 72 个游戏开发技能，模拟工作室分工，适合独立游戏开发者试水。",
+              "score": 53
             },
             {
               "full_name": "cheaper-inference/OmniRoute",
               "url": "https://github.com/cheaper-inference/OmniRoute",
-              "stars": 87182,
-              "forks": 13355,
-              "delta": 210,
+              "stars": 87225,
+              "forks": 13367,
+              "delta": 253,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-02-13T12:38:31Z",
-              "pushed_at": "2026-11-14T01:27:01Z",
+              "pushed_at": "2026-11-14T05:45:59Z",
               "language": "TypeScript",
               "topics": [
                 "a2a",
@@ -2556,15 +2589,15 @@
                 "qwen",
                 "token-saver"
               ],
-              "summary": "自托管 AI 网关，一个端点接入 375 家供应商、1400+ 模型，兼容 Claude Code 与 Cursor，适合想省钱或绕开配额限制的开发者。",
-              "score": 67
+              "summary": "一个端点聚合 375 家厂商 1400+ 模型，直接给 Claude Code、Cursor 换后端，适合额度紧张或想省钱试多模型的开发者。",
+              "score": 64
             },
             {
               "full_name": "OpenMontageInc/OpenMontage",
               "url": "https://github.com/OpenMontageInc/OpenMontage",
-              "stars": 80290,
-              "forks": 10810,
-              "delta": 191,
+              "stars": 80323,
+              "forks": 10821,
+              "delta": 224,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-29T15:23:22Z",
@@ -2592,42 +2625,38 @@
                 "video-production"
               ],
               "summary": "开源 agent 视频生产系统，含 12 条流水线与大量技能文件，让编码助手变身视频工作室，适合想用 agent 批量出片的创作者，但体量大上手成本高。",
-              "score": 55
+              "score": 54
             },
             {
-              "full_name": "Donchitos/Claude-Code-Game-Studios",
-              "url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
-              "stars": 38985,
-              "forks": 5061,
-              "delta": 187,
+              "full_name": "nightly-labs/openbot",
+              "url": "https://github.com/nightly-labs/openbot",
+              "stars": 7582,
+              "forks": 763,
+              "delta": 209,
               "velocity": null,
               "age_days": null,
-              "created_at": "2026-02-12T05:21:38Z",
-              "pushed_at": "2026-11-09T23:33:14Z",
-              "language": "Shell",
+              "created_at": "2026-08-12T21:32:03Z",
+              "pushed_at": "2026-11-14T06:10:20Z",
+              "language": "TypeScript",
               "topics": [
                 "ai-agents",
-                "ai-assisted-development",
-                "anthropic",
-                "claude",
-                "claude-code",
-                "game-design",
-                "game-development",
-                "gamedev",
-                "godot",
-                "indie-game-dev",
-                "unity",
-                "unreal-engine"
+                "bun",
+                "codex",
+                "electron",
+                "local-first",
+                "macos",
+                "solidjs",
+                "typescript"
               ],
-              "summary": "给 Claude Code 套上 49 个角色 agent 和 72 个游戏开发技能，模拟工作室分工，适合独立游戏开发者试水。",
-              "score": 51
+              "summary": "本地优先的桌面工作台，为 Codex、Claude 等分配独立工作区、任务队列和浏览器，适合同时跑多个 agent 的个人开发者。",
+              "score": 57
             },
             {
               "full_name": "JuliusBrussee/caveman",
               "url": "https://github.com/JuliusBrussee/caveman",
-              "stars": 119700,
-              "forks": 6974,
-              "delta": 176,
+              "stars": 119730,
+              "forks": 6977,
+              "delta": 206,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-04T10:03:00Z",
@@ -2646,14 +2675,14 @@
                 "tokens"
               ],
               "summary": "用「原始人语」压缩提示词的技能加代理，号称省 65% token，装在 Claude Code 里即可生效；省钱效果真实但会牺牲指令精度，适合长会话成本敏感者试水。",
-              "score": 57
+              "score": 55
             },
             {
               "full_name": "herdrdev/herdr",
               "url": "https://github.com/herdrdev/herdr",
-              "stars": 50851,
-              "forks": 4108,
-              "delta": 170,
+              "stars": 50879,
+              "forks": 4115,
+              "delta": 198,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-27T17:54:33Z",
@@ -2680,67 +2709,35 @@
                 "workspace-manager"
               ],
               "summary": "Rust 写的编码 Agent 运行时与多路复用器，统一托管 Claude Code、Codex 等 CLI，适合同时跑多个 agent 会话的重度用户。",
-              "score": 58
+              "score": 56
             },
             {
-              "full_name": "nightly-labs/openbot",
-              "url": "https://github.com/nightly-labs/openbot",
-              "stars": 7539,
-              "forks": 755,
-              "delta": 166,
+              "full_name": "walkinglabs/learn-harness-engineering",
+              "url": "https://github.com/walkinglabs/learn-harness-engineering",
+              "stars": 24606,
+              "forks": 2814,
+              "delta": 183,
               "velocity": null,
               "age_days": null,
-              "created_at": "2026-08-12T21:32:03Z",
-              "pushed_at": "2026-11-14T01:35:57Z",
+              "created_at": "2026-03-29T12:28:19Z",
+              "pushed_at": "2026-10-22T14:23:31Z",
               "language": "TypeScript",
               "topics": [
+                "agent",
+                "agentic",
+                "agentic-ai",
+                "ai",
+                "ai-agent",
                 "ai-agents",
-                "bun",
-                "codex",
-                "electron",
-                "local-first",
-                "macos",
-                "solidjs",
-                "typescript"
+                "dsh",
+                "dsh-plugin",
+                "harness",
+                "harness-engineering",
+                "harness-framework",
+                "llm"
               ],
-              "summary": "本地优先的桌面多智能体工作台，为 Codex、Claude 分配独立工作区与任务队列，适合同时调度多个 agent 的重度用户。",
-              "score": 58
-            },
-            {
-              "full_name": "Anil-matcha/Open-Generative-AI",
-              "url": "https://github.com/Anil-matcha/Open-Generative-AI",
-              "stars": 34523,
-              "forks": 6630,
-              "delta": 144,
-              "velocity": null,
-              "age_days": null,
-              "created_at": "2023-05-09T14:12:37Z",
-              "pushed_at": "2026-11-12T13:35:01Z",
-              "language": "JavaScript",
-              "topics": [
-                "ai-art-generator",
-                "ai-image-generation",
-                "ai-video-generation",
-                "fal-ai-alternative",
-                "generative-ai",
-                "image-to-video",
-                "invideo-alternative",
-                "kling-ai",
-                "lipsync",
-                "litellm-alternative",
-                "midjourney-alternative",
-                "muapi",
-                "open-source",
-                "openrouter-alternative",
-                "seedance2",
-                "sora-alternative",
-                "text-to-image",
-                "text-to-video",
-                "uncensored",
-                "wan-video"
-              ],
-              "summary": "自托管图像视频生成工作室，聚合 600+ 模型且无内容过滤，适合想绕开平台限制、愿意自备算力与密钥的用户。",
-              "score": 50
+              "summary": "从零讲解 agent harness 搭建的教程仓库，配 TypeScript 示例，适合想搞懂 agent 循环、工具调用与上下文管理底层机制的开发者。",
+              "score": 40
             }
           ]
         },
@@ -2761,9 +2758,9 @@
             {
               "full_name": "Ebony-Vinyl/dsh-our-free-model",
               "url": "https://github.com/Ebony-Vinyl/dsh-our-free-model",
-              "stars": 72861,
-              "forks": 2017,
-              "delta": 8923,
+              "stars": 73174,
+              "forks": 2025,
+              "delta": 9236,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-24T16:17:19Z",
@@ -2787,9 +2784,9 @@
             {
               "full_name": "debpalash/VoiceStudio",
               "url": "https://github.com/debpalash/VoiceStudio",
-              "stars": 109997,
-              "forks": 12194,
-              "delta": 7126,
+              "stars": 110117,
+              "forks": 12204,
+              "delta": 7246,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-04-09T21:40:26Z",
@@ -2822,13 +2819,13 @@
             {
               "full_name": "milind-soni/OpenMausBot",
               "url": "https://github.com/milind-soni/OpenMausBot",
-              "stars": 22210,
-              "forks": 3078,
-              "delta": 7013,
+              "stars": 22299,
+              "forks": 3099,
+              "delta": 7102,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-08-11T18:58:55Z",
-              "pushed_at": "2026-11-13T22:00:55Z",
+              "pushed_at": "2026-11-14T05:58:11Z",
               "language": "TypeScript",
               "topics": [
                 "ai-agents",
@@ -2843,19 +2840,19 @@
                 "self-hosted",
                 "typescript"
               ],
-              "summary": "给 agent 配一台可操作的虚拟机，自托管实现 computer-use，适合想让 bot 真正接管桌面又不想用云端的折腾党。",
-              "score": 81
+              "summary": "给 agent 配 Docker 虚拟机的自托管桌面端，可跑 computer-use 类任务，适合想本地复刻 Grok Bot 又在意数据的人。",
+              "score": 78
             },
             {
               "full_name": "stablyai/orca",
               "url": "https://github.com/stablyai/orca",
-              "stars": 124413,
-              "forks": 7874,
-              "delta": 6577,
+              "stars": 124498,
+              "forks": 7889,
+              "delta": 6662,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-17T03:28:57Z",
-              "pushed_at": "2026-11-14T01:36:01Z",
+              "pushed_at": "2026-11-14T06:07:26Z",
               "language": "TypeScript",
               "topics": [
                 "agent-ide",
@@ -2879,15 +2876,15 @@
                 "worktrees",
                 "yc-backed"
               ],
-              "summary": "用自有订阅批量跑 Claude Code、Codex 等编码 agent，桌面、手机、远程三端统一调度，适合多任务并行的团队。",
-              "score": 83
+              "summary": "用自己的订阅在桌面、手机和远程批量调度 Claude Code、Codex 等编码 agent，适合已有多账号想并行提效的重度用户。",
+              "score": 81
             },
             {
               "full_name": "vercel-labs/agent-desktop",
               "url": "https://github.com/vercel-labs/agent-desktop",
-              "stars": 23309,
-              "forks": 1726,
-              "delta": 5215,
+              "stars": 23412,
+              "forks": 1733,
+              "delta": 5318,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-02-19T18:00:49Z",
@@ -2908,18 +2905,18 @@
                 "rust"
               ],
               "summary": "Rust 写的 computer-use CLI，通过无障碍 API 让 agent 操作 macOS 桌面，适合给现有 agent 补上 GUI 操作能力。",
-              "score": 74
+              "score": 73
             },
             {
               "full_name": "yetone/magpie",
               "url": "https://github.com/yetone/magpie",
-              "stars": 36117,
-              "forks": 3225,
-              "delta": 4874,
+              "stars": 36230,
+              "forks": 3235,
+              "delta": 4987,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-09-23T16:22:35Z",
-              "pushed_at": "2026-11-14T01:31:50Z",
+              "pushed_at": "2026-11-14T06:03:29Z",
               "language": "Go",
               "topics": [
                 "claude-code",
@@ -2929,19 +2926,19 @@
                 "llm",
                 "macos"
               ],
-              "summary": "菜单栏小工具，把 Codex、Claude Code 的请求转到 DeepSeek、Kimi 等模型，适合想换模型省钱又不想改配置的人。",
+              "summary": "菜单栏一键把 Codex、Claude Code 切到 DeepSeek、Kimi 等模型，适合 macOS 上想混搭模型省钱又不想改配置的人。",
               "score": 73
             },
             {
               "full_name": "ZhuLinsen/daily_stock_analysis",
               "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
-              "stars": 71633,
-              "forks": 57294,
-              "delta": 3985,
+              "stars": 71841,
+              "forks": 57355,
+              "delta": 4193,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-01-10T06:43:20Z",
-              "pushed_at": "2026-11-14T01:35:44Z",
+              "pushed_at": "2026-11-14T05:03:48Z",
               "language": "Python",
               "topics": [
                 "a-stock",
@@ -2952,19 +2949,19 @@
                 "quantitative-finance",
                 "quantitative-trading"
               ],
-              "summary": "LLM 驱动的多市场股票分析系统，聚合行情与新闻生成决策看板并定时推送，适合想零成本跑量化观察的个人投资者。",
-              "score": 61
+              "summary": "LLM 驱动的多市场行情分析系统，聚合行情与新闻生成决策看板并定时推送，适合想零成本跑量化盯盘的 A 股开发者。",
+              "score": 65
             },
             {
               "full_name": "heygen-com/hyperframes",
               "url": "https://github.com/heygen-com/hyperframes",
-              "stars": 83961,
-              "forks": 7758,
-              "delta": 3862,
+              "stars": 84035,
+              "forks": 7769,
+              "delta": 3936,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-03-10T01:51:06Z",
-              "pushed_at": "2026-11-14T01:16:17Z",
+              "pushed_at": "2026-11-14T06:00:41Z",
               "language": "TypeScript",
               "topics": [
                 "ai",
@@ -2983,15 +2980,15 @@
                 "typescript",
                 "video-editor"
               ],
-              "summary": "用 HTML/CSS/GSAP 写动画，Puppeteer+FFmpeg 直接渲染成视频，并带 MCP 接口供 agent 调用。适合需要给 agent 批量产出视频素材的开发者。",
-              "score": 67
+              "summary": "用 HTML+GSAP 写动画、经 Puppeteer/FFmpeg 渲染成视频，专为 agent 调用设计，适合想让 Claude Code 批量出视频的开发者。",
+              "score": 66
             },
             {
               "full_name": "harry0703/MoneyPrinterTurbo",
               "url": "https://github.com/harry0703/MoneyPrinterTurbo",
-              "stars": 143310,
-              "forks": 22937,
-              "delta": 3057,
+              "stars": 143362,
+              "forks": 22949,
+              "delta": 3109,
               "velocity": null,
               "age_days": null,
               "created_at": "2024-03-11T02:57:34Z",
@@ -3019,9 +3016,9 @@
             {
               "full_name": "HKUDS/DeepTutor",
               "url": "https://github.com/HKUDS/DeepTutor",
-              "stars": 58955,
-              "forks": 7156,
-              "delta": 3034,
+              "stars": 59005,
+              "forks": 7161,
+              "delta": 3084,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-12-28T15:35:54Z",
@@ -3060,13 +3057,13 @@
             {
               "full_name": "ccch1mneyyy/dsh-Go",
               "url": "https://github.com/ccch1mneyyy/dsh-Go",
-              "stars": 21825,
-              "forks": 1008,
+              "stars": 22040,
+              "forks": 1020,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-25T08:09:52Z",
-              "pushed_at": "2026-11-14T01:30:45Z",
+              "pushed_at": "2026-11-14T05:52:53Z",
               "language": "Dart",
               "topics": [
                 "ai-agent",
@@ -3081,8 +3078,8 @@
                 "flutter",
                 "llm"
               ],
-              "summary": "把 DeepSeek Harness 装进 Flutter 手机 App，本机跑 agent 还能远程遥控电脑端会话。适合想在手机上随时接管编码 agent 的 DeepSeek 用户。",
-              "score": 86
+              "summary": "把 DeepSeek Harness 装进 Android 手机本机运行，还能远程遥控电脑上的编码 agent，适合想随时随地下指令的重度用户。",
+              "score": 87
             },
             {
               "full_name": "wangzan101/Mika",
@@ -3106,7 +3103,7 @@
                 "mobile-agent"
               ],
               "summary": "安卓端本地 AI Agent，靠无障碍服务直接操作 App 与网页完成跨应用任务，适合想在手机上跑自动化、又不想把数据交给云端的安卓开发者。",
-              "score": 82
+              "score": 81
             },
             {
               "full_name": "KKKKhazix/agent-autoloop",
@@ -3133,7 +3130,7 @@
                 "workflow"
               ],
               "summary": "给 Claude Code、Codex 等 CLI Agent 加事件驱动后台循环，自动接活跟进，只在需要决策时推卡片确认，适合想放手让 Agent 跑长任务的人。",
-              "score": 80
+              "score": 79
             },
             {
               "full_name": "expo/exact",
@@ -3162,7 +3159,7 @@
                 "web"
               ],
               "summary": "Expo 出的跨端框架，一套代码原生跑 Web/macOS/iOS/Linux，并让编码 Agent 能构建、运行、截图、测试每个平台，适合折腾多端 App 的团队。",
-              "score": 71
+              "score": 70
             },
             {
               "full_name": "voyager-so/vork",
@@ -3188,18 +3185,18 @@
                 "vulkan"
               ],
               "summary": "Rust 实现的无头 3D 与 VFX 渲染引擎，走 Metal/Vulkan，给 agent 调用出图出特效，研究预览阶段，适合尝鲜的图形开发者。",
-              "score": 54
+              "score": 53
             },
             {
               "full_name": "agentes-chat/agentes-chat",
               "url": "https://github.com/agentes-chat/agentes-chat",
-              "stars": 1344,
-              "forks": 227,
+              "stars": 1355,
+              "forks": 236,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-11-09T00:50:28Z",
-              "pushed_at": "2026-11-14T01:34:30Z",
+              "pushed_at": "2026-11-14T06:04:37Z",
               "language": "TypeScript",
               "topics": [
                 "agentic-ai",
@@ -3223,19 +3220,19 @@
                 "slack-alternative",
                 "team-chat"
               ],
-              "summary": "自托管 Slack 替代品，频道和私信里人和 Claude/Codex/Gemini agent 协作，带 MCP 工具、浏览器和定时任务。适合想给团队搭统一 agent 工作台的团队。",
-              "score": 66
+              "summary": "自托管 Slack 替代品，团队与 Claude、Codex 等 agent 在频道里协作，带 MCP 工具和浏览器，适合想私有部署 agent 工作台的小团队。",
+              "score": 65
             },
             {
               "full_name": "JosssphZhou/poki",
               "url": "https://github.com/JosssphZhou/poki",
-              "stars": 1059,
-              "forks": 187,
+              "stars": 1119,
+              "forks": 199,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-11-05T15:04:31Z",
-              "pushed_at": "2026-11-13T18:17:34Z",
+              "pushed_at": "2026-11-14T06:05:09Z",
               "language": "Swift",
               "topics": [
                 "ai-agents",
@@ -3245,7 +3242,7 @@
                 "mcp",
                 "model-context-protocol"
               ],
-              "summary": "本地 MCP 服务让 Agent 直接操控真机 iPhone，免越狱免额外硬件，适合要做 iOS 端自动化测试或手机 Agent 实验的开发者，但配置门槛不低。",
+              "summary": "本地 MCP 服务让 AI agent 直接操作真机 iPhone，免越狱免额外硬件，适合做 iOS 自动化测试或手机端 agent 的开发者。",
               "score": 62
             },
             {
@@ -3257,7 +3254,7 @@
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-16T00:41:59Z",
-              "pushed_at": "2026-11-14T01:30:03Z",
+              "pushed_at": "2026-11-14T05:42:27Z",
               "language": "C++",
               "topics": [
                 "apple-silicon",
@@ -3281,19 +3278,19 @@
                 "slm",
                 "speculative-decoding"
               ],
-              "summary": "面向 Apple Silicon 的本地推理引擎，针对 Qwen/Nemotron 优化，兼容 OpenAI 与 Anthropic 接口。适合在 Mac 上给编码 agent 跑私有模型的开发者。",
-              "score": 60
+              "summary": "面向 Apple Silicon 优化的 Qwen/Nemotron 推理引擎，兼容 OpenAI 与 Anthropic 接口，适合想在 Mac 本地跑编码 agent 的人。",
+              "score": 57
             },
             {
               "full_name": "alexsergivan/kwant",
               "url": "https://github.com/alexsergivan/kwant",
-              "stars": 492,
-              "forks": 41,
+              "stars": 534,
+              "forks": 52,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2026-10-22T18:41:24Z",
-              "pushed_at": "2026-11-13T18:17:19Z",
+              "pushed_at": "2026-11-14T06:03:44Z",
               "language": "Rust",
               "topics": [
                 "ai-agents",
@@ -3317,44 +3314,41 @@
                 "self-hosted",
                 "selfhosted-ai"
               ],
-              "summary": "单个 Rust 二进制自托管多 bot 团队，支持多账号、任务交接、审批和例行任务。适合想脱离 SaaS 自己掌控多 agent 协作流程的人。",
-              "score": 53
+              "summary": "单个 Rust 二进制自托管多 bot 团队，支持多账号、任务交接与审批流，适合想要私有化 agent 协作平台且不想上云的团队。",
+              "score": 52
             },
             {
-              "full_name": "jazzenchen/agent-hud-open",
-              "url": "https://github.com/jazzenchen/agent-hud-open",
-              "stars": 437,
-              "forks": 71,
+              "full_name": "wquguru/shisei",
+              "url": "https://github.com/wquguru/shisei",
+              "stars": 511,
+              "forks": 109,
               "delta": null,
               "velocity": null,
               "age_days": null,
-              "created_at": "2026-10-22T09:27:58Z",
-              "pushed_at": "2026-11-13T17:41:41Z",
-              "language": "Rust",
+              "created_at": "2026-10-29T01:23:06Z",
+              "pushed_at": "2026-11-14T04:30:01Z",
+              "language": "Python",
               "topics": [
-                "ai-agents",
-                "claude-code",
-                "codex",
-                "coding-agents",
-                "cursor",
-                "deepseek",
-                "developer-tools",
-                "github-copilot",
-                "grok",
-                "hud",
-                "linux",
-                "macos",
-                "mcp",
-                "notch",
-                "opencode",
-                "rust",
-                "tauri",
-                "token-usage",
-                "vibe-coding",
-                "windows"
+                "ai-art",
+                "ai-image-generation",
+                "art-reference",
+                "cc0",
+                "comfyui",
+                "controlnet",
+                "dataset",
+                "drawing-reference",
+                "figure-drawing",
+                "line-art",
+                "mannequin",
+                "midjourney",
+                "multilingual",
+                "nano-banana",
+                "pose-reference",
+                "reference-images",
+                "stable-diffusion"
               ],
-              "summary": "跨平台 HUD 面板，实时显示 Claude Code、Codex 等 25+ 编码 agent 的额度、token 和会话，一键应答请求。适合同时开多个 agent 的重度用户。",
-              "score": 57
+              "summary": "250+ 姿势×5 角度的 CC0 人体模型线稿参考库，多语言命名，适合用 ControlNet 或 Midjourney 做人物姿态控制的画师与开发者。",
+              "score": 50
             }
           ]
         },
@@ -3375,8 +3369,8 @@
             {
               "full_name": "deepseek-ai/deepseek-harness",
               "url": "https://github.com/deepseek-ai/deepseek-harness",
-              "stars": 280519,
-              "forks": 34599,
+              "stars": 280677,
+              "forks": 34629,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -3395,13 +3389,13 @@
             {
               "full_name": "NousResearch/hermes-agent",
               "url": "https://github.com/NousResearch/hermes-agent",
-              "stars": 263226,
-              "forks": 59291,
+              "stars": 263259,
+              "forks": 59307,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2025-07-22T22:22:28Z",
-              "pushed_at": "2026-11-14T01:35:57Z",
+              "pushed_at": "2026-11-14T05:55:50Z",
               "language": "Python",
               "topics": [
                 "ai",
@@ -3418,14 +3412,14 @@
                 "nous-research",
                 "openai"
               ],
-              "summary": "Nous Research 的通用 agent 框架，主打随使用持续积累能力，可接 Claude、GPT 等模型。适合想自建可长期演进的个人 agent 的开发者。",
+              "summary": "Nous 出的可成长型 agent 框架，主打长期记忆与自我迭代，适合想折腾本地 agent 架构、不满足于现成工具的 Python 开发者。",
               "score": 86
             },
             {
               "full_name": "firecrawl/firecrawl",
               "url": "https://github.com/firecrawl/firecrawl",
-              "stars": 201590,
-              "forks": 10573,
+              "stars": 201622,
+              "forks": 10576,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -3460,12 +3454,12 @@
               "full_name": "Significant-Gravitas/AutoGPT",
               "url": "https://github.com/Significant-Gravitas/AutoGPT",
               "stars": 188019,
-              "forks": 45865,
+              "forks": 45866,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2023-03-16T09:21:07Z",
-              "pushed_at": "2026-11-14T01:30:55Z",
+              "pushed_at": "2026-11-14T06:01:20Z",
               "language": "Python",
               "topics": [
                 "agentic-ai",
@@ -3480,14 +3474,14 @@
                 "openai",
                 "python"
               ],
-              "summary": "自主 agent 的开山之作，现转型为可视化 agent 搭建平台。想理解 agent 范式或搭自动化流程可装，但体量大、上手成本高，日常小任务不如轻量工具直接。",
-              "score": 66
+              "summary": "自主 agent 的老牌标杆，现在更像可视化 agent 编排平台，适合学习 agent 设计思路，但上手成本高、实际落地常不如轻量方案。",
+              "score": 63
             },
             {
               "full_name": "ollama/ollama",
               "url": "https://github.com/ollama/ollama",
-              "stars": 186901,
-              "forks": 19071,
+              "stars": 186909,
+              "forks": 19075,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -3511,18 +3505,18 @@
                 "qwen"
               ],
               "summary": "本地跑开源大模型的事实标准，一条命令拉起 Qwen、DeepSeek、GLM 等。给 agent 提供离线或私有推理后端，几乎必装，稳定活跃。",
-              "score": 74
+              "score": 73
             },
             {
               "full_name": "f/prompts.chat",
               "url": "https://github.com/f/prompts.chat",
-              "stars": 177104,
-              "forks": 22576,
+              "stars": 177130,
+              "forks": 22578,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2022-12-05T13:54:13Z",
-              "pushed_at": "2026-11-13T21:46:41Z",
+              "pushed_at": "2026-11-14T03:11:56Z",
               "language": "MDX",
               "topics": [
                 "ai",
@@ -3544,14 +3538,14 @@
                 "prompts-chat",
                 "typescript"
               ],
-              "summary": "社区提示词库加自托管前端，可按组织私有部署。适合找现成 prompt 模板或给团队建内部提示词站，本身不是 agent 工具，价值在素材。",
-              "score": 59
+              "summary": "社区提示词库加自托管站点，可私有化部署给团队共享常用 prompt，适合需要统一提示词资产、重视隐私的团队，不是工具本身。",
+              "score": 61
             },
             {
               "full_name": "huggingface/transformers",
               "url": "https://github.com/huggingface/transformers",
-              "stars": 168951,
-              "forks": 35190,
+              "stars": 168955,
+              "forks": 35193,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -3585,8 +3579,8 @@
             {
               "full_name": "AUTOMATIC1111/stable-diffusion-webui",
               "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
-              "stars": 165308,
-              "forks": 31137,
+              "stars": 165307,
+              "forks": 31136,
               "delta": null,
               "velocity": null,
               "age_days": null,
@@ -3617,13 +3611,13 @@
             {
               "full_name": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 161121,
-              "forks": 25479,
+              "stars": 161126,
+              "forks": 25481,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2023-04-12T07:40:24Z",
-              "pushed_at": "2026-11-14T00:35:15Z",
+              "pushed_at": "2026-11-14T05:14:12Z",
               "language": "Python",
               "topics": [
                 "agent",
@@ -3646,19 +3640,19 @@
                 "skills",
                 "workflow"
               ],
-              "summary": "低代码搭 agentic 工作流和 RAG 流水线，支持多云自托管，从原型到生产不用换栈。适合团队快速交付 AI 应用，装完即用，维护活跃。",
+              "summary": "可视化编排 agent 工作流与 RAG 流水线，支持多模型和自托管，适合要把 AI 应用从原型推到生产的团队，装完就能用。",
               "score": 63
             },
             {
               "full_name": "open-webui/open-webui",
               "url": "https://github.com/open-webui/open-webui",
-              "stars": 158590,
-              "forks": 23057,
+              "stars": 158601,
+              "forks": 23060,
               "delta": null,
               "velocity": null,
               "age_days": null,
               "created_at": "2023-10-06T22:08:27Z",
-              "pushed_at": "2026-11-13T23:28:30Z",
+              "pushed_at": "2026-11-14T05:31:06Z",
               "language": "Svelte",
               "topics": [
                 "ai",
@@ -3677,7 +3671,7 @@
                 "ui",
                 "webui"
               ],
-              "summary": "自托管的类 ChatGPT 界面，接 Ollama、OpenAI 兼容 API，自带 RAG 和 MCP。想给本地模型配个好用前端或团队内网部署，首选之一。",
+              "summary": "自托管的统一 AI 聊天前端，接 Ollama、OpenAI 兼容接口和 MCP，适合想给团队或自己搭私有 ChatGPT 界面的人，部署简单。",
               "score": 61
             }
           ]
@@ -3704,10 +3698,10 @@
           {
             "full_name": "berkantay/gpucanvas",
             "url": "https://github.com/berkantay/gpucanvas",
-            "stars": 175,
-            "forks": 13,
+            "stars": 235,
+            "forks": 18,
             "delta": null,
-            "velocity": 175,
+            "velocity": 235,
             "age_days": 1,
             "created_at": "2026-11-12T23:19:42Z",
             "pushed_at": "2026-11-13T22:34:16Z",
@@ -3799,7 +3793,7 @@
               "vue"
             ],
             "summary": "与前者描述、星数完全一致的疑似复制仓库，作者名带脚本味，缺乏独立维护痕迹，安装前需警惕投毒与后门风险。",
-            "score": 31
+            "score": 30
           },
           {
             "full_name": "datrify/ai--manus",
@@ -3835,7 +3829,7 @@
               "vue"
             ],
             "summary": "同一 Manus 项目描述的第三个镜像，无语言信息、无差异化说明，大概率是批量 fork 蹭热度，不建议投入时间。",
-            "score": 31
+            "score": 30
           },
           {
             "full_name": "qweqeqeqweqeqwe/manus--ai",
