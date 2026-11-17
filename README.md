@@ -339,7 +339,7 @@ CI 跑在 UTC 机器上，`Date.parse` 会把它当本地时间，凭空差 8 �
 永远判为「刚发过」。所以 `guard.mjs` 按北京时间手工解析，不交给 `Date.parse`。
 
 `guard.mjs` 支持两个只在测试时用的环境变量：`GUARD_NOW`（模拟某个时间点）、
-`GUARD_FILE`（指向临时报告）。六种时间场景的回归测试跑在 `.taste-skill/guardtest/run.sh`。
+`GUARD_FILE`（指向临时报告）。六种时间场景的回归测试在 `scripts/test/guard.test.sh`（`bash` 直接跑，全绿才算改对）。
 
 ### 因此：定时必须由仓库外的调度器承担
 
