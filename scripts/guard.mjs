@@ -4,20 +4,28 @@ import { P } from './lib/store.mjs';
 import { addDays, bjToday, log } from './lib/util.mjs';
 
 /**
- * 幂等守卫：最近刚生成过同一份报告就直接跳过。
+ * 幂等守卫：判断这次触发该不该真的干活。
  *
- * 这里**不用「是不是今天生成的」**来判断，因为自然日的边界太宽：
- * 凌晨为了排查问题手动重跑一次，就会把当天早上八点的定时发布额度吃掉，
- * 于是八点那次被判为重复、静默跳过，当天就收不到日报。
+ * 要同时挡住两件相反的事，所以单一条件都不够：
  *
- * 改成看「距上次生成过了多久」：
- *   - 凌晨跑过 → 早上八点距 6 小时以上 → 照常发布；
- *   - 八点发完之后，第二个定时窗口（半小时后）→ 不到 4 小时 → 跳过，不会重复推送。
+ *  1) 上午八点的正式发布必须发出。哪怕凌晨为了排查问题手动重跑过一次，
+ *     也不能把早八点的额度吃掉（只用「今天生成过」判断会踩这个坑）。
+ *  2) 下午的补跑不能重复推送。GitHub 自己的 schedule 会延迟几个小时才派发，
+ *     同一份日报下午又发一遍，用户一天收到两次（只用「N 小时内」判断会踩这个坑）。
+ *
+ * 解法是引入「发布窗口」：只有北京时间 07:00–11:00 才算正式发布时段。
+ *
+ *   - 今天已生成 + 在窗口内 + 距上次超过 4 小时  → 重新生成（覆盖凌晨那次）
+ *   - 今天已生成 + 其它任何情况                  → 跳过（下午补跑、同日第二个窗口都走这条）
+ *   - 今天还没生成                              → 生成（cron-job.org 挂了时，下午补跑也能兜住）
  */
 const target = process.env.REPORT_DATE || addDays(bjToday(), -1);
 const force = ['1', 'true', 'yes'].includes(String(process.env.FORCE || '').toLowerCase());
 
-/** 4 小时内生成过的视为「刚发过」；超过就重新生成 */
+/** 正式发布时段（北京时间），含头不含尾 */
+const WINDOW_START = 7;
+const WINDOW_END = 11;
+/** 同一天里两次正式窗口至少隔这么久，避免连发 */
 const STALE_MS = 4 * 60 * 60 * 1000;
 
 /**
@@ -29,6 +37,11 @@ function bjTimestamp(s) {
   if (!m) return NaN;
   const [, y, mo, d, hh = '0', mm = '0'] = m;
   return Date.UTC(Number(y), Number(mo) - 1, Number(d), Number(hh) - 8, Number(mm));
+}
+
+/** 当前北京时间的小时数；不依赖运行机器的时区 */
+function bjHour(now = new Date()) {
+  return (now.getUTCHours() + 8) % 24;
 }
 
 async function emit(skip, reason) {
@@ -43,6 +56,7 @@ async function emit(skip, reason) {
 
 /** 把毫秒时长说成人话，日志里看得懂 */
 function human(ms) {
+  if (!Number.isFinite(ms)) return '未知时长';
   const min = Math.round(ms / 60000);
   if (min < 60) return `${min} 分钟`;
   const h = Math.floor(min / 60);
@@ -55,7 +69,10 @@ if (force) {
   process.exit(0);
 }
 
-const file = path.join(P.daily, `${target}.json`);
+// 这两个只给测试用（模拟某个时间点、指向一份临时报告），生产环境不会设置。
+const file = process.env.GUARD_FILE || path.join(P.daily, `${target}.json`);
+const now = process.env.GUARD_NOW ? new Date(process.env.GUARD_NOW) : new Date();
+
 let existing = null;
 try {
   existing = JSON.parse(await fs.readFile(file, 'utf8'));
@@ -63,18 +80,33 @@ try {
   existing = null;
 }
 
+const today = bjToday();
+const genDate = String(existing?.generated_at ?? '').slice(0, 10);
 const genAt = bjTimestamp(existing?.generated_at);
-const ageMs = Date.now() - genAt;
-// 时间字段缺失或解析不出来时，宁可重跑一次，也不要漏发。
-const fresh = Number.isFinite(genAt) && ageMs >= 0 && ageMs < STALE_MS;
+const ageMs = now.getTime() - genAt;
+const generatedToday = genDate === today;
+const hour = bjHour(now);
+const inWindow = hour >= WINDOW_START && hour < WINDOW_END;
 
-if (fresh) {
-  await emit(true, `${target} 的报告 ${human(ageMs)}前刚生成过（${existing.generated_at}），跳过`);
+if (existing && generatedToday) {
+  if (inWindow && ageMs >= STALE_MS) {
+    await emit(
+      false,
+      `${target} 今天 ${existing.generated_at.slice(11)} 已生成过，现在在发布窗口内且已过 ${human(ageMs)}，重新生成`,
+    );
+  } else if (!inWindow) {
+    await emit(
+      true,
+      `${target} 今天已生成过，当前 ${hour} 点不在发布窗口（${WINDOW_START}–${WINDOW_END} 点），跳过`,
+    );
+  } else {
+    await emit(true, `${target} 今天 ${human(ageMs)}前刚生成过，跳过`);
+  }
 } else if (existing) {
   await emit(
     false,
     Number.isFinite(genAt)
-      ? `${target} 的报告已生成 ${human(ageMs)}，超过 4 小时，重新生成`
+      ? `${target} 的报告还停留在 ${genDate || '未知日期'}，今天还没生成，开始生成`
       : `${target} 的报告时间无法识别（${existing.generated_at ?? '缺失'}），重新生成`,
   );
 } else {

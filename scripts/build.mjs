@@ -16,6 +16,7 @@ import { buildPeriodColumn, computePotential, scoreItem, heatRange } from './lib
 import { enrichRepos } from './lib/enrich.mjs';
 import { fetchImages } from './lib/faces.mjs';
 import { renderPage } from './lib/render.mjs';
+import { findJunkRepos } from './lib/quality.mjs';
 import { writeShareCard } from './lib/share-card.mjs';
 import { writeShareCard as writeShareCardBitmap } from './lib/share-card-bitmap.mjs';
 import { addDays, bjNowISO, bjToday, log } from './lib/util.mjs';
@@ -59,9 +60,30 @@ async function main() {
   let priorSet = null;
   let heroItem = null;
 
+  // 刷量仓库要先摘出去再看榜。三个池子合起来判，跨池的同批垃圾才抓得住
+  // （同一个克隆批次有时一半落在 MCP 池、一半落在 AIGC 池）。
+  const poolCache = new Map();
   for (const g of config.groups) {
-    const pool = (await readJSON(groupPoolFile(g.pool), { repos: [] })).repos ?? [];
-    if (!pool.length) throw new Error(`${g.label} 仓库池为空，请先执行 collect`);
+    poolCache.set(g.id, (await readJSON(groupPoolFile(g.pool), { repos: [] })).repos ?? []);
+  }
+  const junkMap = findJunkRepos([...poolCache.values()].flat());
+  if (junkMap.size) {
+    const byReason = new Map();
+    for (const r of junkMap.values()) {
+      const k = r.split(' · ')[0];
+      byReason.set(k, (byReason.get(k) ?? 0) + 1);
+    }
+    const detail = [...byReason.entries()].map(([k, n]) => `${k} ${n}`).join('，');
+    log(`剔重：${junkMap.size} 个刷量/克隆仓库不参与任何榜单（${detail}）`);
+  }
+
+  for (const g of config.groups) {
+    const rawPool = poolCache.get(g.id) ?? [];
+    if (!rawPool.length) throw new Error(`${g.label} 仓库池为空，请先执行 collect`);
+    const pool = rawPool.filter((e) => !junkMap.has(e.full_name));
+    if (pool.length < rawPool.length) {
+      log(`[${g.id}] 池 ${rawPool.length} → 剔除 ${rawPool.length - pool.length} 个刷量仓库`);
+    }
 
     const snapshots = await loadRecentSnapshots(groupSnapshotDir(g.snapshots), TARGET, 40);
     const days = Object.keys(snapshots).length;
@@ -181,6 +203,27 @@ async function main() {
       }
     }
   }
+
+  // 结构规则抓不到零星的营销号（比如打着 MCP 旗号卖虚拟卡的软文，
+  // 它没有同类克隆、星数也不高），但模型点评看得出来：这类条目 verdict 通常个位数。
+  // 全库 verdict 中位数 68，低于 25 的基本都是「装不了、用不上、别碰」。
+  // 没有点评的（undefined）一律放行，不拿缺失当垃圾。
+  const JUNK_VERDICT = 25;
+  let verdictDropped = 0;
+  for (const b of built) {
+    for (const c of [...b.columns, b.potential]) {
+      const kept = c.items.filter((it) => it.verdict == null || it.verdict >= JUNK_VERDICT);
+      if (kept.length !== c.items.length) {
+        const dropped = c.items.filter((it) => !kept.includes(it));
+        for (const it of dropped) {
+          log(`[${b.group.id}] ${c.label} 剔除低质：${it.repo.full_name}（verdict ${it.verdict}）`);
+        }
+        verdictDropped += c.items.length - kept.length;
+        c.items = kept;
+      }
+    }
+  }
+  if (verdictDropped) log(`共剔除 ${verdictDropped} 条点评判定为无实用价值的条目`);
 
   const generatedAt = bjNowISO();
 

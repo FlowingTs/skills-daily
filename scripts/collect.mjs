@@ -8,6 +8,7 @@ import {
 } from './lib/store.mjs';
 import { searchRepos, hasToken, getStats, setSearchInterval, verifySkillFile } from './lib/github.mjs';
 import { addDays, bjToday, bjNowISO, log, sleep } from './lib/util.mjs';
+import { findJunkRepos } from './lib/quality.mjs';
 
 const SKILL_TOPICS = new Set([
   'claude-skills', 'agent-skills', 'agent-skill', 'claude-skill', 'skill-md',
@@ -209,12 +210,20 @@ function truncatePool(pool, cap, tag) {
     }
   };
 
-  addAll(pool, quotaStar);
-  addAll([...pool].sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)), quotaNew);
-  addAll([...pool].sort((a, b) => Date.parse(b.pushed_at) - Date.parse(a.pushed_at)), cap - picked.size);
+  // 刷量仓库星数虚高，会占满高星配额把真项目挤掉，所以先只用干净的填，
+  // 实在凑不够 cap 才拿它们补位。
+  const clean = pool.filter((e) => !e.junk);
+  const dirty = pool.filter((e) => e.junk);
+
+  addAll(clean, quotaStar);
+  addAll([...clean].sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)), quotaNew);
+  addAll([...clean].sort((a, b) => Date.parse(b.pushed_at) - Date.parse(a.pushed_at)), cap - picked.size);
+  if (picked.size < cap && dirty.length) {
+    addAll([...dirty].sort((a, b) => b.stargazers_count - a.stargazers_count), cap - picked.size);
+  }
 
   const out = [...picked.values()].sort((a, b) => b.stargazers_count - a.stargazers_count);
-  log(`[${tag}] 池子截断 ${before} → ${out.length}（高星/新芽/活跃 三段配额）`);
+  log(`[${tag}] 池子截断 ${before} → ${out.length}（高星/新芽/活跃 三段配额；刷量 ${dirty.length} 个沉底）`);
   return out;
 }
 
@@ -254,6 +263,16 @@ async function collectGroup(group, config, targetDate) {
       pool = pool.filter((e) => !rejected.has(e.full_name));
     }
   }
+
+  // 标记刷量/克隆仓库，让它们不占池子配额。标记会写进池文件，
+  // 下次采集重新判定（洗白了的会自动摘掉标记）。
+  const junk = findJunkRepos(pool);
+  for (const e of pool) {
+    const why = junk.get(e.full_name);
+    if (why) e.junk = why;
+    else if (e.junk) delete e.junk;
+  }
+  if (junk.size) log(`[${group.id}] 识别到 ${junk.size} 个刷量/克隆仓库，池内沉底`);
 
   pool.sort((a, b) => b.stargazers_count - a.stargazers_count);
   pool = truncatePool(pool, group.poolLimit ?? 1200, group.id);
