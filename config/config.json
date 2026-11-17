@@ -279,6 +279,7 @@
     "minIntervalMs": 2100
   },
   "filters": {
+    "minVerdict": 25,
     "excludeOwners": [
       "awesome-lists-bot"
     ],

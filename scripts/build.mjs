@@ -208,7 +208,7 @@ async function main() {
   // 它没有同类克隆、星数也不高），但模型点评看得出来：这类条目 verdict 通常个位数。
   // 全库 verdict 中位数 68，低于 25 的基本都是「装不了、用不上、别碰」。
   // 没有点评的（undefined）一律放行，不拿缺失当垃圾。
-  const JUNK_VERDICT = 25;
+  const JUNK_VERDICT = config.filters?.minVerdict ?? 25;
   let verdictDropped = 0;
   for (const b of built) {
     for (const c of [...b.columns, b.potential]) {
