@@ -1,0 +1,40 @@
+name: 只推送（不采集、不部署）
+
+# 用途：单独验证企业微信群机器人这条链路。
+# 日报本身由 daily.yml 每天生成，这个工作流只读仓库里已经生成好的数据，
+# 把当天的分享图和说明重新推一次，不碰数据、不碰 Pages。
+#
+# 典型场景：
+#   - 怀疑 webhook 失效，想立刻发一条测试消息
+#   - 早上的推送漏了，想手动补一次
+#
+# 注意：一天里重复触发会重复推送，别当成定时任务用。
+
+on:
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: '要推送哪一天的日报 YYYY-MM-DD（留空＝昨天）'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 推送企业微信群机器人
+        env:
+          WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+          SITE_URL: https://flowingts.github.io/skills-daily
+          REPORT_DATE: ${{ inputs.report_date }}
+        run: node scripts/notify.mjs
