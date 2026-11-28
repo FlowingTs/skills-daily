@@ -57,6 +57,23 @@ function buildMarkdown(report, config, opts = {}) {
 }
 
 /**
+ * 图片之外的兜底消息。
+ *
+ * 图片消息在部分客户端会被折叠、或者在弱网下加载不出来，只发图等于把
+ * 全部信息押在一个可能不显示的载体上；而且图里的二维码只能长按识别，
+ * 点不了。所以图片之后再补一条极简文字：有日期、有规模、有可点的链接。
+ */
+function buildCaption(report) {
+  const pools = report.groups.map((g) => `${g.label} ${g.pool_size}`).join(' · ');
+  const lines = [
+    `## ◤◢ SKILLS DAILY · ${cnDate(report.date)}`,
+    `<font color="comment">${pools} 个仓库 · 生成 ${report.generated_at.slice(11)}</font>`,
+  ];
+  if (SITE_URL) lines.push(`[👉 点这里打开完整日报](${SITE_URL})`);
+  return lines.join('\n');
+}
+
+/**
  * 企业微信 markdown 上限 4096 字节。
  * 逐级降级，而不是只打一行日志假装截断了。
  */
@@ -142,6 +159,8 @@ async function main() {
   if (process.env.NOTIFY_DRY === '1') {
     if (img) {
       console.log(`--- 预览：将推送分享图（${(img.bytes / 1024).toFixed(1)} KB）---`);
+      console.log('--- 随后补发这行文字 ---');
+      console.log(buildCaption(report));
     } else {
       console.log('--- 预览：分享图缺失，将回退文字 ---');
       const { text, plan, bytes } = fitMarkdown(report, config);
@@ -155,6 +174,9 @@ async function main() {
     const json = await post({ msgtype: 'image', image: { base64: img.base64, md5: img.md5 } });
     if (json.errcode === 0) {
       log(`已推送分享图（${(img.bytes / 1024).toFixed(1)} KB）`);
+      // 图之后补一条一行文字：图片被折叠/加载失败时，这条还在，链接也点得动。
+      const cap = await post({ msgtype: 'markdown', markdown: { content: buildCaption(report) } });
+      log(cap.errcode === 0 ? '已补发带链接的说明' : `文字补发失败: ${JSON.stringify(cap)}`);
       return;
     }
     log(`图片推送失败（${JSON.stringify(json)}），回退文字`);
